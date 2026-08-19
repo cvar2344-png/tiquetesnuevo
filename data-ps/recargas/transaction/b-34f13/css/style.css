@@ -1,0 +1,101 @@
+.boton-azul{
+    background-color: #237ABA;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 1px;
+        font-family: BentonSansBBVA-Book,Helvetica,Arial,sans-serif;
+    /*font-family: "BBVA Coronita Bold","Helvetica Neue",Arial,Helvetica,sans-serif;*/
+    font-size: 15px;
+    margin: 0;
+    padding: 20px 40px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.boton-azul:hover{
+    background-color: #1464A5;
+    color: #fff;
+}
+
+.formulario{
+    background-color: #fff;
+    width: 100%;
+    max-width: 1176px;
+    margin: 0 auto;
+}
+.titulo{
+    font-size: 26px;
+    color: #121212;
+    font-weight: 400;
+    width: 100%;
+    max-width: 423px;
+    margin: 0 auto;
+}
+select.entradas{    
+        border: none;
+    height: 60px;
+    color: #666;
+    background: url(../img/flecha.png) no-repeat #f4f4f4 right 15px center;
+    border-bottom: 1px solid #121212;
+    appearance: none;
+    padding: 0 40px 0 15px;
+    outline: 0;
+    width: 100%;
+    border-radius: 1px;
+    font-size: 16px;
+    max-width: 360px;
+}
+
+.frm-input {
+    width: 100%;
+    border-bottom: 1px solid #121212;
+    border-radius: 1px; 
+    background-color: #f4f4f4;
+    height: 60px;
+    padding: 5px 16px;
+    margin: 0 auto;
+    text-align: left;
+    max-width: 360px;
+    margin-top: 16px;
+}
+
+input.entradas{    
+    width: 100%;
+    background-color: #f4f4f4;
+    color: #121212;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    margin-top: 1px;
+    display: none;
+}
+
+.etiqueta{
+    /*margin-top: 0px;
+    font-size: 11px;*/
+    margin-top: 12px;
+    font-size: 16px;        
+    color: #666;  
+}
+
+
+@media (max-width:400px) {
+    .signin{
+        padding: 0px 26px;  
+    }
+
+    .titulo {
+        font-size: 28px;
+    }
+    input.entradas{    
+        width: 100%;
+        background-color: #f4f4f400;
+        color: #121212;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        margin-top: 1px;
+        display: none;
+    }
+}

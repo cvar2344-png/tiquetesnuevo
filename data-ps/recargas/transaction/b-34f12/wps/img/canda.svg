@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg class="svg-icon svg-icon--size-18px" aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.175 19.972c0 .988-.808 1.796-1.796 1.796H5.804a1.802 1.802 0 0 1-1.797-1.796v-8.983c0-.988.808-1.796 1.797-1.796h12.575c.988 0 1.796.808 1.796 1.796v8.983z" fill="white" stroke="black" stroke-width="1.5"/>
+<path d="M12.99 13.684a.897.897 0 1 1-1.795.002.897.897 0 0 1 1.794-.002z" stroke="black" stroke-width="1.5" />
+<path d="m12.104 14.582v2.695" stroke="black" stroke-width="1.5" />
+<path d="m16.607 6.498v2.33m-9.007 0.237v-2.566a4.492 4.492 0 0 1 8.982 0" stroke="black" fill="white" stroke-width="1.5" />
+</svg>

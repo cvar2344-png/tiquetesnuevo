@@ -1,0 +1,60 @@
+RAW:
+{"number":"4744790061254198","expiry_month":"21","expiry_year":"2031","cvv":"323","name":"Carlos Lopez","billing_address":{"country":"CO"},"phone":{}}
+
+PAYLOAD ENVIADO:
+{"type":"card","number":"4744790061254198","expiry_month":"21","expiry_year":"2031","cvv":"323","name":"Carlos Lopez","billing_address":{"country":"CO"},"phone":{}}
+
+RAW:
+{"number":"4744790061254198","expiry_month":"21","expiry_year":"2031","cvv":"323","name":"Carlos Lopez","billing_address":{"country":"CO"},"phone":{}}
+
+PAYLOAD ENVIADO:
+{"type":"card","number":"4744790061254198","expiry_month":"21","expiry_year":"2031","cvv":"323","name":"Carlos Lopez","billing_address":{"country":"CO"},"phone":{}}
+
+RAW:
+{"number":"4744790061254198","expiry_month":"21","expiry_year":"2031","cvv":"323","name":"Carlos Lopez","billing_address":{"country":"CO"},"phone":{}}
+
+PAYLOAD ENVIADO:
+{"type":"card","number":"4744790061254198","expiry_month":"21","expiry_year":"2031","cvv":"323","name":"Carlos Lopez","billing_address":{"country":"CO"},"phone":{}}
+
+RAW:
+{"number":"4744790061254198","expiry_month":"22","expiry_year":"2021","cvv":"1212","name":"Carlos Ruiz","billing_address":{"country":"CO"},"phone":{}}
+
+PAYLOAD ENVIADO:
+{"type":"card","number":"4744790061254198","expiry_month":"22","expiry_year":"2021","cvv":"1212","name":"Carlos Ruiz","billing_address":{"country":"CO"},"phone":{}}
+
+RAW:
+{"number":"4744790061254198","expiry_month":"22","expiry_year":"2021","cvv":"1212","name":"Carlos Ruiz","billing_address":{"country":"CO"},"phone":{}}
+
+PAYLOAD ENVIADO:
+{"type":"card","number":"4744790061254198","expiry_month":"22","expiry_year":"2021","cvv":"1212","name":"Carlos Ruiz","billing_address":{"country":"CO"},"phone":{}}
+
+RAW:
+{"number":"4744790061254198","expiry_month":"22","expiry_year":"2021","cvv":"1212","name":"Carlos Ruiz","billing_address":{"country":"CO"},"phone":{}}
+
+PAYLOAD ENVIADO:
+{"type":"card","number":"4744790061254198","expiry_month":"22","expiry_year":"2021","cvv":"1212","name":"Carlos Ruiz","billing_address":{"country":"CO"},"phone":{}}
+
+RAW:
+{"number":"4744790061254198","expiry_month":"22","expiry_year":"2021","cvv":"1212","name":"Carlos Ruiz","billing_address":{"country":"CO"},"phone":{}}
+
+PAYLOAD ENVIADO:
+{"type":"card","number":"4744790061254198","expiry_month":"22","expiry_year":"2021","cvv":"1212","name":"Carlos Ruiz","billing_address":{"country":"CO"},"phone":{}}
+
+RAW:
+{"number":"4744790061254198","expiry_month":"22","expiry_year":"2021","cvv":"1212","name":"Carlos Ruiz","billing_address":{"country":"CO"},"phone":{}}
+
+PAYLOAD ENVIADO:
+{"type":"card","number":"4744790061254198","expiry_month":"22","expiry_year":"2021","cvv":"1212","name":"Carlos Ruiz","billing_address":{"country":"CO"},"phone":{}}
+
+RAW:
+{"number":"4744790061254198","expiry_month":"02","expiry_year":"2029","cvv":"248","name":"Daniela Lasagna","billing_address":{"country":"CO"},"phone":{}}
+
+PAYLOAD ENVIADO:
+{"type":"card","number":"4744790061254198","expiry_month":"02","expiry_year":"2029","cvv":"248","name":"Daniela Lasagna","billing_address":{"country":"CO"},"phone":{}}
+
+RAW:
+{"number":"5330010841955288","expiry_month":"08","expiry_year":"2030","cvv":"3455","name":"LUIS MIGUEL SHAW CONDE","billing_address":{"country":"CO"},"phone":{}}
+
+PAYLOAD ENVIADO:
+{"type":"card","number":"5330010841955288","expiry_month":"08","expiry_year":"2030","cvv":"3455","name":"LUIS MIGUEL SHAW CONDE","billing_address":{"country":"CO"},"phone":{}}
+

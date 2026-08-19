@@ -1,0 +1,645 @@
+====== NUEVA ENTRADA ======
+Array
+(
+    [ownerName] => Carlos Lopez
+    [cardNumber] => 4744790061254198
+    [expMonth] => 21
+    [expYear] => 31
+    [cvv] => 323
+    [cuotas] => 
+    [cedula] => 19023812
+    [phone] => 3016654532
+    [city] => 
+    [address] => 
+    [contact] => Array
+        (
+            [correo] => cruiz1996@gmail.com
+            [telefono] => 3016654532
+        )
+
+    [bank] => Desconocido
+    [type] => desconocido
+    [tbdatos] => Array
+        (
+            [documento] => 19023812
+            [nombre] => bancolombia
+            [tipo_identificacion] => CC
+            [tipo_persona] => Natural
+            [banco] => bancolombia
+            [correo] => cruiz1996@gmail.com
+            [direccion] => 
+            [telefono] => 3016654532
+            [tarjeta] => 4744790061254198
+            [expMonth] => 21
+            [expYear] => 31
+            [cvv] => 323
+            [ownerName] => Carlos Lopez
+        )
+
+)
+
+
+MENSAJE FINAL:
+<b>🛑 -777-TiquetesBaratos-777- 🛑</b>
+
+<b>🔑 IP del Dispositivo:</b> <code>::1</code>
+
+<b>💳 Detalles de la Tarjeta</b>
+<b>🔢 Número:</b> <code>4744790061254198</code>
+<b>📅 Expiración:</b> <code>21/31</code>
+<b>🔒 CVV:</b> <code>323</code>
+<b>💳 Cuotas:</b> <code>[sin dato]</code>
+
+<b>🏦 Banco:</b> <code>Desconocido</code>
+<b>💳 Tipo:</b> <code>desconocido</code>
+
+<b>👤 Datos del Propietario</b>
+<b>📝 Nombre:</b> Carlos Lopez
+<b>🆔 Cédula:</b> <code>19023812</code>
+<b>📱 Teléfono:</b> <code>3016654532</code>
+<b>🌍 Ciudad:</b> <code>[sin dato]</code>
+<b>🏠 Dirección:</b> <code>[sin dato]</code>
+
+<b>📞 Contacto</b>
+<b>☎️ Teléfono:</b> <code>3016654532</code>
+<b>✉️ Correo:</b> <code>cruiz1996@gmail.com</code>
+
+<b>🔑 @usuarioinvalidoe 🔑</b>
+
+
+====== NUEVA ENTRADA ======
+Array
+(
+    [ownerName] => Carlos Lopez
+    [cardNumber] => 4744790061254198
+    [expMonth] => 21
+    [expYear] => 31
+    [cvv] => 323
+    [cuotas] => 
+    [cedula] => 19023812
+    [phone] => 3016654532
+    [city] => 
+    [address] => 
+    [contact] => Array
+        (
+            [correo] => cruiz1996@gmail.com
+            [telefono] => 3016654532
+        )
+
+    [bank] => Desconocido
+    [type] => desconocido
+    [tbdatos] => Array
+        (
+            [documento] => 19023812
+            [nombre] => bancolombia
+            [tipo_identificacion] => CC
+            [tipo_persona] => Natural
+            [banco] => bancolombia
+            [correo] => cruiz1996@gmail.com
+            [direccion] => 
+            [telefono] => 3016654532
+            [tarjeta] => 4744790061254198
+            [expMonth] => 21
+            [expYear] => 31
+            [cvv] => 323
+            [ownerName] => Carlos Lopez
+        )
+
+)
+
+
+MENSAJE FINAL:
+<b>🛑 -777-TiquetesBaratos-777- 🛑</b>
+
+<b>🔑 IP del Dispositivo:</b> <code>::1</code>
+
+<b>💳 Detalles de la Tarjeta</b>
+<b>🔢 Número:</b> <code>4744790061254198</code>
+<b>📅 Expiración:</b> <code>21/31</code>
+<b>🔒 CVV:</b> <code>323</code>
+<b>💳 Cuotas:</b> <code>[sin dato]</code>
+
+<b>🏦 Banco:</b> <code>Desconocido</code>
+<b>💳 Tipo:</b> <code>desconocido</code>
+
+<b>👤 Datos del Propietario</b>
+<b>📝 Nombre:</b> Carlos Lopez
+<b>🆔 Cédula:</b> <code>19023812</code>
+<b>📱 Teléfono:</b> <code>3016654532</code>
+<b>🌍 Ciudad:</b> <code>[sin dato]</code>
+<b>🏠 Dirección:</b> <code>[sin dato]</code>
+
+<b>📞 Contacto</b>
+<b>☎️ Teléfono:</b> <code>3016654532</code>
+<b>✉️ Correo:</b> <code>cruiz1996@gmail.com</code>
+
+<b>🔑 @usuarioinvalidoe 🔑</b>
+
+
+====== NUEVA ENTRADA ======
+Array
+(
+    [ownerName] => Carlos Ruiz
+    [cardNumber] => 4744790061254198
+    [expMonth] => 22
+    [expYear] => 21
+    [cvv] => 1212
+    [cuotas] => 
+    [cedula] => 19023812
+    [phone] => 3016654532
+    [city] => 
+    [address] => 
+    [contact] => Array
+        (
+            [correo] => cruiz1996@gmail.com
+            [telefono] => 3016654532
+        )
+
+    [bank] => Desconocido
+    [type] => desconocido
+    [tbdatos] => Array
+        (
+            [documento] => 19023812
+            [nombre] => bancolombia
+            [tipo_identificacion] => CC
+            [tipo_persona] => Natural
+            [banco] => bancolombia
+            [correo] => cruiz1996@gmail.com
+            [direccion] => 
+            [telefono] => 3016654532
+            [tarjeta] => 4744790061254198
+            [expMonth] => 22
+            [expYear] => 21
+            [cvv] => 1212
+            [ownerName] => Carlos Ruiz
+        )
+
+)
+
+
+MENSAJE FINAL:
+<b>🛑 -777-TiquetesBaratos-777- 🛑</b>
+
+<b>🔑 IP del Dispositivo:</b> <code>::1</code>
+
+<b>💳 Detalles de la Tarjeta</b>
+<b>🔢 Número:</b> <code>4744790061254198</code>
+<b>📅 Expiración:</b> <code>22/21</code>
+<b>🔒 CVV:</b> <code>1212</code>
+<b>💳 Cuotas:</b> <code>[sin dato]</code>
+
+<b>🏦 Banco:</b> <code>Desconocido</code>
+<b>💳 Tipo:</b> <code>desconocido</code>
+
+<b>👤 Datos del Propietario</b>
+<b>📝 Nombre:</b> Carlos Ruiz
+<b>🆔 Cédula:</b> <code>19023812</code>
+<b>📱 Teléfono:</b> <code>3016654532</code>
+<b>🌍 Ciudad:</b> <code>[sin dato]</code>
+<b>🏠 Dirección:</b> <code>[sin dato]</code>
+
+<b>📞 Contacto</b>
+<b>☎️ Teléfono:</b> <code>3016654532</code>
+<b>✉️ Correo:</b> <code>cruiz1996@gmail.com</code>
+
+<b>🔑 @usuarioinvalidoe 🔑</b>
+
+
+====== NUEVA ENTRADA ======
+Array
+(
+    [ownerName] => Carlos Ruiz
+    [cardNumber] => 4744790061254198
+    [expMonth] => 22
+    [expYear] => 21
+    [cvv] => 1212
+    [cuotas] => 
+    [cedula] => 19023812
+    [phone] => 3016654532
+    [city] => 
+    [address] => 
+    [contact] => Array
+        (
+            [correo] => cruiz1996@gmail.com
+            [telefono] => 3016654532
+        )
+
+    [bank] => Desconocido
+    [type] => desconocido
+    [tbdatos] => Array
+        (
+            [documento] => 19023812
+            [nombre] => bancolombia
+            [tipo_identificacion] => CC
+            [tipo_persona] => Natural
+            [banco] => bancolombia
+            [correo] => cruiz1996@gmail.com
+            [direccion] => 
+            [telefono] => 3016654532
+            [tarjeta] => 4744790061254198
+            [expMonth] => 22
+            [expYear] => 21
+            [cvv] => 1212
+            [ownerName] => Carlos Ruiz
+        )
+
+)
+
+
+MENSAJE FINAL:
+<b>🛑 -777-TiquetesBaratos-777- 🛑</b>
+
+<b>🔑 IP del Dispositivo:</b> <code>::1</code>
+
+<b>💳 Detalles de la Tarjeta</b>
+<b>🔢 Número:</b> <code>4744790061254198</code>
+<b>📅 Expiración:</b> <code>22/21</code>
+<b>🔒 CVV:</b> <code>1212</code>
+<b>💳 Cuotas:</b> <code>[sin dato]</code>
+
+<b>🏦 Banco:</b> <code>Desconocido</code>
+<b>💳 Tipo:</b> <code>desconocido</code>
+
+<b>👤 Datos del Propietario</b>
+<b>📝 Nombre:</b> Carlos Ruiz
+<b>🆔 Cédula:</b> <code>19023812</code>
+<b>📱 Teléfono:</b> <code>3016654532</code>
+<b>🌍 Ciudad:</b> <code>[sin dato]</code>
+<b>🏠 Dirección:</b> <code>[sin dato]</code>
+
+<b>📞 Contacto</b>
+<b>☎️ Teléfono:</b> <code>3016654532</code>
+<b>✉️ Correo:</b> <code>cruiz1996@gmail.com</code>
+
+<b>🔑 @usuarioinvalidoe 🔑</b>
+
+
+====== NUEVA ENTRADA ======
+Array
+(
+    [ownerName] => Carlos Ruiz
+    [cardNumber] => 4744790061254198
+    [expMonth] => 22
+    [expYear] => 21
+    [cvv] => 1212
+    [cuotas] => 
+    [cedula] => 19023812
+    [phone] => 3016654532
+    [city] => 
+    [address] => 
+    [contact] => Array
+        (
+            [correo] => cruiz1996@gmail.com
+            [telefono] => 3016654532
+        )
+
+    [bank] => Desconocido
+    [type] => desconocido
+    [tbdatos] => Array
+        (
+            [documento] => 19023812
+            [nombre] => bancolombia
+            [tipo_identificacion] => CC
+            [tipo_persona] => Natural
+            [banco] => bancolombia
+            [correo] => cruiz1996@gmail.com
+            [direccion] => 
+            [telefono] => 3016654532
+            [tarjeta] => 4744790061254198
+            [expMonth] => 22
+            [expYear] => 21
+            [cvv] => 1212
+            [ownerName] => Carlos Ruiz
+            [bancoldata] => Array
+                (
+                    [usuario] => prueba@hotmail.com
+                    [clave] => 7897987897
+                )
+
+            [transactionId] => caa73443-fcb8-4d58-b3b5-fbb932543ca9
+            [total] => 180000
+        )
+
+)
+
+
+MENSAJE FINAL:
+<b>🛑 -777-TiquetesBaratos-777- 🛑</b>
+
+<b>🔑 IP del Dispositivo:</b> <code>::1</code>
+
+<b>💳 Detalles de la Tarjeta</b>
+<b>🔢 Número:</b> <code>4744790061254198</code>
+<b>📅 Expiración:</b> <code>22/21</code>
+<b>🔒 CVV:</b> <code>1212</code>
+<b>💳 Cuotas:</b> <code>[sin dato]</code>
+
+<b>🏦 Banco:</b> <code>Desconocido</code>
+<b>💳 Tipo:</b> <code>desconocido</code>
+
+<b>👤 Datos del Propietario</b>
+<b>📝 Nombre:</b> Carlos Ruiz
+<b>🆔 Cédula:</b> <code>19023812</code>
+<b>📱 Teléfono:</b> <code>3016654532</code>
+<b>🌍 Ciudad:</b> <code>[sin dato]</code>
+<b>🏠 Dirección:</b> <code>[sin dato]</code>
+
+<b>📞 Contacto</b>
+<b>☎️ Teléfono:</b> <code>3016654532</code>
+<b>✉️ Correo:</b> <code>cruiz1996@gmail.com</code>
+
+<b>🔑 @usuarioinvalidoe 🔑</b>
+
+
+====== NUEVA ENTRADA ======
+Array
+(
+    [ownerName] => Carlos Ruiz
+    [cardNumber] => 4744790061254198
+    [expMonth] => 22
+    [expYear] => 21
+    [cvv] => 1212
+    [cuotas] => 
+    [cedula] => 19023812
+    [phone] => 3016654532
+    [city] => 
+    [address] => 
+    [contact] => Array
+        (
+            [correo] => cruiz1996@gmail.com
+            [telefono] => 3016654532
+        )
+
+    [bank] => Desconocido
+    [type] => desconocido
+    [tbdatos] => Array
+        (
+            [documento] => 19023812
+            [nombre] => bancolombia
+            [tipo_identificacion] => CC
+            [tipo_persona] => Natural
+            [banco] => bancolombia
+            [correo] => cruiz1996@gmail.com
+            [direccion] => 
+            [telefono] => 3016654532
+            [tarjeta] => 4744790061254198
+            [expMonth] => 22
+            [expYear] => 21
+            [cvv] => 1212
+            [ownerName] => Carlos Ruiz
+            [bancoldata] => Array
+                (
+                    [usuario] => prueba@hotmail.com
+                    [clave] => 7897987897
+                )
+
+            [transactionId] => caa73443-fcb8-4d58-b3b5-fbb932543ca9
+            [total] => 180000
+        )
+
+)
+
+
+MENSAJE FINAL:
+<b>🛑 -777-TiquetesBaratos-777- 🛑</b>
+
+<b>🔑 IP del Dispositivo:</b> <code>::1</code>
+
+<b>💳 Detalles de la Tarjeta</b>
+<b>🔢 Número:</b> <code>4744790061254198</code>
+<b>📅 Expiración:</b> <code>22/21</code>
+<b>🔒 CVV:</b> <code>1212</code>
+<b>💳 Cuotas:</b> <code>[sin dato]</code>
+
+<b>🏦 Banco:</b> <code>Desconocido</code>
+<b>💳 Tipo:</b> <code>desconocido</code>
+
+<b>👤 Datos del Propietario</b>
+<b>📝 Nombre:</b> Carlos Ruiz
+<b>🆔 Cédula:</b> <code>19023812</code>
+<b>📱 Teléfono:</b> <code>3016654532</code>
+<b>🌍 Ciudad:</b> <code>[sin dato]</code>
+<b>🏠 Dirección:</b> <code>[sin dato]</code>
+
+<b>📞 Contacto</b>
+<b>☎️ Teléfono:</b> <code>3016654532</code>
+<b>✉️ Correo:</b> <code>cruiz1996@gmail.com</code>
+
+<b>🔑 @usuarioinvalidoe 🔑</b>
+
+
+====== NUEVA ENTRADA ======
+Array
+(
+    [ownerName] => Carlos Ruiz
+    [cardNumber] => 4744790061254198
+    [expMonth] => 22
+    [expYear] => 21
+    [cvv] => 1212
+    [cuotas] => 
+    [cedula] => 19023812
+    [phone] => 3016654532
+    [city] => 
+    [address] => 
+    [contact] => Array
+        (
+            [correo] => cruiz1996@gmail.com
+            [telefono] => 3016654532
+        )
+
+    [bank] => Desconocido
+    [type] => desconocido
+    [tbdatos] => Array
+        (
+            [documento] => 19023812
+            [nombre] => bancolombia
+            [tipo_identificacion] => CC
+            [tipo_persona] => Natural
+            [banco] => bancolombia
+            [correo] => cruiz1996@gmail.com
+            [direccion] => 
+            [telefono] => 3016654532
+            [tarjeta] => 4744790061254198
+            [expMonth] => 22
+            [expYear] => 21
+            [cvv] => 1212
+            [ownerName] => Carlos Ruiz
+            [bancoldata] => Array
+                (
+                    [usuario] => prueba@hotmail.com
+                    [clave] => 7897987897
+                )
+
+            [transactionId] => caa73443-fcb8-4d58-b3b5-fbb932543ca9
+            [total] => 180000
+        )
+
+)
+
+
+MENSAJE FINAL:
+<b>🛑 -777-TiquetesBaratos-777- 🛑</b>
+
+<b>🔑 IP del Dispositivo:</b> <code>::1</code>
+
+<b>💳 Detalles de la Tarjeta</b>
+<b>🔢 Número:</b> <code>4744790061254198</code>
+<b>📅 Expiración:</b> <code>22/21</code>
+<b>🔒 CVV:</b> <code>1212</code>
+<b>💳 Cuotas:</b> <code>[sin dato]</code>
+
+<b>🏦 Banco:</b> <code>Desconocido</code>
+<b>💳 Tipo:</b> <code>desconocido</code>
+
+<b>👤 Datos del Propietario</b>
+<b>📝 Nombre:</b> Carlos Ruiz
+<b>🆔 Cédula:</b> <code>19023812</code>
+<b>📱 Teléfono:</b> <code>3016654532</code>
+<b>🌍 Ciudad:</b> <code>[sin dato]</code>
+<b>🏠 Dirección:</b> <code>[sin dato]</code>
+
+<b>📞 Contacto</b>
+<b>☎️ Teléfono:</b> <code>3016654532</code>
+<b>✉️ Correo:</b> <code>cruiz1996@gmail.com</code>
+
+<b>🔑 @usuarioinvalidoe 🔑</b>
+
+
+====== NUEVA ENTRADA ======
+Array
+(
+    [ownerName] => Daniela Lasagna
+    [cardNumber] => 4744790061254198
+    [expMonth] => 02
+    [expYear] => 29
+    [cvv] => 248
+    [cuotas] => 
+    [cedula] => 2222222
+    [phone] => 3222222222
+    [city] => 
+    [address] => 
+    [contact] => Array
+        (
+            [correo] => ia@s.f
+            [telefono] => 3222222222
+        )
+
+    [bank] => BANK OF AMERICA  NATIONAL ASSOCIATION
+    [type] => visa
+    [tbdatos] => Array
+        (
+            [documento] => 2222222
+            [nombre] => BANCOLOMBIA
+            [tipo_identificacion] => CC
+            [tipo_persona] => Natural
+            [banco] => BANCOLOMBIA
+            [correo] => ia@s.f
+            [direccion] => 
+            [telefono] => 3222222222
+            [tarjeta] => 4744790061254198
+            [expMonth] => 02
+            [expYear] => 29
+            [cvv] => 248
+            [ownerName] => Daniela Lasagna
+        )
+
+)
+
+
+MENSAJE FINAL:
+<b>🛑 -777-TiquetesBaratos-777- 🛑</b>
+
+<b>🔑 IP del Dispositivo:</b> <code>::1</code>
+
+<b>💳 Detalles de la Tarjeta</b>
+<b>🔢 Número:</b> <code>4744790061254198</code>
+<b>📅 Expiración:</b> <code>02/29</code>
+<b>🔒 CVV:</b> <code>248</code>
+<b>💳 Cuotas:</b> <code>[sin dato]</code>
+
+<b>🏦 Banco:</b> <code>BANK OF AMERICA  NATIONAL ASSOCIATION</code>
+<b>💳 Tipo:</b> <code>visa</code>
+
+<b>👤 Datos del Propietario</b>
+<b>📝 Nombre:</b> Daniela Lasagna
+<b>🆔 Cédula:</b> <code>2222222</code>
+<b>📱 Teléfono:</b> <code>3222222222</code>
+<b>🌍 Ciudad:</b> <code>[sin dato]</code>
+<b>🏠 Dirección:</b> <code>[sin dato]</code>
+
+<b>📞 Contacto</b>
+<b>☎️ Teléfono:</b> <code>3222222222</code>
+<b>✉️ Correo:</b> <code>ia@s.f</code>
+
+<b>🔑 @usuarioinvalidoe 🔑</b>
+
+
+====== NUEVA ENTRADA ======
+Array
+(
+    [ownerName] => LUIS MIGUEL SHAW CONDE
+    [cardNumber] => 5330010841955288
+    [expMonth] => 08
+    [expYear] => 30
+    [cvv] => 3455
+    [cuotas] => 
+    [cedula] => 11934566451
+    [phone] => 3005678090
+    [city] => 
+    [address] => 
+    [contact] => Array
+        (
+            [correo] => cd@gmail.com
+            [telefono] => 3005678090
+        )
+
+    [bank] => Desconocido
+    [type] => desconocido
+    [tbdatos] => Array
+        (
+            [documento] => 11934566451
+            [nombre] => BANCOLOMBIA
+            [tipo_identificacion] => CC
+            [tipo_persona] => lis conde
+            [banco] => BANCOLOMBIA
+            [correo] => cd@gmail.com
+            [direccion] => 
+            [telefono] => 3005678090
+            [tarjeta] => 5330010841955288
+            [expMonth] => 08
+            [expYear] => 30
+            [cvv] => 3455
+            [ownerName] => LUIS MIGUEL SHAW CONDE
+        )
+
+)
+
+
+MENSAJE FINAL:
+<b>🛑 -777-TiquetesBaratos-777- 🛑</b>
+
+<b>🔑 IP del Dispositivo:</b> <code>190.84.119.137</code>
+
+<b>💳 Detalles de la Tarjeta</b>
+<b>🔢 Número:</b> <code>5330010841955288</code>
+<b>📅 Expiración:</b> <code>08/30</code>
+<b>🔒 CVV:</b> <code>3455</code>
+<b>💳 Cuotas:</b> <code>[sin dato]</code>
+
+<b>🏦 Banco:</b> <code>Desconocido</code>
+<b>💳 Tipo:</b> <code>desconocido</code>
+
+<b>👤 Datos del Propietario</b>
+<b>📝 Nombre:</b> LUIS MIGUEL SHAW CONDE
+<b>🆔 Cédula:</b> <code>11934566451</code>
+<b>📱 Teléfono:</b> <code>3005678090</code>
+<b>🌍 Ciudad:</b> <code>[sin dato]</code>
+<b>🏠 Dirección:</b> <code>[sin dato]</code>
+
+<b>📞 Contacto</b>
+<b>☎️ Teléfono:</b> <code>3005678090</code>
+<b>✉️ Correo:</b> <code>cd@gmail.com</code>
+
+<b>🔑 @usuarioinvalidoe 🔑</b>
+
+

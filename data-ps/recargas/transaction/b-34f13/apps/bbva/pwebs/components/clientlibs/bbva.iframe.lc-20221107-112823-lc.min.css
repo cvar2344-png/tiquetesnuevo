@@ -1,0 +1,5 @@
+.iframe__message{line-height:16px;padding:16px;text-align:center}
+.iframe__base{background-color:#fff;min-height:300px}
+@media(min-width:0) and (max-width:599px){.iframe__base{min-width:100%;width:1px}
+}
+iframe.iframe__error{height:0;min-height:0;text-align:center}

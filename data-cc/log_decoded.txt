@@ -1,0 +1,138 @@
+Array
+(
+    [request_id] => 0HNHUFSF91PEF:00013D88
+    [error_type] => request_invalid
+    [error_codes] => Array
+        (
+            [0] => card_expiry_month_invalid
+        )
+
+)
+
+
+Array
+(
+    [request_id] => 0HNHUFSF92EPV:00007F89
+    [error_type] => request_invalid
+    [error_codes] => Array
+        (
+            [0] => card_expiry_month_invalid
+        )
+
+)
+
+
+Array
+(
+    [request_id] => 0HNHUFSF92RPG:00003446
+    [error_type] => request_invalid
+    [error_codes] => Array
+        (
+            [0] => card_expiry_month_invalid
+        )
+
+)
+
+
+Array
+(
+    [request_id] => 0HNHUFSF92F2G:0000BE60
+    [error_type] => request_invalid
+    [error_codes] => Array
+        (
+            [0] => cvv_invalid
+        )
+
+)
+
+
+Array
+(
+    [request_id] => 0HNHUFSF8VTV2:000040CB
+    [error_type] => request_invalid
+    [error_codes] => Array
+        (
+            [0] => cvv_invalid
+        )
+
+)
+
+
+Array
+(
+    [request_id] => 0HNHUFSF92GR9:0000690F
+    [error_type] => request_invalid
+    [error_codes] => Array
+        (
+            [0] => cvv_invalid
+        )
+
+)
+
+
+Array
+(
+    [request_id] => 0HNHUFSF92AM6:00007433
+    [error_type] => request_invalid
+    [error_codes] => Array
+        (
+            [0] => cvv_invalid
+        )
+
+)
+
+
+Array
+(
+    [request_id] => 0HNHUFSF8VCAA:0000B5C9
+    [error_type] => request_invalid
+    [error_codes] => Array
+        (
+            [0] => cvv_invalid
+        )
+
+)
+
+
+Array
+(
+    [expiry_month] => 2
+    [expiry_year] => 2029
+    [bin] => 47447900
+    [last4] => 4198
+    [name] => Daniela Lasagna
+    [billing_address] => Array
+        (
+            [country] => CO
+        )
+
+    [phone] => Array
+        (
+        )
+
+    [scheme] => VISA
+    [card_type] => DEBIT
+    [card_category] => CONSUMER
+    [issuer] => BANK OF AMERICA  NATIONAL ASSOCIATION
+    [issuer_country] => US
+    [product_id] => F
+    [product_type] => Visa Classic
+    [fingerprint] => B6D6388739954D39B0B7206A9E7F05F5BB70D52EB90C1FA1BE2E7E9677AD03B1
+    [token] => tok_nlmqi22uaoje5h7nileel74k54
+    [type] => card
+    [expires_on] => 2026-01-09T04:08:37.5833269Z
+)
+
+
+Array
+(
+    [request_id] => 0HNKGJO7VEROK:0000C666
+    [error_type] => request_invalid
+    [error_codes] => Array
+        (
+            [0] => cvv_invalid
+        )
+
+)
+
+

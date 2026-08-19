@@ -1,0 +1,300 @@
+
+[
+    
+    {
+        "id": "424",
+        "displayText": "San Jos\u00e9 del Guaviare (SJE)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>San<\/em> Jos\u00e9 del Guaviare (SJE)",
+        "type": 0,
+        "isActive": true,
+        "code": "SJE",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "678948f65426e",
+            "queryID": "678948f65426f"
+        }
+    
+    },
+    
+        
+    {
+        "id": "406",
+        "displayText": "Cartagena (CTG)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Cartag<\/em>ena (CTG)",
+        "type": 0,
+        "isActive": true,
+        "code": "CTG",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894aac26cb0",
+            "queryID": "67894aac26cb2"
+        }
+    },
+    
+    {
+        "id": "405",
+        "displayText": "Cali (CLO)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Cali<\/em> (CLO)",
+        "type": 0,
+        "isActive": true,
+        "code": "CLO",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894b7f85d84",
+            "queryID": "67894b7f85d87"
+        }
+    
+    
+    },
+    {
+        "id": "418",
+        "displayText": "Pereira (PEI)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Pereira<\/em> (PEI)",
+        "type": 0,
+        "isActive": true,
+        "code": "PEI",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894bb877a1a",
+            "queryID": "67894bb877a1d"
+        }
+    
+    
+    },
+    
+    {
+        "id": "404",
+        "displayText": "Bucaramanga (BGA)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Bucaramanga<\/em> (BGA)",
+        "type": 0,
+        "isActive": true,
+        "code": "BGA",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894bcc18a96",
+            "queryID": "67894bcc18a98"
+        }
+    
+    
+    },
+    {
+        "id": "408",
+        "displayText": "C\u00facuta (CUC)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>C\u00facuta<\/em> (CUC)",
+        "type": 0,
+        "isActive": true,
+        "code": "CUC",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894bec0ac9b",
+            "queryID": "67894bec0ac9e"
+        }
+    
+    },
+    
+    {
+        "id": "413",
+        "displayText": "Manizales (MZL)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Manizales<\/em> (MZL)",
+        "type": 0,
+        "isActive": true,
+        "code": "MZL",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894c00795fe",
+            "queryID": "67894c0079601"
+        }
+    
+    },
+    {
+        "id": "416",
+        "displayText": "Neiva (NVA)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Neiva<\/em> (NVA)",
+        "type": 0,
+        "isActive": true,
+        "code": "NVA",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894c1f00d84",
+            "queryID": "67894c1f00d86"
+        }
+    
+    },
+    {
+        "id": "428",
+        "displayText": "Villavicencio (VVC)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Villavicencio<\/em> (VVC)",
+        "type": 0,
+        "isActive": true,
+        "code": "VVC",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894c37d0633",
+            "queryID": "67894c37d0637"
+        }
+    },
+    {
+        "id": "419",
+        "displayText": "Popay\u00e1n (PPN)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Popay\u00e1n<\/em> (PPN)",
+        "type": 0,
+        "isActive": true,
+        "code": "PPN",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894c4b50200",
+            "queryID": "67894c4b50202"
+        }
+    
+    },
+    {
+        "id": "415",
+        "displayText": "Monter\u00eda (MTR)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Monter\u00eda<\/em> (MTR)",
+        "type": 0,
+        "isActive": true,
+        "code": "MTR",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894c65b2c1a",
+            "queryID": "67894c65b2c1c"
+        }
+    
+    },
+    {
+        "id": "400",
+        "displayText": "Armenia (AXM)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Armenia<\/em> (AXM)",
+        "type": 0,
+        "isActive": true,
+        "code": "AXM",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894c83e7e4c",
+            "queryID": "67894c83e7e4f"
+        }
+    },
+    
+    {
+        "id": "410",
+        "displayText": "Ibagu\u00e9 (IBE)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Ibagu\u00e9<\/em> (IBE)",
+        "type": 0,
+        "isActive": true,
+        "code": "IBE",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894c9a4e319",
+            "queryID": "67894c9a4e31b"
+        }
+    
+    },
+    {
+        "id": "426",
+        "displayText": "Tumaco (TCO)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Tumaco<\/em> (TCO)",
+        "type": 0,
+        "isActive": true,
+        "code": "TCO",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894cb07315e",
+            "queryID": "67894cb073161"
+        }
+    },
+    {
+        "id": "422",
+        "displayText": "Riohacha (RCH)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Riohacha<\/em> (RCH)",
+        "type": 0,
+        "isActive": true,
+        "code": "RCH",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "67894cc34a553",
+            "queryID": "67894cc34a555"
+        }
+    
+    },
+    {
+        "id": "402",
+        "displayText": "Barranquilla (BAQ)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Barranquilla<\/em> (BAQ)",
+        "type": 0,
+        "isActive": true,
+        "code": "BAQ",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "6789d68db15aa",
+            "queryID": "6789d68db15ac"
+        }
+    
+    
+    },
+    {
+        "id": "403",
+        "displayText": "Bogot\u00e1 (BOG)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Bog<\/em>ot\u00e1 (BOG)",
+        "type": 0,
+        "isActive": true,
+        "code": "BOG",
+        "country": "CO",
+        "positions": 1,
+        "items": {
+            "hotel": 0,
+            "objectID": "6789ebcef0dd1",
+            "queryID": "6789ebcef0dd4"
+        }
+    
+    
+    
+    }]

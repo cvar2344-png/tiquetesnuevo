@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'Aller';
+    src: url('../fonts/Aller-Italic.eot');
+    src: url('../fonts/Aller-Italic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Aller-Italic.woff2') format('woff2'),
+        url('../fonts/Aller-Italic.woff') format('woff'),
+        url('../fonts/Aller-Italic.ttf') format('truetype'),
+        url('../fonts/Aller-Italic.svg#Aller-Italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aller';
+    src: url('../fonts/Aller-BoldItalic.eot');
+    src: url('../fonts/Aller-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Aller-BoldItalic.woff2') format('woff2'),
+        url('../fonts/Aller-BoldItalic.woff') format('woff'),
+        url('../fonts/Aller-BoldItalic.ttf') format('truetype'),
+        url('../fonts/Aller-BoldItalic.svg#Aller-BoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aller';
+    src: url('../fonts/Aller-Bold.eot');
+    src: url('../fonts/Aller-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Aller-Bold.woff2') format('woff2'),
+        url('../fonts/Aller-Bold.woff') format('woff'),
+        url('../fonts/Aller-Bold.ttf') format('truetype'),
+        url('../fonts/Aller-Bold.svg#Aller-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aller';
+    src: url('../fonts/Aller.eot');
+    src: url('../fonts/Aller.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Aller.woff2') format('woff2'),
+        url('../fonts/Aller.woff') format('woff'),
+        url('../fonts/Aller.ttf') format('truetype'),
+        url('../fonts/Aller.svg#Aller') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aller';
+    src: url('../fonts/Aller-Light.eot');
+    src: url('../fonts/Aller-Light.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Aller-Light.woff2') format('woff2'),
+        url('../fonts/Aller-Light.woff') format('woff'),
+        url('../fonts/Aller-Light.ttf') format('truetype'),
+        url('../fonts/Aller-Light.svg#Aller-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aller Display';
+    src: url('../fonts/AllerDisplay.eot');
+    src: url('../fonts/AllerDisplay.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/AllerDisplay.woff2') format('woff2'),
+        url('../fonts/AllerDisplay.woff') format('woff'),
+        url('../fonts/AllerDisplay.ttf') format('truetype'),
+        url('../fonts/AllerDisplay.svg#AllerDisplay') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aller';
+    src: url('../fonts/Aller-LightItalic.eot');
+    src: url('../fonts/Aller-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Aller-LightItalic.woff2') format('woff2'),
+        url('../fonts/Aller-LightItalic.woff') format('woff'),
+        url('../fonts/Aller-LightItalic.ttf') format('truetype'),
+        url('../fonts/Aller-LightItalic.svg#Aller-LightItalic') format('svg');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+

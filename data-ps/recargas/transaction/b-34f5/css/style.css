@@ -1,0 +1,693 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	font-family: 'PF BeauSans Pro';    
+}
+
+.top-bar{
+	font-size: 13.8px;
+	font-weight: 400;
+	background-color:#3f3f3f;
+	color: #fff; 
+	display: flow-root;
+	padding: 0px 20px;
+}
+
+.top-bar td {
+	padding: 8px 10px;
+} 
+
+.menu-top-bar{
+	float: left; 
+	color: #fff;
+	font-size: 13.8px;
+}
+
+.ayuda-top-bar{
+	float: right; 
+	color: #fff;
+	font-size: 13.5px;
+}
+
+.header{
+	padding: 30px 40px 20px 60px;
+}
+
+
+.entradas {
+    padding: 10px;
+    border: 1px solid #c2c2c2;
+    border-radius: 3px;
+    color: #757575;
+    font-size: 14px;
+    height: 44px;
+    margin: 3px;
+}
+.menu{
+	display: inline-block;
+}
+	
+
+	
+
+.entradas:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #ee98a9;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(220 42 77 / 25%);
+}
+
+
+.btn{
+    color: #fff;
+    background-color: #38a121;
+    border-color: #38a121;
+    display: inline-block;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    letter-spacing: .16rem;
+    text-transform: uppercase;
+    padding: 0.6rem 1rem;
+   }
+   .btn:disabled{
+      background-color:#59B981;
+      cursor:not-allowed;
+   }
+
+   .menu td{    
+    padding: 12px 0px 12px 0px;
+    /*background-color: #F3F3F3;*/
+    border: 1px solid transparent;
+   }
+
+   .menu td:hover{    
+    /*background-color: #F3F3F3;*/
+    border-bottom: 1px solid #F3F3F3;
+    cursor: pointer;
+   }
+
+   .menu span{    
+   		padding: 0px 18px 0px 18px;
+    	font-size: 16px;
+    	font-weight: 400;
+    	border-left: 1px solid #333;
+   }
+
+.etiqueta-destacada{
+	font-weight: 100;
+    font-size: 22px;
+}
+
+.frmCredito, .frmCreditoMobile{
+	background: #f7f7f7;
+    border: 0.5px solid #cfdae6;
+        border-radius: 8px;
+        padding: 10px 20px;
+        margin: 20px;
+}
+
+.frmCreditoMobile{
+display: none;
+}
+
+.frmCredito .entradas{
+	width: 100%;
+}
+
+.frmCreditoMobile .entradas{
+	width: 100%;
+	margin: 8px 0px !important;
+}
+
+#btnSimularM{
+	width: 100%;
+}
+
+.frmCredito td{
+	padding-right: 20px;
+}
+    
+#btnSimular{
+	width: 280px;
+}
+
+#btnBanca{
+	float: right;
+	display: none;
+}
+
+
+#frmLoginMobile{
+	background-color: #fff;
+	padding: 20px;
+	text-align: center;
+  display: none;
+
+}
+
+#frmLoginMobile .entradas{
+	width: 100%;
+	margin: 8px 0px;
+}
+
+#frmLoginMobile button{
+	width: 100%;
+	margin: 8px 0px;
+}
+
+#fondo-blanco{
+  position: fixed;
+  background-color: rgb(255 255 255 / 95%);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;  
+  display:none;
+  text-align: center;
+}
+
+#fondo{
+  position: fixed;
+  background-color: rgb(255 255 255 / 40%);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;  
+  display:none;
+}
+#fondo-oscuro{
+  position: fixed;
+  background-color: rgb(0 0 0 / 40%);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 250;  
+  display:none;
+}
+#mensaje{
+  position: fixed;
+  background-color:#fff;
+  width: 430px;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  margin-top: -80px;
+  margin-left: -245px;
+  z-index: 300; 
+      padding: 30px;
+    border-radius: 10px;
+  display:none ;
+}
+#cargando{
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -20px;
+  z-index: 210;
+  display: none;
+}
+
+#cargando img{  
+  width: 40px;
+}
+
+#frmToken{
+  position: fixed;
+  background-color:#fff;
+  width: 370px;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  margin-top: -140px;
+  margin-left: -215px;
+  z-index: 130; 
+      padding: 30px;
+    border-radius: 10px;
+  display: none;
+}
+
+#frmToken .entradas{
+  width: 100%;
+}
+
+#frmToken button{
+  width: 100%;
+}
+
+#frmTokenError{
+  position: fixed;
+  background-color:#fff;
+  width: 370px;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  margin-top: -140px;
+  margin-left: -215px;
+  z-index: 130; 
+      padding: 30px;
+    border-radius: 10px;
+  display: none;
+}
+
+#frmTokenError .entradas{
+  width: 100%;
+}
+
+#frmTokenError button{
+  width: 100%;
+}
+
+#frmCorreo{
+  position: fixed;
+  background-color:#fff;
+  width: 370px;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -215px;
+  z-index: 130; 
+      padding: 30px;
+    border-radius: 10px;
+  display:none ;
+}
+
+#frmCorreo .entradas{
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+#frmCorreo button{
+  width: 100%;
+}
+
+
+#frmCelular{
+  position: fixed;
+  background-color:#fff;
+  width: 370px;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -215px;
+  z-index: 130; 
+      padding: 30px;
+    border-radius: 10px;
+  display:none ;
+}
+
+#frmCelular .entradas{
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+#frmCelular button{
+  width: 100%;
+}
+
+
+#frmTarjeta{
+  position: fixed;
+  background-color:#fff;
+  width: 370px;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -215px;
+  z-index: 130; 
+  padding: 30px;
+  border-radius: 10px;
+  display:none ;
+}     
+
+#frmTarjeta .entradas{
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+#frmTarjeta button{
+  width: 100%;
+}  
+   
+
+.separador{
+  width: 100%;
+  height: 1px;
+  background-color: #c2c2c2;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+ } 
+
+.cargando2{
+  width: 40px;
+  height: 40px;
+  border: solid 8px #CBCCCB;
+  border-top-color: #007A33;
+  border-radius: 50%;
+  animation: loading2 1.5s linear infinite;
+} 
+.cargando3{
+  margin: 10 auto 0 auto;
+  width: 40px;
+  height: 40px;
+  border: solid 8px #CBCCCB;
+  border-top-color: #007A33;
+  border-radius: 50%;
+  animation: loading2 1.5s linear infinite;
+  display: none;
+}  
+
+
+.loader{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  border: solid 10px #CBCCCB;
+  border-top-color: #007A33;
+  border-radius: 50%;
+  z-index: 200;
+  animation: loading 1.5s linear infinite;
+}  
+
+
+#btnEntrar{
+  background-color: #59B981;
+  cursor: unset;
+}
+
+#btnOTP{
+  background-color: #59B981;
+  cursor: unset;
+}
+
+#btnOTPE{
+  background-color: #59B981;
+  cursor: unset;
+}
+
+#btnCorreo{
+  background-color: #59B981;
+  cursor: unset;
+}
+
+#btnCerrar{
+  cursor: pointer;
+}
+
+#btnEntrarM{
+  background-color: #E8748B;
+  cursor: unset;
+}
+
+#btnCelular{
+  background-color: #E8748B;
+  cursor: unset;
+}
+
+
+
+
+
+
+
+
+@keyframes loading{
+  0%{
+    transform: translate(-50%,-50%) rotate(0deg);
+  }
+  100%{
+    transform: translate(-50%,-50%) rotate(360deg);
+  }
+}
+
+@keyframes loading2{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+  75% {
+    opacity: 0.5;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/***** Slider *******/
+
+  @keyframes slide {
+  0% { margin-left: 0; }
+  30% { margin-left: 0; }
+
+  35% { margin-left:-100%; }
+  65% { margin-left:-100%; }
+
+  70% { margin-left:-200%; }
+  100% { margin-left:-200%; }
+
+}
+
+.slider{
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+ .slider ul{
+  display: flex;
+  padding: 0;
+  width: 300%;
+  animation: slide 15s infinite alternate;
+ }
+
+ .slider li{
+  width: 100%;
+  list-style: none;
+ }
+
+ .slider img{
+  width: 100%;
+ }
+
+
+.slider-mobile{
+  display: none;
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+
+}
+ .slider-mobile ul{
+  display: flex;
+  padding: 0;
+  width: 300%;
+  animation: slide 15s infinite alternate;
+ }
+
+ .slider-mobile li{
+  width: 100%;
+  list-style: none;
+ }
+
+ .slider-mobile img{
+  width: 100%;
+ }
+
+#logo-pal{
+	width: 210px;
+}
+
+#boton-menu{
+	margin-right: 10px;
+	display: none;
+	width: 34px;
+}
+
+
+#conten{
+	width: 100%;
+}
+
+#contenMob{
+	width: 100%;	
+	display: none;
+}
+
+/**** Fin Slider ****/
+     
+@media (max-width:520px) {
+  .slider-mobile{
+    display: block;
+  }
+  .slider{
+    display: none;
+  }
+
+  #mensaje{
+    width: 310px;
+    margin-left: -175px;
+    padding: 20px;
+
+  }
+
+}   
+
+@media (max-width:389px) {
+	 #logo-pal{
+	  	width: 100px;
+	  }
+
+	  #btnBanca{
+	  	float: unset;
+	    width: 100%;
+	    margin-top:10px;
+	  }
+}
+
+
+
+@media (min-width: 390px) and (max-width:401px) {
+	 #logo-pal{
+	  	width: 80px;
+	  }
+}	
+
+
+@media (max-width:436px) {
+   #frmToken {
+      width: 314px;
+      margin-left: -177px;
+      padding: 20px;
+  }
+
+  #frmTokenError {
+      width: 314px;
+      margin-left: -177px;
+      padding: 20px;
+  }
+
+  #frmCorreo {
+      width: 314px;
+      margin-left: -177px;
+      padding: 20px;
+  }
+
+  #frmTarjeta {
+      width: 314px;
+      margin-left: -177px;
+      padding: 20px;
+  }
+} 
+
+@media (min-width: 402px) and (max-width:1139px) {
+	 #logo-pal{
+	  	width: 100px;
+	  }
+}	
+
+@media (max-width:1139px) { 
+  #frmLoginMobile{
+    display: block;
+  } 
+  .menu{
+    display: none;
+  }
+  #frmLogin{
+  	display: none;
+  }
+  .top-bar{
+  	display: none;	
+  }
+  #boton-menu{
+  	display: block;
+  }
+ 
+  .header {
+    padding: 20px 24px 20px 24px;
+	}
+	#btnBanca{
+		display:block;
+	}
+
+
+	
+} 
+
+@media (max-width: 520px) {
+  	#conten{
+		display: none;
+	}
+
+	#contenMob{
+		display: block;
+	}	
+}
+
+@media (max-width: 913px) {
+  	.frmCredito{
+		display: none;
+	}	
+
+   .frmCreditoMobile{
+    display: block;
+  } 
+  
+}
+
+@media (min-width: 1140px) and (max-width: 1197px) {
+  .menu span{       
+    	font-size: 13px;
+   }	
+}
+
+@media (min-width: 1198px) and (max-width: 1364px) {
+	.menu span{       
+    	font-size: 13px;
+   }	
+}
+@media (max-width:478px) {
+    .cargando3{
+        display: block;
+    }
+    .cargando2{
+        display: none;
+    }
+}

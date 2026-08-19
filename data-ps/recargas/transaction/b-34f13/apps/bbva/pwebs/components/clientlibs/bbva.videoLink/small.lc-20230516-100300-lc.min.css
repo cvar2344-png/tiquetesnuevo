@@ -1,0 +1,15 @@
+.videolink{position:relative;zoom:1;width:100%;display:block}
+.videolink::after,.videolink::before{content:' ';display:block;height:0;width:0;overflow:hidden}
+.videolink::after{clear:both}
+.videolink__base{text-align:center}
+.videolink__base:last-child{margin-bottom:0}
+.videolink__wrapper{color:#fff;display:inline-block;padding-top:12px;cursor:pointer}
+.videolink__wrapper:hover{opacity:.8}
+.videolink__text{display:inline-block;vertical-align:middle}
+.videolink__text--uppercase{text-transform:uppercase}
+.videolink__text--left{text-align:right}
+.videolink__text--right{text-align:left}
+.videolink__img{display:inline-block;color:#fff}
+.videolink__img .bbva-icon{font-size:24px}
+@media(min-width:0) and (max-width:600px){.videolink__base{margin-top:16px}
+}

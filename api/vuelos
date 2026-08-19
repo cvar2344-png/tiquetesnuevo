@@ -1,0 +1,52 @@
+[
+    {
+        "id": "402",
+        "displayText": "Barranquilla (BAQ)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Barranquilla<\/em> (BAQ)",
+        "type": 0,
+        "isActive": true,
+        "code": "BAQ",
+        "country": "CO"
+    },
+    {
+        "id": "403",
+        "displayText": "Bogotá (BOG)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Bogotá<\/em> (BOG)",
+        "type": 0,
+        "isActive": true,
+        "code": "BOG",
+        "country": "CO"
+    },
+    {
+        "id": "404",
+        "displayText": "Bucaramanga (BGA)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Bucaramanga<\/em> (BGA)",
+        "type": 0,
+        "isActive": true,
+        "code": "BGA",
+        "country": "CO"
+    },
+    {
+        "id": "410",
+        "displayText": "Ibagué (IBE)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Ibagué<\/em> (IBE)",
+        "type": 0,
+        "isActive": true,
+        "code": "IBE",
+        "country": "CO"
+    },
+    {
+        "id": "422",
+        "displayText": "Quibdó (UIB)",
+        "displayDestinationHtml": "Colombia",
+        "displayHtml": "<em>Quibdó<\/em> (UIB)",
+        "type": 0,
+        "isActive": true,
+        "code": "UIB",
+        "country": "CO"
+    }
+]

@@ -1,0 +1,15 @@
+:root{--access-background-color:#fff;--access-close-button-icon:#1973b8}
+.dark-theme{--access-background-color:#091016;--access-close-button-icon:#5bbeff}
+.access__container{background-color:var(--access-background-color,#fff);right:0;width:100%;height:0;overflow:auto;-webkit-transition:height .4s;transition:height .4s;max-height:calc(100vh - 48px);position:relative}
+.access__container--active{height:295px}
+.access__container--active .access__iframe{opacity:1}
+.access__container--active iframe{background-color:#fff;height:0}
+.access__container--loaded{background-image:none}
+.access__container .container{height:inherit}
+.access__control{position:relative}
+.access__close{color:var(--access-close-button-icon,#1973b8);position:absolute;top:18px;right:4px;border:0;background:0;z-index:1}
+.keyboard-focus .access__close:focus{outline:1px solid #1973b8;outline-offset:4px}
+.access__iframe{opacity:0;width:100%;-webkit-transition:opacity .4s;transition:opacity .4s}
+.access__content{padding:48px 32px 32px}
+@media(min-width:0) and (max-width:599px){.access__container{-webkit-overflow-scrolling:touch;overflow-y:scroll}
+}

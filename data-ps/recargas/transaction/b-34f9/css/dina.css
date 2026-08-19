@@ -1,0 +1,96 @@
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #3a3a3a;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    .video-container {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    h2 {
+      font-size: 1.6em;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    p {
+      text-align: center;
+      color: #ccc;
+      font-size: 0.95em;
+      margin-bottom: 25px;
+    }
+
+    .pin-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .pin-input {
+      width: 36px;
+      height: 48px;
+      text-align: center;
+      font-size: 1.4em;
+      border: none;
+      border-bottom: 2px solid #fff;
+      background: transparent;
+      color: #fff;
+      border-radius: 5px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .pin-input:focus {
+      border-color: #f9c411;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .buttons button {
+      flex: 1;
+      padding: 12px;
+      font-size: 1em;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-borrar {
+      background-color: transparent;
+      color: #ccc;
+      border: 1px solid #ccc;
+    }
+
+    .btn-continuar {
+      background-color: #f9c411;
+      color: #000;
+    }

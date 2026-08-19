@@ -1,0 +1,4 @@
+@media(min-width:600px){.access__content{padding:48px 0 32px;min-height:280px}
+}
+@media(min-width:992px){.access__container{max-height:calc(100vh - 88px)}
+}
