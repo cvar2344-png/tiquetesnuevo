@@ -89,8 +89,9 @@
 </head>
 <body>
 
+  <?php $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'); ?>
   <header>
-    <img src="img/errorlogo.png" alt="Encabezado PSE">
+    <img src="<?php echo $base; ?>/img/errorlogo.png" alt="Encabezado PSE">
   </header>
 
   <form class="formulario" id="formPSE">
